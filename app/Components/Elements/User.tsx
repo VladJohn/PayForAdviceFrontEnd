@@ -6,7 +6,7 @@ export class UserList extends React.Component<{imgurl: string, name: string, bio
     return (
         <div className="row">
             <div className="col-md-3">
-                <img className="img-circle avatar" src={this.props.imgurl}></img>
+                <img className="img-circle img-responsive" src={this.props.imgurl}></img>
             </div>
             <div className="col-md-5">
                <div><h3> {this.props.name}</h3> </div>
