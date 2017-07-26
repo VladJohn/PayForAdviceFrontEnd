@@ -9,10 +9,12 @@ export class App extends React.Component<{}, {}>
     render()
     {
         return(
-            <div className = "App"> 
-                      <Header/>
+            <div className = "App">
+                <Header/>
+                <div className="col col-lg-6">
                     <AppViewer/>
-                    <Footer/>
+                </div>
+
             </div>
         );
     }

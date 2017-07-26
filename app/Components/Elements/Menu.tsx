@@ -19,11 +19,13 @@ export class Menu extends React.Component <{},{isHome:boolean}>
     render()
     {
         return(
-            <div className='Menu'>
+            <div className='menu'>
+                <div className="col col-lg-3"></div>
                 <Nav bsStyle="pills">
                     <NavItem onSelect={this.handleSelect}>Home</NavItem>
                     <NavItem onSelect={this.handleSelect}>My Questions</NavItem>
                 </Nav>
+                <div className="col col-lg-3"></div>
             </div>
         );
     }
