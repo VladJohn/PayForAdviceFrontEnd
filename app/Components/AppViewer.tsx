@@ -6,7 +6,7 @@ export class AppViewer extends React.Component <{},{}>
 {
     render(){
         return (
-            <div className = "AppViewer">
+            <div className = "spacing-bottomtop">
                <MainPage/>
             </div>
         );
