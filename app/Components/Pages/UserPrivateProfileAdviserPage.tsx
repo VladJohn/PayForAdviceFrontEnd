@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {UserList} from "Components/Elements/UserList"
+import {UserList} from "Components/Elements/User"
 import {ListView} from "Components/Elements/ListView"
 import {Button, Form, FormControl, FormGroup, Col, ControlLabel} from "react-bootstrap"
 
@@ -7,8 +7,8 @@ export class UserPrivateProfileAdviserPage extends React.Component <{name: strin
     render(){
         return (
             <div className = "UserPrivateProfileAdviserPage">
-                <div style={{backgroundColor: '#8babe0'}}>
-                    <Form horizontal style={{padding:'20px'}}>
+                <div>
+                    <Form horizontal>
                         <FormGroup controlId='ChangeName'>
                             <Col componentClass={ControlLabel} sm={2}>
                                 Name

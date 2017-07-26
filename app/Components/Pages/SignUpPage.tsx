@@ -6,8 +6,8 @@ export class SignUp extends React.Component <{},{}>
     render(){
         return(
             <div className='SignUp'>
-                <div style={{backgroundColor: '#8babe0'}}>
-                    <Form horizontal style={{padding:'20px'}}>
+                <div>
+                    <Form horizontal>
                         <FormGroup controlId='SignUpName'>
                             <Col componentClass={ControlLabel} sm={2}>
                                 Name

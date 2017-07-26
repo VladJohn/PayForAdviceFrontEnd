@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {UserList} from "Components/Elements/UserList"
+import {UserList} from "Components/Elements/User"
 import {ListView} from "Components/Elements/ListView"
 import {Button, Form, FormControl, FormGroup, Col, ControlLabel} from "react-bootstrap"
 
