@@ -24,7 +24,7 @@ export class Login extends React.Component {
                         <input type="password" name="password" />
                         </label></div></form>
                     <button className="btn btn-primary" >Log in</button>
-<button className="btn btn-primary" >Register</button>
+                    <button className="btn btn-primary" >Register</button>
                 </div>
                 <div className="col col-lg-4"></div>
             </div>
