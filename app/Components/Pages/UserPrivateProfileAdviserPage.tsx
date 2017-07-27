@@ -1,100 +1,149 @@
 import * as React from 'react'
-import {UserList} from "Components/Elements/User"
-import {ListView} from "Components/Elements/ListView"
-import {Button, Form, FormControl, FormGroup, Col, ControlLabel} from "react-bootstrap"
 
-export class UserPrivateProfileAdviserPage extends React.Component <{name: string, email: string, bio: string, website: string, base:string, normal:string, premium:string},{}>{
+export class UserPrivateProfileAdviserPage extends React.Component <{},{name: string, email: string, bio: string, website: string, base:string, normal:string, premium:string}>{
+    constructor() {
+    super();
+    this.state = {name:'a', email:'b', bio:'c', website:'d', base:'1', normal:'2', premium:'3'};
+    this.handleChangeName = this.handleChangeName.bind(this);
+    this.handleChangePassword = this.handleChangePassword.bind(this);
+    this.handleChangeConfirmPassword = this.handleChangeConfirmPassword.bind(this);
+    this.handleChangeEmail = this.handleChangeEmail.bind(this);
+    this.handleChangeBio = this.handleChangeBio.bind(this);
+    this.handleChangeWebsite = this.handleChangeWebsite.bind(this);
+    this.handleChangeAvatar = this.handleChangeAvatar.bind(this);
+    this.handleChangeBase = this.handleChangeBase.bind(this);
+    this.handleChangeNormal = this.handleChangeNormal.bind(this);
+    this.handleChangePremium = this.handleChangePremium.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChangeName(event : React.FormEvent<HTMLInputElement>){
+            this.setState({name:event.currentTarget.value});
+    }
+    handleChangePassword(event : React.FormEvent<HTMLInputElement>){
+            
+    }
+    handleChangeConfirmPassword(event : React.FormEvent<HTMLInputElement>){
+            
+    }        
+    handleChangeEmail(event : React.FormEvent<HTMLInputElement>){
+            this.setState({email:event.currentTarget.value});
+    }
+    handleChangeBio(event : React.FormEvent<HTMLInputElement>){
+            this.setState({bio:event.currentTarget.value});
+    }
+    handleChangeWebsite(event : React.FormEvent<HTMLInputElement>){
+            this.setState({website:event.currentTarget.value});
+    }
+    handleChangeAvatar(event : React.FormEvent<HTMLInputElement>){
+            
+    }
+    handleChangeBase(event : React.FormEvent<HTMLInputElement>){
+            this.setState({website:event.currentTarget.value});
+    }
+    handleChangeNormal(event : React.FormEvent<HTMLInputElement>){
+            this.setState({website:event.currentTarget.value});
+    }
+     handleChangePremium(event : React.FormEvent<HTMLInputElement>){
+            this.setState({website:event.currentTarget.value});
+    }
+
+    handleSubmit(event : React.FormEvent<HTMLInputElement>){
+
+    }
+
     render(){
         return (
             <div className = "UserPrivateProfileAdviserPage">
-                <div>
-                    <Form horizontal>
-                        <FormGroup controlId='ChangeName'>
-                            <Col componentClass={ControlLabel} sm={2}>
-                                Name
-                            </Col>
-                            <Col sm={5}>
-                                <FormControl type='text' placeholder={this.props.name}/>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup controlId='ChangePassword'>
-                            <Col componentClass={ControlLabel} sm={2}>
-                                Password
-                            </Col>
-                            <Col sm={5}>
-                                <FormControl type='password' placeholder='Type new password'/>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup controlId='ChangeConfirmPassword'>
-                            <Col componentClass={ControlLabel} sm={2}>
-                                Confirm Password
-                            </Col>
-                            <Col sm={5}>
-                                <FormControl type='password' placeholder='Confirm new password'/>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup controlId='ChangeEmail'>
-                            <Col componentClass={ControlLabel} sm={2}>
-                                Email
-                            </Col>
-                            <Col sm={5}>
-                                <FormControl type='email' placeholder={this.props.email}/>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup controlId='ChangeBio'>
-                            <Col componentClass={ControlLabel} sm={2}>
-                                Bio
-                            </Col>
-                            <Col sm={5}>
-                                <FormControl type='text' placeholder={this.props.bio}/>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup controlId='ChangeWebsite'>
-                            <Col componentClass={ControlLabel} sm={2}>
-                                Website
-                            </Col>
-                            <Col sm={5}>
-                                <FormControl type='text' placeholder={this.props.website}/>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup controlId='ChangeBasePrice'>
-                            <Col componentClass={ControlLabel} sm={2}>
-                                Base Price
-                            </Col>
-                            <Col sm={5}>
-                                <FormControl type='text' placeholder={this.props.base}/>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup controlId='ChangeNormalPrice'>
-                            <Col componentClass={ControlLabel} sm={2}>
-                                Normal Price
-                            </Col>
-                            <Col sm={5}>
-                                <FormControl type='text' placeholder={this.props.normal}/>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup controlId='ChangePremiumPrice'>
-                            <Col componentClass={ControlLabel} sm={2}>
-                                Premium Price
-                            </Col>
-                            <Col sm={5}>
-                                <FormControl type='text' placeholder={this.props.premium}/>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup controlId='ChangeAvatarUrl'>
-                            <Col componentClass={ControlLabel} sm={2}>
-                                New Avatar Url
-                            </Col>
-                            <Col sm={5}>
-                                <FormControl type='text' placeholder='Paste the url to your avatar picture'/>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup controlId='ChangeUpdate'>
-                            <Col sm={7} smOffset={4}>
-                                <Button type='submit' bsStyle='primary'>Update Information</Button>
-                            </Col>
-                        </FormGroup>
-                    </Form>
+                <div className="col col-lg-6">
+                    <h1>
+                        Profile
+                    </h1>
+                    <form>
+                        <div>
+                            <span>
+                                    Name:      
+                            </span>
+                            <span>
+                                    <input type="text" name="ChangeName" className="form-control" placeholder={this.state.name} onChange={this.handleChangeName}/>
+                            </span>
+                        </div>
+                        <div>
+                            <span>
+                                    Password:
+                            </span>
+                            <span>
+                                <input type="password" name="ChangePassword"className="form-control" placeholder='Type new password' onChange={this.handleChangePassword}/>
+                            </span>
+                        </div>
+                        <div>
+                            <span>
+                                    Confirm Password:
+                            </span>
+                            <span>
+                                <input type="password" name="ChangeConfirmPassword"className="form-control" placeholder='Confirm new password' onChange={this.handleChangeConfirmPassword}/>
+                            </span>
+                        </div>
+                        <div>
+                            <span>
+                                    Email:
+                            </span>
+                            <span>
+                                <input type="email" name="ChangeEmail"className="form-control" placeholder={this.state.email} onChange={this.handleChangeEmail}/>
+                            </span>
+                        </div>
+                        <div>
+                            <span>
+                                    Bio:
+                            </span>
+                            <span>
+                                <input type="text" name="ChangeBio"className="form-control" placeholder={this.state.bio} onChange={this.handleChangeBio}/>
+                            </span>
+                        </div>
+                        <div>
+                            <span>
+                                    Website:
+                            </span>
+                            <span>
+                                <input type="text" name="ChangeWebsite"className="form-control" placeholder={this.state.website} onChange={this.handleChangeWebsite}/>
+                            </span>
+                        </div>
+                        <div>
+                            <span>
+                                    Base Price:
+                            </span>
+                            <span>
+                                <input type="text" name="ChangeBasePrice"className="form-control" placeholder={this.state.base} onChange={this.handleChangeBase}/>
+                            </span>
+                        </div>
+                        <div>
+                            <span>
+                                    Normal Price:
+                            </span>
+                            <span>
+                                <input type="text" name="ChangeNormalPrice"className="form-control" placeholder={this.state.normal}  onChange={this.handleChangeNormal}/>
+                            </span>
+                        </div>
+                        <div>
+                            <span>
+                                    Premium Price:
+                            </span>
+                            <span>
+                                <input type="text" name="ChangePremiumPrice"className="form-control" placeholder={this.state.premium}  onChange={this.handleChangePremium}/>
+                            </span>
+                        </div>
+                        <div>
+                            <span>
+                                    New Avatar Url:
+                            </span>
+                            <span>
+                                <input type="text" name="ChangeAvatarUrl"className="form-control" placeholder='Paste the url to your avatar picture' onChange={this.handleChangeAvatar}/>
+                            </span>
+                        </div>
+                        <div>
+                            <input type='submit' className="btn btn-primary" value="Update Information"/>
+                        </div>
+                    </form>
                 </div>
             </div>
         );

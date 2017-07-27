@@ -11,8 +11,8 @@ export class ListView extends React.Component<{elements :Array<any>},{}>
   render(){
     return (
         <div className="list-group">
-        {this.props.elements.map(function(listValue){
-            return <a href="/"className="list-group-item">{listValue}</a>;
+        {this.props.elements.map(function(listValue,index){
+            return <a key={index} href="/"className="list-group-item">{listValue}</a>;
           })}
         </div>
     );

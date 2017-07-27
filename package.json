@@ -10,11 +10,15 @@
     "@types/react": "^15.0.38",
     "@types/react-bootstrap": "^0.0.52",
     "@types/react-dom": "^15.5.1",
+    "@types/request": "^2.0.0",
+    "@types/whatwg-fetch": "^0.0.33",
     "bootstrap": "^3.3.7",
     "jquery": "^3.2.1",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "request": "^2.81.0",
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

@@ -1,76 +1,114 @@
 import * as React from 'react'
-import {UserList} from "Components/Elements/User"
-import {ListView} from "Components/Elements/ListView"
-import {Button, Form, FormControl, FormGroup, Col, ControlLabel} from "react-bootstrap"
 
-export class UserPrivateProfileBasePage extends React.Component <{name: string, email: string, bio: string, website: string},{}>{
+export class UserPrivateProfileBasePage extends React.Component <{},{name: string, email: string, bio: string, website: string}>{
+    constructor() {
+    super();
+    this.state = {name:'a', email:'b', bio:'c', website:'d'};
+    this.handleChangeName = this.handleChangeName.bind(this);
+    this.handleChangePassword = this.handleChangePassword.bind(this);
+    this.handleChangeConfirmPassword = this.handleChangeConfirmPassword.bind(this);
+    this.handleChangeEmail = this.handleChangeEmail.bind(this);
+    this.handleChangeBio = this.handleChangeBio.bind(this);
+    this.handleChangeWebsite = this.handleChangeWebsite.bind(this);
+    this.handleChangeAvatar = this.handleChangeAvatar.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    
+    handleChangeName(event : React.FormEvent<HTMLInputElement>){
+            this.setState({name:event.currentTarget.value});
+    }
+    handleChangePassword(event : React.FormEvent<HTMLInputElement>){
+            
+    }
+    handleChangeConfirmPassword(event : React.FormEvent<HTMLInputElement>){
+            
+    }        
+    handleChangeEmail(event : React.FormEvent<HTMLInputElement>){
+            this.setState({email:event.currentTarget.value});
+    }
+    handleChangeBio(event : React.FormEvent<HTMLInputElement>){
+            this.setState({bio:event.currentTarget.value});
+    }
+    handleChangeWebsite(event : React.FormEvent<HTMLInputElement>){
+            this.setState({website:event.currentTarget.value});
+    }
+    handleChangeAvatar(event : React.FormEvent<HTMLInputElement>){
+            
+    }
+
+    handleSubmit(event : React.FormEvent<HTMLInputElement>){
+
+    }
+    
     render(){
         return (
             <div className = "UserPrivateProfileBasePage">
-                <div style={{backgroundColor: '#8babe0'}}>
-                    <Form horizontal style={{padding:'20px'}}>
-                        <FormGroup controlId='ChangeName'>
-                            <Col componentClass={ControlLabel} sm={2}>
-                                Name
-                            </Col>
-                            <Col sm={5}>
-                                <FormControl type='text' placeholder={this.props.name}/>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup controlId='ChangePassword'>
-                            <Col componentClass={ControlLabel} sm={2}>
-                                Password
-                            </Col>
-                            <Col sm={5}>
-                                <FormControl type='password' placeholder='Type new password'/>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup controlId='ChangeConfirmPassword'>
-                            <Col componentClass={ControlLabel} sm={2}>
-                                Confirm Password
-                            </Col>
-                            <Col sm={5}>
-                                <FormControl type='password' placeholder='Confirm new password'/>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup controlId='ChangeEmail'>
-                            <Col componentClass={ControlLabel} sm={2}>
-                                Email
-                            </Col>
-                            <Col sm={5}>
-                                <FormControl type='email' placeholder={this.props.email}/>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup controlId='ChangeBio'>
-                            <Col componentClass={ControlLabel} sm={2}>
-                                Bio
-                            </Col>
-                            <Col sm={5}>
-                                <FormControl type='text' placeholder={this.props.bio}/>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup controlId='ChangeWebsite'>
-                            <Col componentClass={ControlLabel} sm={2}>
-                                Website
-                            </Col>
-                            <Col sm={5}>
-                                <FormControl type='text' placeholder={this.props.website}/>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup controlId='ChangeAvatarUrl'>
-                            <Col componentClass={ControlLabel} sm={2}>
-                                New Avatar Url
-                            </Col>
-                            <Col sm={5}>
-                                <FormControl type='text' placeholder='Paste the url to your avatar picture'/>
-                            </Col>
-                        </FormGroup>
-                        <FormGroup controlId='ChangeUpdate'>
-                            <Col sm={7} smOffset={4}>
-                                <Button type='submit' bsStyle='primary'>Update Information</Button>
-                            </Col>
-                        </FormGroup>
-                    </Form>
+                <div className="col col-lg-6">
+                    <h1>
+                        Profile
+                    </h1>
+                    <form>
+                        <div>
+                            <span>
+                                    Name:       
+                            </span>
+                            <span>
+                                    <input type="text" name="ChangeName" className="form-control"  placeholder={this.state.name} onChange={this.handleChangeName}/>
+                            </span>
+                        </div>
+                        <div>
+                            <span>
+                                    Password:
+                            </span>
+                            <span>
+                                <input type="password" name="ChangePassword" className="form-control"  placeholder='Type new password' onChange={this.handleChangePassword}/>
+                            </span>
+                        </div>
+                        <div>
+                            <span>
+                                    Confirm Password:
+                            </span>
+                            <span>
+                                <input type="password" name="ChangeConfirmPassword" className="form-control"  placeholder='Confirm new password' onChange={this.handleChangeConfirmPassword}/>
+                            </span>
+                        </div>
+                        <div>
+                            <span>
+                                    Email:
+                            </span>
+                            <span>
+                                <input type="email" name="ChangeEmail" className="form-control"  placeholder={this.state.email} onChange={this.handleChangeEmail}/>
+                            </span>
+                        </div>
+                        <div>
+                            <span>
+                                    Bio:
+                            </span>
+                            <span>
+                                <input type="text" name="ChangeBio" className="form-control"  placeholder={this.state.bio} onChange={this.handleChangeBio}/>
+                            </span>
+                        </div>
+                        <div>
+                            <span>
+                                    Website:
+
+                            </span>
+                            <span>
+                                <input type="text" name="ChangeWebsite" className="form-control"  placeholder={this.state.website} onChange={this.handleChangeWebsite}/>
+                            </span>
+                        </div>
+                        <div>
+                            <span>
+                                    New Avatar Url:
+                            </span>
+                            <span>
+                                <input type="text" name="ChangeAvatarUrl" className="form-control"  placeholder='Paste the url to your avatar picture' onChange={this.handleChangeAvatar}/>
+                            </span>
+                        </div>
+                        <div>
+                            <input type='submit' className="btn btn-primary" value="Update Information"/>
+                        </div>
+                    </form>
                 </div>
             </div>
         );
