@@ -55,122 +55,95 @@ export class UserPrivateProfileAdviserPage extends React.Component <{},{name: st
     render(){
         return (
             <div className = "UserPrivateProfileAdviserPage">
-                <div className="col col-lg-4">
-                </div>
                 <div className="col col-lg-6">
-                    <title> 
-                        Profile 
-                    </title>
                     <h1>
                         Profile
                     </h1>
                     <form>
                         <div>
                             <span>
-                                <label className="label label-default">
-                                    Name         
-                                </label>
+                                    Name:      
                             </span>
                             <span>
-                                    <input type="text" name="ChangeName" placeholder={this.state.name} onChange={this.handleChangeName}/>
+                                    <input type="text" name="ChangeName" className="form-control" placeholder={this.state.name} onChange={this.handleChangeName}/>
                             </span>
                         </div>
                         <div>
                             <span>
-                                <label className="label label-default">
-                                    Password
-                                </label>
+                                    Password:
                             </span>
                             <span>
-                                <input type="password" name="ChangePassword" placeholder='Type new password' onChange={this.handleChangePassword}/>
+                                <input type="password" name="ChangePassword"className="form-control" placeholder='Type new password' onChange={this.handleChangePassword}/>
                             </span>
                         </div>
                         <div>
                             <span>
-                                <label className="label label-default">
-                                    Confirm Password
-                                </label>
+                                    Confirm Password:
                             </span>
                             <span>
-                                <input type="password" name="ChangeConfirmPassword" placeholder='Confirm new password' onChange={this.handleChangeConfirmPassword}/>
+                                <input type="password" name="ChangeConfirmPassword"className="form-control" placeholder='Confirm new password' onChange={this.handleChangeConfirmPassword}/>
                             </span>
                         </div>
                         <div>
                             <span>
-                                <label className="label label-default">
-                                    Email
-                                </label>
+                                    Email:
                             </span>
                             <span>
-                                <input type="email" name="ChangeEmail" placeholder={this.state.email} onChange={this.handleChangeEmail}/>
+                                <input type="email" name="ChangeEmail"className="form-control" placeholder={this.state.email} onChange={this.handleChangeEmail}/>
                             </span>
                         </div>
                         <div>
                             <span>
-                                <label className="label label-default">
-                                    Bio
-                                </label>
+                                    Bio:
                             </span>
                             <span>
-                                <input type="text" name="ChangeBio" placeholder={this.state.bio} onChange={this.handleChangeBio}/>
+                                <input type="text" name="ChangeBio"className="form-control" placeholder={this.state.bio} onChange={this.handleChangeBio}/>
                             </span>
                         </div>
                         <div>
                             <span>
-                                <label className="label label-default">
-                                    Website
-                                </label>
+                                    Website:
                             </span>
                             <span>
-                                <input type="text" name="ChangeWebsite" placeholder={this.state.website} onChange={this.handleChangeWebsite}/>
+                                <input type="text" name="ChangeWebsite"className="form-control" placeholder={this.state.website} onChange={this.handleChangeWebsite}/>
                             </span>
                         </div>
                         <div>
                             <span>
-                                <label className="label label-default">
-                                    Base Price
-                                </label>
+                                    Base Price:
                             </span>
                             <span>
-                                <input type="text" name="ChangeBasePrice" placeholder={this.state.base} onChange={this.handleChangeBase}/>
+                                <input type="text" name="ChangeBasePrice"className="form-control" placeholder={this.state.base} onChange={this.handleChangeBase}/>
                             </span>
                         </div>
                         <div>
                             <span>
-                                <label className="label label-default">
-                                    Normal Price
-                                </label>
+                                    Normal Price:
                             </span>
                             <span>
-                                <input type="text" name="ChangeNormalPrice" placeholder={this.state.normal}  onChange={this.handleChangeNormal}/>
+                                <input type="text" name="ChangeNormalPrice"className="form-control" placeholder={this.state.normal}  onChange={this.handleChangeNormal}/>
                             </span>
                         </div>
                         <div>
                             <span>
-                                <label className="label label-default">
-                                    Premium Price
-                                </label>
+                                    Premium Price:
                             </span>
                             <span>
-                                <input type="text" name="ChangePremiumPrice" placeholder={this.state.premium}  onChange={this.handleChangePremium}/>
+                                <input type="text" name="ChangePremiumPrice"className="form-control" placeholder={this.state.premium}  onChange={this.handleChangePremium}/>
                             </span>
                         </div>
                         <div>
                             <span>
-                                <label className="label label-default">
-                                    New Avatar Url
-                                </label>
+                                    New Avatar Url:
                             </span>
                             <span>
-                                <input type="text" name="ChangeAvatarUrl" placeholder='Paste the url to your avatar picture' onChange={this.handleChangeAvatar}/>
+                                <input type="text" name="ChangeAvatarUrl"className="form-control" placeholder='Paste the url to your avatar picture' onChange={this.handleChangeAvatar}/>
                             </span>
                         </div>
                         <div>
                             <input type='submit' className="btn btn-primary" value="Update Information"/>
                         </div>
                     </form>
-                </div>
-                <div className="col col-lg-4">
                 </div>
             </div>
         );
