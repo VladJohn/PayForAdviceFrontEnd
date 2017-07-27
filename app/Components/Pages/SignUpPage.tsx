@@ -35,72 +35,55 @@ export class SignUpPage extends React.Component <{},{name : string, username:str
     render(){
         return(
             <div className='SignUpPage'>
-                <div className="col col-lg-4">
-                </div>
-                <div className="col col-lg-6">
-                    <title> 
-                        Sign Up 
-                    </title>
-                    <h1>
+                <div className="col col-md-8">
+                    <h2>
                         Sign Up
-                    </h1>
+                    </h2>
                     <form>
-                        <div>
-                            <span>
-                                <label className="label label-default">
-                                    Name         
-                                </label>
+                        <div className="spacing">
+                            <span className="text-default">
+                                    Name:         
                             </span>
                             <span>
-                                    <input type="text" name="SignUpName" placeholder='Type Your Full Name' onChange={this.handleSignUpName}/>
+                                    <input type="text" name="SignUpName" className="form-control" placeholder='Type Your Full Name' onChange={this.handleSignUpName}/>
                             </span>
                         </div>
-                        <div>
-                            <span>
-                                <label className="label label-default">
-                                    Username
-                                </label>
+                        <div className="spacing">
+                            <span >
+                                    Username:
                             </span>
                             <span>
-                                <input type="text" name="SignUpUsername" placeholder='Type Your Username' onChange={this.handleSignUpUsername}/>
+                                <input type="text" name="SignUpUsername"  className="form-control" placeholder='Type Your Username' onChange={this.handleSignUpUsername}/>
                             </span>
                         </div>
-                        <div>
+                        <div className="spacing">
                             <span>
-                                <label className="label label-default">
-                                    Password
-                                </label>
+                                    Password:
                             </span>
                             <span>
-                                <input type="password" name="SignUpPassword" placeholder='Type Your Password' onChange={this.handleSignUpPassword}/>
+                                <input type="password" name="SignUpPassword" className="form-control" placeholder='Type Your Password' onChange={this.handleSignUpPassword}/>
                             </span>
                         </div>
-                        <div>
+                        <div className="spacing">
                             <span>
-                                <label className="label label-default">
-                                    Confirm Password
-                                </label>
+                                    Confirm Password:
                             </span>
                             <span>
-                                <input type="password" name="SignUpConfirmPassword" placeholder='Retype Your Password' onChange={this.handleSignUpConfirmPassword}/>
+                                <input type="password" name="SignUpConfirmPassword" className="form-control" placeholder='Retype Your Password' onChange={this.handleSignUpConfirmPassword}/>
                             </span>
                         </div>
-                        <div>
+                        <div className="spacing">
                             <span>
-                                <label className="label label-default">
-                                    Email
-                                </label>
+                                    Email:
                             </span>
                             <span>
-                                <input type="email" name="SignUpEmail" placeholder='Type Your Email' onChange={this.handleSignUpEmail}/>
+                                <input type="email"  className="form-control" name="SignUpEmail" placeholder='Type Your Email' onChange={this.handleSignUpEmail}/>
                             </span>
                         </div>
-                        <div>
+                        <div className="spacing">
                             <input type='submit' className="btn btn-primary" value="Sign Up"/>
                         </div>
                     </form>
-                </div>
-                <div className="col col-lg-4">
                 </div>
             </div>
         );

@@ -22,44 +22,31 @@ export class LoginPage extends React.Component <{},{username:string, password:st
     render() {
         return (
             <div className="LoginPage">
-                <div className="col col-lg-4">
-                </div>
                 <div className="col col-lg-6">
-                    <title> 
-                        Log in! 
-                    </title>
                     <h1>
-                        Log in!
+                        Log in
                     </h1>
                     <form>
                         <div>
                             <span>
-                                <label>
-                                    Username
-                                </label>
+                                    Username:
                             </span>
                             <span>
-                                <input type="text" name="username" placeholder='Type Your Username' onChange={this.handleLogInUsername}/>
+                                <input type="text" name="username" className="form-control" placeholder='Type Your Username' onChange={this.handleLogInUsername}/>
                             </span>
                         </div>
                         <div>
-                            <span>
-                                <label>
-                                    Password
-                                </label>
+                            <span className="spacing">
+                                    Password:
                             </span>
                             <span>
-                                <input type="password" name="password" placeholder='Type Your Password' onChange={this.handleLogInPassword}/>
+                                <input type="password" name="password" className="form-control" placeholder='Type Your Password' onChange={this.handleLogInPassword}/>
                             </span>
                         </div>
-                    <input type='submit' className="btn btn-primary" value="Log in"/>
-                    <button className="btn btn-default">Register</button>
-                    </form>
+                    <div><input type='submit' className="btn btn-primary spacing" value="Log in"/></div>
                     <div>
-                        <span>
-                            <label>
+                        <span className="spacing">
                                 OR
-                            </label>
                         </span>
                     </div>
                     <div>
@@ -67,8 +54,12 @@ export class LoginPage extends React.Component <{},{username:string, password:st
                             <button className="btn btn-primary">Login With FaceBook</button>
                         </span>
                     </div>
-                </div>
-                <div className="col col-lg-4">
+                    <div className="spacing">
+                    Don't have an account?
+                    </div>
+                    <div><button className="btn btn-default">Register</button></div>
+                    </form>
+                    
                 </div>
             </div>
         );
