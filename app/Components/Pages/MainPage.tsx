@@ -2,7 +2,6 @@ import * as React from 'react'
 import {Category} from "Components/Elements/Category"
 import {ListView} from "Components/Elements/ListView"
 import 'whatwg-fetch'
-import {CategoryService} from "Services/CategoryService"
 
 export class MainPage extends React.Component <{},{categories:Array<Category> }>{
     
