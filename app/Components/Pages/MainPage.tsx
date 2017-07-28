@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Category } from "Components/Elements/Category"
-import { CategoryModel } from "Components/Models/CategoryModel"
 import { ListView } from "Components/Elements/ListView"
 import 'whatwg-fetch'
 
@@ -41,7 +40,7 @@ export class MainPage extends React.Component<{}, { categories: Array<any> }>{
                 </div>
                 <ListView elements={
                     this.state.categories.map(function (object, i) {
-                    return <Category imgurl={object.ImageUrl} name={object.Name} description={object.Description} />;
+                    return <Category imgurl={object.ImageUrl} name={object.Name} description={object.Description} id={object.Id} />;
                 })} />
 
             </div>
