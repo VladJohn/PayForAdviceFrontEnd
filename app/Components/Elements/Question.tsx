@@ -6,7 +6,7 @@ export class Question extends React.Component<{ question: string, status: string
     return (
       <div className="row">
         <div >
-          <div className="col-md-11"><h3> {this.props.question}</h3> </div>
+          <div className="col-md-11"><h2> {this.props.question}</h2> </div>
           <div className="col-md-6" >
             <i>
               {this.props.status} {this.props.date}
