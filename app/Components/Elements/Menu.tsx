@@ -1,5 +1,6 @@
 import * as React from 'react'
 import {Nav, NavItem} from 'react-bootstrap'
+import {BrowserRouter as Router, Link, Route, Redirect} from 'react-router-dom';
 
 export class Menu extends React.Component <{},{isHome:boolean}>
 {
@@ -16,15 +17,27 @@ export class Menu extends React.Component <{},{isHome:boolean}>
         //this.state.isHome==false ? show me MyQuestion : show me Home  
     }
 
+    refresh()
+    {
+            window.location.reload();
+    }
+
     render()
     {
         return(
             <div className='menu'>
                 <div className="col col-lg-3"></div>
-                <Nav bsStyle="pills">
-                    <NavItem onSelect={this.handleSelect}>Home</NavItem>
-                    <NavItem onSelect={this.handleSelect}>My Questions</NavItem>
-                </Nav>
+                    <Router>
+                        <ul className="nav nav-pills">
+                        <li className="nav-item">
+                            <Link to='/' className="nav-link" onClick={this.refresh} >Home</Link>
+                        </li>
+                        <li className="nav-item">
+                        <Link to='/myQuestions' className="nav-link" onClick={this.refresh}>My Questions</Link>
+                        </li>
+                        </ul>
+                    </Router>
+
                 <div className="col col-lg-3"></div>
             </div>
         );

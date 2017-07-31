@@ -1,7 +1,8 @@
 import * as React from "react"
 
-export class Category extends React.Component<{imgurl: string, name: string, description : string, id : number},{}>
+export class Category extends React.Component<{type : string, imgurl: string, name: string, description : string, id : number},{}>
 {
+
   render(){
     return (
         <div className="row">
