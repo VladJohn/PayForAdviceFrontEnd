@@ -1,9 +1,12 @@
 import * as React from 'react'
 
-export class UserPrivateProfileAdviserPage extends React.Component <{},{name: string, email: string, bio: string, website: string, base:string, normal:string, premium:string}>{
+export class UserPrivateProfileAdviserPage extends React.Component <{id:number},{name: string, email: string, bio: string, website: string, base:string, normal:string, premium:string, password:string, avatarUrl :string}>{
+    
+    baseUrl: string = 'http://localhost:52619/api/user/';
+    headers: Headers;
     constructor() {
     super();
-    this.state = {name:'a', email:'b', bio:'c', website:'d', base:'1', normal:'2', premium:'3'};
+    this.state = {name:'', email:'', bio:'', website:'', base:'', normal:'', premium:'', password:'', avatarUrl:''};
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
     this.handleChangeConfirmPassword = this.handleChangeConfirmPassword.bind(this);
@@ -15,13 +18,50 @@ export class UserPrivateProfileAdviserPage extends React.Component <{},{name: st
     this.handleChangeNormal = this.handleChangeNormal.bind(this);
     this.handleChangePremium = this.handleChangePremium.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
+    }
+
+    componentDidMount()
+    {
+        var cats: any;
+        cats = '';
+        return fetch(this.baseUrl+"?id="+this.props.id)
+            .then((response) => response.json())
+            .then(function (data) {
+                cats = data;
+            })
+            .then(() => (
+                this.setState({ name:cats.Name, email:cats.Email, bio:cats.Bio, website:cats.Website , password:cats.Password, avatarUrl:cats.AvatarUrl, base:cats.base, normal:cats.normal, premium:cats.premium}),
+                console.log(this.state)
+            ))
+            .catch(function (error) {
+                console.log('request failedddd', error)
+            })
+    }
+
+    putData()
+    {
+        var cats: any;
+        var ceva = {id:this.props.id, name:this.state.name, password:this.state.password, email:this.state.email, bio:this.state.bio, website:this.state.website, avatarUrl:this.state.avatarUrl, base: this.state.base, normal:this.state.normal, premium:this.state.premium}
+        var form2 = JSON.stringify(ceva);
+        console.log(form2);
+        cats = '';
+        return fetch(this.baseUrl, {method : "PUT", body: form2, headers:this.headers})
+            .then((response) => response.json())
+            .then(function (data) {
+                cats = data;
+                console.log(cats);
+            })
+            .catch(function (error) {
+                console.log('request failedddd', error)
+            })
     }
 
     handleChangeName(event : React.FormEvent<HTMLInputElement>){
             this.setState({name:event.currentTarget.value});
     }
     handleChangePassword(event : React.FormEvent<HTMLInputElement>){
-            
+            this.setState({password:event.currentTarget.value})
     }
     handleChangeConfirmPassword(event : React.FormEvent<HTMLInputElement>){
             
@@ -36,7 +76,7 @@ export class UserPrivateProfileAdviserPage extends React.Component <{},{name: st
             this.setState({website:event.currentTarget.value});
     }
     handleChangeAvatar(event : React.FormEvent<HTMLInputElement>){
-            
+            this.setState({avatarUrl:event.currentTarget.value})
     }
     handleChangeBase(event : React.FormEvent<HTMLInputElement>){
             this.setState({website:event.currentTarget.value});
@@ -48,8 +88,9 @@ export class UserPrivateProfileAdviserPage extends React.Component <{},{name: st
             this.setState({website:event.currentTarget.value});
     }
 
-    handleSubmit(event : React.FormEvent<HTMLInputElement>){
-
+    handleSubmit(event : any){
+        event.preventDefault();
+        this.putData();
     }
 
     render(){
@@ -141,7 +182,7 @@ export class UserPrivateProfileAdviserPage extends React.Component <{},{name: st
                             </span>
                         </div>
                         <div>
-                            <input type='submit' className="btn btn-primary" value="Update Information"/>
+                            <button className="btn btn-primary" onClick={this.handleSubmit}>Update Information</button>
                         </div>
                     </form>
                 </div>
