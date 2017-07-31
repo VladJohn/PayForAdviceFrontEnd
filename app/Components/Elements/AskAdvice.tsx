@@ -4,14 +4,33 @@ import { Price } from "Components/Elements/Price"
 export class AskAdvice extends React.Component<{idResponder : number, idAsker : number}, { question: string, price: string }>
 {
 
-    baseUrl: string = 'http://localhost:52619/api/user/question/?idResponder=';
-    ///NEED TO ADD EVENT FOR FILE UPLOAD
+    baseUrl: string = 'http://localhost:52619/api/question/?idResponder=';
+    headers: Headers;
+    ///NEED TO ADD EVENT FOR FILE UPLOAD and prices
     constructor() {
         super();
         this.state = { question: '', price: '' };
         this.handleQuestion = this.handleQuestion.bind(this);
         this.handlePrice = this.handlePrice.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
+    }
+
+    postData(){
+        var cats: any;
+        var ceva = {QuestionText: this.state.question, UserId: this.props.idAsker}
+        var form2 = JSON.stringify(ceva);
+        console.log(form2);
+        cats = '';
+        return fetch(this.baseUrl+this.props.idResponder, {method : "POST", body: form2, headers:this.headers})
+            .then((response) => response.json())
+            .then(function (data) {
+                cats = data;
+                console.log(cats);
+            })
+            .catch(function (error) {
+                console.log('request failedddd', error)
+            })
     }
 
     handleQuestion(event: React.FormEvent<HTMLTextAreaElement>) {
@@ -20,15 +39,9 @@ export class AskAdvice extends React.Component<{idResponder : number, idAsker : 
     handlePrice(event: React.FormEvent<HTMLInputElement>) {
         this.setState({ price: event.currentTarget.value });
     }
-    handleSubmit() {
-        console.log("sdffsdfddf");
-        let data = '"QuestionText" : '+this.state.question.toString()+', "UserId" :'+this.props.idAsker.toString();
-        data = JSON.parse(data)
-        console.log(data);
-        fetch(this.baseUrl+this.props.idResponder, {
-            method: "POST",
-            body: data
-        });
+    handleSubmit(e :any){
+        e.preventDefault();
+        this.postData();
     }
 
     render() {

@@ -10,6 +10,8 @@ export class BaseUserQuestions extends React.Component<{}, {}>
     constructor() {
         super();
     }
+
+
     render() {
         return (
             <div className="row">

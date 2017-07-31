@@ -1,4 +1,5 @@
 import * as React from "react"
+import {BrowserRouter as Router, Link, Route, Redirect} from 'react-router-dom';
 
 export class ListView extends React.Component<{elements :Array<any>},{}>
 {
@@ -8,11 +9,18 @@ export class ListView extends React.Component<{elements :Array<any>},{}>
   }
 
 
+    refresh()
+    {
+            window.location.reload();
+    }
+
   render(){
     return (
         <div className="list-group">
+          
         {this.props.elements.map(function(listValue){
-            return <a key={listValue.Id} href="/"className="list-group-item">{listValue}</a>;
+            
+            return <Link to={`/`+listValue.props.type+`/${listValue.props.id}`} className="list-group-item" >{listValue}</Link>;
           })}
         </div>
     );

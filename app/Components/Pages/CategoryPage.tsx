@@ -7,6 +7,8 @@ import 'whatwg-fetch'
 export class CategoryPage extends React.Component<{ id: number }, { usersByCategory: Array<any> }>{
     baseUrl: string = 'http://localhost:52619/api/user/?idCategory=' ;
     headers: Headers;
+    static contextTypes = { router: React.PropTypes.object }
+    
 
     constructor() {
         super();
@@ -14,6 +16,11 @@ export class CategoryPage extends React.Component<{ id: number }, { usersByCateg
         this.state = {
             usersByCategory: []
         };
+        
+    }
+    componentWillReceiveProps()
+    {
+            
     }
 
     componentDidMount() {
@@ -40,7 +47,7 @@ export class CategoryPage extends React.Component<{ id: number }, { usersByCateg
                 </div>
                 <ListView elements={
                     this.state.usersByCategory.map(function (object, i) {
-                        return <UserList imgurl={object.AvatarUrl} name={object.Name} bio={object.Bio} rating= {object.Rating} />;
+                        return <UserList imgurl={"/"+object.AvatarUrl} id={object.Id} type="user" name={object.Name} bio={object.Bio} rating= {object.Rating} />;
                     }
                     )             
                 } />
