@@ -3,6 +3,7 @@ import * as React from 'react'
 export class AnswerBasePage extends React.Component <{idUser:number},{ rating: string, report:string, ans:any, q:any}>{
     baseUrl: string = 'http://localhost:52619/api/answer/?idQuestion=';
     baseUrl2: string = 'http://localhost:52619/api/question/?idQuestion=';
+    baseUrl3: string = 'http://localhost:52619/api/answer/';
     headers: Headers;
     
     constructor() {
@@ -11,11 +12,41 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
     this.handleReport = this.handleReport.bind(this);
     this.handleRating = this.handleRating.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmitRating = this.handleSubmitRating.bind(this);
     this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
     }
 
-    
+    putDataReport() {
+        var cats: any;
+        cats = '';
+        var something = this.baseUrl3 + "?id=" + this.state.ans.Id + "&report=" + this.state.report;
+        console.log(something);
+        return fetch(something, { method: "PUT", headers: this.headers })
+            .then((response) => response.json())
+            .then(function (data) {
+                cats = data;
+                console.log(cats);
+            })
+            .catch(function (error) {
+                console.log('request failed! Try again', error)
+            })
+    }
 
+    putDataRating() {
+        var cats: any;
+        cats = '';
+        var something = this.baseUrl3 + "?id=" + this.state.ans.Id + "&rating=" + this.state.rating;
+        console.log(something);
+        return fetch(something, { method: "PUT", headers: this.headers })
+            .then((response) => response.json())
+            .then(function (data) {
+                cats = data;
+                console.log(cats);
+            })
+            .catch(function (error) {
+                console.log('request failed! Try again', error)
+            })
+    }
 
     handleReport(event : React.FormEvent<HTMLTextAreaElement>){
                 this.setState({report:event.currentTarget.value});
@@ -23,8 +54,14 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
     handleRating(event : React.FormEvent<HTMLInputElement>){
                 this.setState({rating:event.currentTarget.value});
         }
-    handleSubmit(event : React.FormEvent<HTMLInputElement>){
-
+    handleSubmitRating(event : any)
+    {
+        event.preventDefault();
+        this.putDataRating();
+    }
+    handleSubmit(event : any){
+        event.preventDefault();
+        this.putDataReport();
     }
 
       componentDidMount()
@@ -40,6 +77,7 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
                 .then(() => (
                     this.setState({ ans: res })
                 ))
+                .then(()=>{this.getQText()})
                 .catch(function (error) {
                     console.log('request failed', error)
                 })
@@ -63,7 +101,6 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
         }
 
     render(){
-        //this.getQText();
         return (
             <div className="row">
                     <span>
@@ -95,7 +132,10 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
                             </div>
                         </div>
                         <div className="col col-md-12"></div>
-                        <button className="btn btn-primary">Share on Facebook</button>
+                        <button className="btn btn-primary spacing ">Share on Facebook</button>
+                        <form>
+                            <button className="btn btn-primary" onClick={this.handleSubmitRating}>Send Rating</button>
+                        </form>
                         <br/>
                         <br/>
                         <br/>
@@ -108,9 +148,15 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
                             <label>{this.state.ans.url}</label>
                         </div>
                     </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
                     <form>
-                        <textarea className="form-control spacing" name="report" rows={3} placeholder='Type your report message here.'/>
-                        <input type="submit" className="btn btn-primary" value="Send Report"/>
+                        <textarea className="form-control spacing" name="report" rows={3} placeholder='Type your report message here.' onChange={this.handleReport}/>
+                        <button className="btn btn-primary spacing" onClick={this.handleSubmit}>Send Report</button>
                     </form>
             </div>
         );
