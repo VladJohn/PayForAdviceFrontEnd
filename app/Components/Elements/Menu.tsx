@@ -35,6 +35,9 @@ export class Menu extends React.Component <{},{isHome:boolean}>
                         <li className="nav-item">
                         <Link to='/myQuestions' className="nav-link" onClick={this.refresh}>My Questions</Link>
                         </li>
+                        <li className="nav-item">
+                        <Link to='/myAnsweredQuestions' className="nav-link" onClick={this.refresh}>My Answered Questions</Link>
+                        </li>
                         </ul>
                     </Router>
 

@@ -37,11 +37,11 @@ export class AdviceQuestions extends React.Component<{ idUser: number }, { advis
         return (
             <div className="MainPage">
                 <div className="panel-body">
-                    The users in this category are:
+                    
                 </div>
                 <ListView elements={
                     this.state.adviserQuestions.map(function (object, i) {
-                        return <Question type={"question"}id={object.Id} question={object.QuestionText} status={object.Status} date={object.Date.substring(0,10)}/>;
+                        return <Question type={"questionsAnswered"}id={object.Id} question={object.QuestionText} status={object.Status} date={object.Date.substring(0,10)}/>;
                     }
                     )
                 } />
