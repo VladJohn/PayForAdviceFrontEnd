@@ -6,9 +6,7 @@ import 'whatwg-fetch'
 
 export class CategoryPage extends React.Component<{ id: number }, { usersByCategory: Array<any> }>{
     baseUrl: string = 'http://localhost:52619/api/user/?idCategory=' ;
-    headers: Headers;
-    static contextTypes = { router: React.PropTypes.object }
-    
+    headers: Headers;    
 
     constructor() {
         super();
