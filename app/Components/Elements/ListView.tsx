@@ -5,7 +5,7 @@ export class ListView extends React.Component<{elements :Array<any>},{}>
 {
   constructor() {
     super();
-    this.props = { elements: []};
+
   }
 
 
@@ -20,7 +20,7 @@ export class ListView extends React.Component<{elements :Array<any>},{}>
           
         {this.props.elements.map(function(listValue){
             
-            return <Link to={`/`+listValue.props.type+`/${listValue.props.id}`} className="list-group-item" >{listValue}</Link>;
+            return <Link key={listValue.props.id} to={`/`+listValue.props.type+`/${listValue.props.id}`} className="list-group-item" >{listValue}</Link>;
           })}
         </div>
     );
