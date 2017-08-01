@@ -69,7 +69,7 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
     {
         var cats: any;
         cats = '';
-        var something = this.baseUrl3 + "?category=" + '"fml"';
+        var something = this.baseUrl3 + "?category=" + '"Law"';
         console.log(something);
         return fetch(something, { method: "POST", headers: this.headers })
             .then((response) => response.json())
