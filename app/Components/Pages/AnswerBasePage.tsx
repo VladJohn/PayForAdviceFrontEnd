@@ -1,13 +1,21 @@
 import * as React from 'react'
 
-export class AnswerBasePage extends React.Component <{question: string, answer:string, url:string},{rating: string, report:string}>{
+export class AnswerBasePage extends React.Component <{idUser:number},{ rating: string, report:string, ans:any, q:any}>{
+    baseUrl: string = 'http://localhost:52619/api/answer/?idQuestion=';
+    baseUrl2: string = 'http://localhost:52619/api/question/?idQuestion=';
+    headers: Headers;
+    
     constructor() {
     super();
-    this.state = {rating:'', report:''};
+    this.state = {rating:'', report:'', ans: "", q:'' };
     this.handleReport = this.handleReport.bind(this);
     this.handleRating = this.handleRating.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
     }
+
+    
+
 
     handleReport(event : React.FormEvent<HTMLTextAreaElement>){
                 this.setState({report:event.currentTarget.value});
@@ -18,12 +26,49 @@ export class AnswerBasePage extends React.Component <{question: string, answer:s
     handleSubmit(event : React.FormEvent<HTMLInputElement>){
 
     }
+
+      componentDidMount()
+        {
+            var res: any ;
+            res ="";
+            return fetch(this.baseUrl + this.props.idUser)
+                .then((response) => response.json())
+                .then(function (data) {
+                    res = data;
+                    console.log(data, res);
+                })
+                .then(() => (
+                    this.setState({ ans: res })
+                ))
+                .catch(function (error) {
+                    console.log('request failed', error)
+                })
+        }
+
+        getQText(){
+            var res: any ;
+            res ="";
+            return fetch(this.baseUrl2 + this.state.ans.QuestionId)
+                .then((response) => response.json())
+                .then(function (data) {
+                    res = data;
+                    console.log(data, res);
+                })
+                .then(() => (
+                    this.setState({ q: res })
+                ))
+                .catch(function (error) {
+                    console.log('request failed', error)
+                })
+        }
+
     render(){
+        //this.getQText();
         return (
             <div className="row">
                     <span>
-                        <h3>{this.props.question}</h3>
-                        <p>{this.props.answer}</p>
+                        <h3>{this.state.q.QuestionText}</h3>
+                        <p>{this.state.ans.AnswerText}</p>
                     </span>
                     <div>
                         <label>
@@ -60,7 +105,7 @@ export class AnswerBasePage extends React.Component <{question: string, answer:s
                             <label>Copy this into your browser's URL to download files sent by advisor:</label>
                         </div>
                         <div>
-                            <label>{this.props.url}</label>
+                            <label>{this.state.ans.url}</label>
                         </div>
                     </div>
                     <form>
