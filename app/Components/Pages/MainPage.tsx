@@ -40,7 +40,7 @@ export class MainPage extends React.Component<{}, { categories: Array<any> }>{
                 </div>
                 <ListView elements={
                     this.state.categories.map(function (object, i) {
-                    return <Category imgurl={object.ImageUrl} name={object.Name} description={object.Description} id={object.Id} />;
+                    return <Category type="category" imgurl={object.ImageUrl} name={object.Name} description={object.Description} id={object.Id} />;
                 })} />
 
             </div>

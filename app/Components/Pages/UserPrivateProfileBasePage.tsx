@@ -1,9 +1,12 @@
 import * as React from 'react'
 
-export class UserPrivateProfileBasePage extends React.Component <{},{name: string, email: string, bio: string, website: string}>{
+export class UserPrivateProfileBasePage extends React.Component <{id:number},{name: string, email: string, bio: string, website: string, password:string, avatarUrl :string}>{
+    
+    baseUrl: string = 'http://localhost:52619/api/user/';
+    headers: Headers;
     constructor() {
     super();
-    this.state = {name:'a', email:'b', bio:'c', website:'d'};
+    this.state = {name:'', email:'', bio:'', website:'', password:'', avatarUrl:''};
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
     this.handleChangeConfirmPassword = this.handleChangeConfirmPassword.bind(this);
@@ -12,13 +15,50 @@ export class UserPrivateProfileBasePage extends React.Component <{},{name: strin
     this.handleChangeWebsite = this.handleChangeWebsite.bind(this);
     this.handleChangeAvatar = this.handleChangeAvatar.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
+    }
+
+    componentDidMount()
+    {
+        var cats: any;
+        cats = '';
+        return fetch(this.baseUrl+"?id="+this.props.id)
+            .then((response) => response.json())
+            .then(function (data) {
+                cats = data;
+            })
+            .then(() => (
+                this.setState({ name:cats.Name, email:cats.Email, bio:cats.Bio, website:cats.Website , password:cats.Password, avatarUrl:cats.AvatarUrl}),
+                console.log(this.state)
+            ))
+            .catch(function (error) {
+                console.log('request failedddd', error)
+            })
+    }
+
+    putData()
+    {
+        var cats: any;
+        var ceva = {id:this.props.id, name:this.state.name, password:this.state.password, email:this.state.email, bio:this.state.bio, website:this.state.website, avatarUrl:this.state.avatarUrl}
+        var form2 = JSON.stringify(ceva);
+        console.log(form2);
+        cats = '';
+        return fetch(this.baseUrl, {method : "PUT", body: form2, headers:this.headers})
+            .then((response) => response.json())
+            .then(function (data) {
+                cats = data;
+                console.log(cats);
+            })
+            .catch(function (error) {
+                console.log('request failedddd', error)
+            })
     }
     
     handleChangeName(event : React.FormEvent<HTMLInputElement>){
             this.setState({name:event.currentTarget.value});
     }
     handleChangePassword(event : React.FormEvent<HTMLInputElement>){
-            
+            this.setState({password: event.currentTarget.value});
     }
     handleChangeConfirmPassword(event : React.FormEvent<HTMLInputElement>){
             
@@ -33,11 +73,12 @@ export class UserPrivateProfileBasePage extends React.Component <{},{name: strin
             this.setState({website:event.currentTarget.value});
     }
     handleChangeAvatar(event : React.FormEvent<HTMLInputElement>){
-            
+            this.setState({avatarUrl:event.currentTarget.value});
     }
 
-    handleSubmit(event : React.FormEvent<HTMLInputElement>){
-
+    handleSubmit(event : any){
+        event.preventDefault();
+        this.putData();
     }
     
     render(){
@@ -106,7 +147,7 @@ export class UserPrivateProfileBasePage extends React.Component <{},{name: strin
                             </span>
                         </div>
                         <div>
-                            <input type='submit' className="btn btn-primary" value="Update Information"/>
+                            <button  className="btn btn-primary" onClick={this.handleSubmit}>Update Information</button>
                         </div>
                     </form>
                 </div>

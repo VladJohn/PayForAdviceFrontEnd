@@ -1,12 +1,15 @@
 import * as React from "react"
+import {AnswerBasePage} from 'Components/Pages/AnswerBasePage'
 
-export class Question extends React.Component<{ question: string, status: string, date: string, userName: string }, {}>
+export class Question extends React.Component<{type : string,id:number, question: string, status: string, date: string}, {}>
 {
+
+
   render() {
     return (
       <div className="row">
         <div >
-          <div className="col-md-11"><h3> {this.props.question}</h3> </div>
+          <div className="col-md-11"><h2> {this.props.question}</h2> </div>
           <div className="col-md-6" >
             <i>
               {this.props.status} {this.props.date}
@@ -14,7 +17,6 @@ export class Question extends React.Component<{ question: string, status: string
           </div>
           <div className = "col-md-6 center text-right">
             <b>
-              {this.props.userName}
             </b>
           </div>
         </div>

@@ -5,9 +5,9 @@ import { Footer } from "Components/Footer"
 import { Question } from "Components/Elements/Question"
 import { ListView } from "Components/Elements/ListView"
 
-export class BaseUserQuestions extends React.Component<{idUser: number}, {adviserQuestions: Array<any>}>
+export class BaseUserQuestionsByDate extends React.Component<{idUser: number}, {adviserQuestions: Array<any>}>
 {
-    baseUrl: string = 'http://localhost:52619/api/question/?userId=';
+    baseUrl: string = 'http://localhost:52619/api/question/?IdUsers=';
     headers: Headers;
 
     constructor() {
@@ -47,8 +47,8 @@ export class BaseUserQuestions extends React.Component<{idUser: number}, {advise
                 </div>
                 <div className = "col-md-4">
                     <ul className="nav nav-pills nav-stacked">
-                    <li role="presentation"><a href="#">By status</a></li>
-                    <li role="presentation"><a href="#">By date</a></li>
+                    <li role="presentation" ><a href="#">By status</a></li>
+                    <li role="presentation" className="active"><a href="#">By date</a></li>
                 </ul>
                 </div>
             </div>

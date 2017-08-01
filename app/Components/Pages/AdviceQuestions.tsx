@@ -2,37 +2,31 @@ import * as React from 'react'
 import { UserList } from "Components/Elements/User"
 import { ListView } from "Components/Elements/ListView"
 import { Category } from "Components/Elements/Category"
+import { Question } from "Components/Elements/Question"
 import 'whatwg-fetch'
 
-export class CategoryPage extends React.Component<{ id: number }, { usersByCategory: Array<any> }>{
-    baseUrl: string = 'http://localhost:52619/api/user/?idCategory=' ;
+export class AdviceQuestions extends React.Component<{ idUser: number }, { adviserQuestions: Array<any> }>{
+    baseUrl: string = 'http://localhost:52619/api/question/?userId=';
     headers: Headers;
-    static contextTypes = { router: React.PropTypes.object }
-    
 
     constructor() {
         super();
         this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
         this.state = {
-            usersByCategory: []
+            adviserQuestions: []
         };
-        
-    }
-    componentWillReceiveProps()
-    {
-            
     }
 
     componentDidMount() {
         var user: any[];
         user = [];
-        return fetch(this.baseUrl +this.props.id )
+        return fetch(this.baseUrl + this.props.idUser)
             .then((response) => response.json())
             .then(function (data) {
                 user = data;
             })
             .then(() => (
-                this.setState({ usersByCategory: user })
+                this.setState({ adviserQuestions: user })
             ))
             .catch(function (error) {
                 console.log('request failed', error)
@@ -46,10 +40,10 @@ export class CategoryPage extends React.Component<{ id: number }, { usersByCateg
                     The users in this category are:
                 </div>
                 <ListView elements={
-                    this.state.usersByCategory.map(function (object, i) {
-                        return <UserList imgurl={"/"+object.AvatarUrl} id={object.Id} type="user" name={object.Name} bio={object.Bio} rating= {object.Rating} />;
+                    this.state.adviserQuestions.map(function (object, i) {
+                        return <Question type={"question"}id={object.Id} question={object.QuestionText} status={object.Status} date={object.Date.substring(0,10)}/>;
                     }
-                    )             
+                    )
                 } />
             </div>
         );

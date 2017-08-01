@@ -1,6 +1,6 @@
 import * as React from "react"
 
-export class UserList extends React.Component<{imgurl: string, name: string, bio : string, rating : number},{}>
+export class UserList extends React.Component<{type: string, id:number, imgurl: string, name: string, bio : string, rating : number},{}>
 {
   render(){
     return (
