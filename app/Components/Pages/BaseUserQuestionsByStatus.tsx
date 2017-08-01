@@ -40,7 +40,7 @@ export class BaseUserQuestionsByStatus extends React.Component<{idUser: number},
                 <div className = "col-md-8" >
                     <ListView elements={
                     this.state.adviserQuestions.map(function (object, i) {
-                        return <Question question={object.QuestionText} status={object.Status} date={object.Date.substring(0,10)} userName = "" />;
+                        return <Question type={"question"}id={object.Id} question={object.QuestionText} status={object.Status} date={object.Date.substring(0,10)}/>;
                     }
                     )
                 } />

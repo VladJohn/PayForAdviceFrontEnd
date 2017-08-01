@@ -4,6 +4,7 @@ import {UserPrivateProfileBasePage} from "Components/Pages/UserPrivateProfileBas
 import {BaseUserQuestions} from "Components/Pages/BaseUserQuestions"
 import {CategoryPage} from "Components/Pages/CategoryPage"
 import {UserProfilePublicPage} from "Components/Pages/UserProfilePublicPage"
+import {AnswerBasePage} from "Components/Pages/AnswerBasePage"
 import {BrowserRouter as Router, Link, Route, Redirect} from 'react-router-dom';
 
 
@@ -17,11 +18,11 @@ export class AppViewer extends React.Component
                     <Router>
                     <div>
                         <Route exact path='/' component={MainPage}/>
-                        <Route path='/myQuestions' component={BaseUserQuestions}/>
-                        
+                        <Route path='/myQuestions'  render={(props)=><BaseUserQuestions idUser={1}/>}/>
                         <Route path='/myProfile' component={UserPrivateProfileBasePage}/>
                         <Route path='/category/:id' render={(props)=><CategoryPage id={props.match.params.id}/>}/>
                         <Route path='/user/:id' render={(props)=><UserProfilePublicPage id={props.match.params.id}/>}/>
+                        <Route path='/question/:id' render={(props)=><AnswerBasePage idUser={props.match.params.id}/>}/>
                      </div>
                     </Router>
                 </main>
