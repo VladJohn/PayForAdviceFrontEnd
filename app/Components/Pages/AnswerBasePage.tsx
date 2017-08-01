@@ -13,6 +13,7 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
     this.handleRating = this.handleRating.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSubmitRating = this.handleSubmitRating.bind(this);
+    this.shareOnFb = this.shareOnFb.bind(this);
     this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
     }
 
@@ -62,6 +63,23 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
     handleSubmit(event : any){
         event.preventDefault();
         this.putDataReport();
+    }
+
+    shareOnFb()
+    {
+        var cats: any;
+        cats = '';
+        var something = this.baseUrl3 + "?category=" + '"fml"';
+        console.log(something);
+        return fetch(something, { method: "POST", headers: this.headers })
+            .then((response) => response.json())
+            .then(function (data) {
+                cats = data;
+                console.log(cats);
+            })
+            .catch(function (error) {
+                console.log('request failed! Try again', error)
+            })
     }
 
       componentDidMount()
@@ -132,7 +150,7 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
                             </div>
                         </div>
                         <div className="col col-md-12"></div>
-                        <button className="btn btn-primary spacing ">Share on Facebook</button>
+                        <button onClick={this.shareOnFb} className="btn btn-primary spacing ">Share on Facebook</button>
                         <form>
                             <button className="btn btn-primary" onClick={this.handleSubmitRating}>Send Rating</button>
                         </form>
