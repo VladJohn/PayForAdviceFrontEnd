@@ -15,9 +15,10 @@ export class AdviceQuestions extends React.Component<{ idUser: number }, { advis
         this.state = {
             adviserQuestions: []
         };
+        localStorage.setItem("Updated",'false');
     }
 
-    componentDidMount() {
+    componentDidUpdate() {
         var user: any[];
         user = [];
         return fetch(this.baseUrl + this.props.idUser)
@@ -25,9 +26,13 @@ export class AdviceQuestions extends React.Component<{ idUser: number }, { advis
             .then(function (data) {
                 user = data;
             })
-            .then(() => (
-                this.setState({ adviserQuestions: user })
-            ))
+            .then(() => {
+                if(localStorage.getItem('Updated') === 'false')
+                    {
+                        this.setState({ adviserQuestions: user })
+                        localStorage.setItem("Updated", 'true')
+                    }
+            })
             .catch(function (error) {
                 console.log('request failed', error)
             })
