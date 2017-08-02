@@ -1,4 +1,5 @@
 import * as React from "react"
+import {BrowserRouter as Router, Link, Route, Redirect} from 'react-router-dom';
 
 export class SignUpPage extends React.Component <{},{name : string, username:string, password:string, cfpassword:string, email:string}>
 {
@@ -49,9 +50,15 @@ export class SignUpPage extends React.Component <{},{name : string, username:str
     handleSignUpEmail(event : React.FormEvent<HTMLInputElement>){
             this.setState({email:event.currentTarget.value});
     }
+    
+    refresh()
+    {
+        window.location.replace("/");
+    }
     handleSubmit(e :any){
         e.preventDefault();
         this.postData();
+        this.refresh();
     }
 
     render(){
@@ -103,7 +110,7 @@ export class SignUpPage extends React.Component <{},{name : string, username:str
                             </span>
                         </div>
                         <div className="spacing">
-                            <button className="btn btn-primary" onClick={this.handleSubmit}>Sign Up</button>
+                            <Link to='/' className="btn btn-primary" onClick={this.handleSubmit}>Sign Up</Link>
                         </div>
                     </form>
                 </div>
