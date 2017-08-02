@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {BrowserRouter as Router, Link, Route, Redirect} from 'react-router-dom';
 
 //CAND SE SCHIMBA PAGINA DE PE LOGIN PE ALTCEVA, IN AFARA DE REGISTER, SA SE TRANSMITA TOKENU
 
@@ -13,6 +14,7 @@ export class LoginPage extends React.Component <{},{username:string, password:st
         this.handleLogInPassword = this.handleLogInPassword.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
+        localStorage.setItem("token", '');
     }
 
     handleLogInUsername(event : React.FormEvent<HTMLInputElement>){
@@ -20,6 +22,11 @@ export class LoginPage extends React.Component <{},{username:string, password:st
     }
     handleLogInPassword(event : React.FormEvent<HTMLInputElement>){
             this.setState({password:event.currentTarget.value});
+    }
+
+    refresh()
+    {
+            window.location.reload();
     }
 
     getData(){
@@ -32,14 +39,17 @@ export class LoginPage extends React.Component <{},{username:string, password:st
             })
             .then(() => (
                 this.setState({ token: cats.TokenText }),
-                console.log(this.state.token)
+                console.log(this.state.token),
+                localStorage.setItem("token", this.state.token)
             ))
+            .then(()=>{this.refresh()})
             .catch(function (error) {
                 console.log('request failedddd', error)
             })
     }
 
-    handleSubmit(){
+    handleSubmit(event:any){
+        event.preventDefault();
         console.log("inainte de url change");
         this.baseUrl = this.baseUrl + '?username=' + this.state.username + '&password=' + this.state.password;
         console.log(this.baseUrl);
@@ -71,7 +81,7 @@ export class LoginPage extends React.Component <{},{username:string, password:st
                                 <input type="password" name="password" className="form-control" placeholder='Type Your Password' onChange={this.handleLogInPassword}/>
                             </span>
                         </div>
-                    <div><button className="btn btn-primary spacing" onClick={this.handleSubmit}>Login in</button></div>
+                    <div><Link to="/" className="btn btn-primary spacing" onClick={this.handleSubmit}>Log in</Link></div>
                     <div>
                         <span className="spacing">
                                 OR
@@ -85,7 +95,7 @@ export class LoginPage extends React.Component <{},{username:string, password:st
                     <div className="spacing">
                     Don't have an account?
                     </div>
-                    <div><button className="btn btn-default">Register</button></div>
+                    <div><Link to='/register'className="btn btn-default">Register</Link></div>
                     </form>
                     
                 </div>
