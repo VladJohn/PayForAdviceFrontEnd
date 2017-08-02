@@ -6,7 +6,7 @@ import { Question } from "Components/Elements/Question"
 import 'whatwg-fetch'
 
 export class AdviceQuestions extends React.Component<{ idUser: number }, { adviserQuestions: Array<any> }>{
-    baseUrl: string = 'http://localhost:52619/api/question/?userId=';
+    baseUrl: string = 'http://localhost:52619/api/question/?idAdvicer=';
     headers: Headers;
 
     constructor() {

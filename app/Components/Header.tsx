@@ -15,7 +15,7 @@ export class Header extends React.Component <{},{}>
             <nav className="navbar navbar-default"> 
                 <div className="col col-lg-3"></div>
                 <div className="container-fluid col col-lg-6">
-                    <Link className="navbar-brand" onClick={this.refresh} to="/" >Advicy</Link>
+                    <Link className="navbar-brand" onClick={this.refresh} to="/" ><img src = "/Advicy.png" className="logo"></img></Link>
                     <Router>
                     <ul className="nav navbar-nav navbar-right">
                         <li>
