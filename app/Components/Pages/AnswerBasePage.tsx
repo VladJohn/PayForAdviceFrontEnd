@@ -76,6 +76,7 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
             .then(function (data) {
                 cats = data;
                 console.log(cats);
+                alert("Message shared");
             })
             .catch(function (error) {
                 console.log('request failed! Try again', error)
@@ -120,17 +121,19 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
 
     render(){
         return (
-            <div className="row">
+            <div>
                     <span>
-                        <h3>{this.state.q.QuestionText}</h3>
+                        
+                        <h3>{this.state.q.QuestionText}<img className="small-icon" onClick={this.shareOnFb} src="/pictures/fb.png"></img></h3>
                         <p>{this.state.ans.AnswerText}</p>
                     </span>
                     <div>
                         <label>
-                            Rate Now:
+                            Rate:
                         </label>
                         <br/>
-                        <div className="col col-md-4 panel panel-default spacing-right">
+                        <div className="row">
+                        <div className="col col-md-3 panel panel-default">
                             <div className="panel-body">
                                 <div className="spacing-right">
                                     <input type="radio" value="1" name="rating" onChange={this.handleRating}/>1
@@ -149,11 +152,13 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
                                 </div>
                             </div>
                         </div>
-                        <div className="col col-md-12"></div>
-                        <button onClick={this.shareOnFb} className="btn btn-primary spacing ">Share on Facebook</button>
+                        <div className="col col-md-9"></div>
+                        </div>
+                        <div className="col col-md-1">
                         <form>
                             <button className="btn btn-primary" onClick={this.handleSubmitRating}>Send Rating</button>
                         </form>
+                        </div>
                         <br/>
                         <br/>
                         <br/>
