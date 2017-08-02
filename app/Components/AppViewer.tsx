@@ -15,7 +15,14 @@ import {BrowserRouter as Router, Link, Route, Redirect} from 'react-router-dom';
 
 export class AppViewer extends React.Component <{},{}>
 {
+
+
+
     render(){
+        if(localStorage.getItem('token')===null)
+            {
+                localStorage.setItem('token', '');
+            }
         return (
             <div className = "spacing-bottomtop">
                <main>
