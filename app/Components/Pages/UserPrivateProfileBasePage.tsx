@@ -16,9 +16,10 @@ export class UserPrivateProfileBasePage extends React.Component <{id:number},{na
     this.handleChangeAvatar = this.handleChangeAvatar.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
+    localStorage.setItem("Updated",'false');
     }
 
-    componentDidMount()
+    componentDidUpdate()
     {
         var cats: any;
         cats = '';
@@ -27,10 +28,14 @@ export class UserPrivateProfileBasePage extends React.Component <{id:number},{na
             .then(function (data) {
                 cats = data;
             })
-            .then(() => (
-                this.setState({ name:cats.Name, email:cats.Email, bio:cats.Bio, website:cats.Website , password:cats.Password, avatarUrl:cats.AvatarUrl}),
-                console.log(this.state)
-            ))
+            .then(() => 
+                    {
+                if(localStorage.getItem('Updated') === 'false')
+                    {
+                        this.setState({ name:cats.Name, email:cats.Email, bio:cats.Bio, website:cats.Website , password:cats.Password, avatarUrl:cats.AvatarUrl});
+                        localStorage.setItem("Updated", 'true')
+                    }
+            })
             .catch(function (error) {
                 console.log('request failedddd', error)
             })

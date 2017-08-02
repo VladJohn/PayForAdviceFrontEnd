@@ -17,6 +17,11 @@ export class Header extends React.Component <{},{}>
             window.location.replace("/");
     }
 
+    refresh2()
+    {
+            window.location.reload();
+    }
+
     LogOut(event:any)
     {
         event.preventDefault();
@@ -44,7 +49,7 @@ export class Header extends React.Component <{},{}>
                             <div className="navbar-text">John Snow</div>
                         </li>
                         <li>
-                           <Link to='/myProfile' className="glyphicon glyphicon-user" aria-hidden="true" onClick={this.refresh}></Link>
+                           <Link to='/myProfile' className="glyphicon glyphicon-user" aria-hidden="true" onClick={this.refresh2}></Link>
                         </li>
                         <li> 
                              <Link to="/" className="glyphicon glyphicon-log-out" aria-hidden="true" onClick={this.LogOut}></Link>
