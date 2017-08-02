@@ -30,13 +30,13 @@ export class Menu extends React.Component <{},{isHome:boolean}>
                     <Router>
                         <ul className="nav nav-pills">
                         <li className="nav-item">
-                            <Link to='/' className="nav-link" onClick={this.refresh} >Home</Link>
+                            <Link to='/' className="nav-link blue" onClick={this.refresh} >Home</Link>
                         </li>
                         <li className="nav-item">
-                        <Link to='/myQuestions' className="nav-link" onClick={this.refresh}>My Questions</Link>
+                        <Link to='/myQuestions' className="nav-link blue" onClick={this.refresh}>My Questions</Link>
                         </li>
                         <li className="nav-item">
-                        <Link to='/myAnsweredQuestions' className="nav-link" onClick={this.refresh}>My Answered Questions</Link>
+                        <Link to='/myAnsweredQuestions' className="nav-link blue" onClick={this.refresh}>My Answered Questions</Link>
                         </li>
                         </ul>
                     </Router>
