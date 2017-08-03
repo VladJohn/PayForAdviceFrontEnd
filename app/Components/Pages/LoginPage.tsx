@@ -81,7 +81,7 @@ export class LoginPage extends React.Component <{},{username:string, password:st
                                 <input type="password" name="password" className="form-control" placeholder='Type Your Password' onChange={this.handleLogInPassword}/>
                             </span>
                         </div>
-                    <div><Link to="/" className="btn btn-primary spacing" onClick={this.handleSubmit}>Log in</Link></div>
+                    <div><Link to="/" className="btn blue-button spacing" onClick={this.handleSubmit}>Log in</Link></div>
                     <div>
                         <span className="spacing">
                                 OR
@@ -89,13 +89,13 @@ export class LoginPage extends React.Component <{},{username:string, password:st
                     </div>
                     <div>
                         <span>
-                            <button className="btn btn-primary">Login With FaceBook</button>
+                            <button className="btn blue-button">Login With FaceBook</button>
                         </span>
                     </div>
                     <div className="spacing">
                     Don't have an account?
                     </div>
-                    <div><Link to='/register'className="btn btn-default">Register</Link></div>
+                    <div><Link to='/register'className="btn grey-button">Register</Link></div>
                     </form>
                     
                 </div>

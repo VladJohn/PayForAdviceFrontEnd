@@ -79,7 +79,7 @@ export class AddPrice extends React.Component<{ userId: number }, { amount: stri
                             </span>
                         </div>
                         <div className="spacing">
-                            <button className="btn btn-primary" onClick={this.handleSubmit}>Add the new price!</button>
+                            <button className="btn blue-button" onClick={this.handleSubmit}>Add the new price!</button>
                         </div>
                     </form>
                 </div>
