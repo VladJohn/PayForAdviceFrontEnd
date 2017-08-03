@@ -1,13 +1,12 @@
-import * as React from "react"
-import { Header } from "Components/Header"
-import { AppViewer } from "Components/AppViewer"
-import { Footer } from "Components/Footer"
-import { Question } from "Components/Elements/Question"
+import * as React from 'react'
+import { UserList } from "Components/Elements/User"
 import { ListView } from "Components/Elements/ListView"
+import { Category } from "Components/Elements/Category"
+import { Question } from "Components/Elements/Question"
+import 'whatwg-fetch'
 
-export class BaseUserQuestions extends React.Component<{idUser: number}, {adviserQuestions: Array<any>}>
-{
-    baseUrl: string = 'http://localhost:52619/api/question/?userId=';
+export class AdviceQuestionsPending extends React.Component<{ idUser: number }, { adviserQuestions: Array<any> }>{
+    baseUrl: string = 'http://localhost:52619/api/question/?idAdvicerForPending=';
     headers: Headers;
 
     constructor() {
@@ -16,14 +15,12 @@ export class BaseUserQuestions extends React.Component<{idUser: number}, {advise
         this.state = {
             adviserQuestions: []
         };
-       localStorage.setItem("Updated",'false');
+        localStorage.setItem("Updated",'false');
     }
-
 
     componentDidUpdate() {
         var user: any[];
         user = [];
-        console.log(this.props.idUser)
         return fetch(this.baseUrl + this.props.idUser)
             .then((response) => response.json())
             .then(function (data) {
@@ -43,21 +40,16 @@ export class BaseUserQuestions extends React.Component<{idUser: number}, {advise
 
     render() {
         return (
-            <div className="row">
-                <div className = "col-md-8" >
-                    <ListView elements={
+            <div className="MainPage">
+                <div className="panel-body">
+                    
+                </div>
+                <ListView elements={
                     this.state.adviserQuestions.map(function (object, i) {
-                        return <Question type={"question"}id={object.Id} question={object.QuestionText} status={object.Status} date={object.Date.substring(0,10)}/>;
+                        return <Question type={"questionsPending"}id={object.Id} question={object.QuestionText} status={object.Status} date={object.Date.substring(0,10)}/>;
                     }
                     )
                 } />
-                </div>
-                <div className = "col-md-4">
-                    <ul className="nav nav-pills nav-stacked">
-                    <li role="presentation"><a href="#">By status</a></li>
-                    <li role="presentation"><a href="#">By date</a></li>
-                </ul>
-                </div>
             </div>
         );
     }

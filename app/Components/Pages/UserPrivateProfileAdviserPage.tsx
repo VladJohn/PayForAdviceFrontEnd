@@ -18,7 +18,8 @@ export class UserPrivateProfileAdviserPage extends React.Component <{id:number},
     this.handleChangeNormal = this.handleChangeNormal.bind(this);
     this.handleChangePremium = this.handleChangePremium.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
+    this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9', 'TokenText': localStorage.getItem('token') });
+    localStorage.setItem("Updated",'false');
     }
 
     componentDidMount()
@@ -30,10 +31,13 @@ export class UserPrivateProfileAdviserPage extends React.Component <{id:number},
             .then(function (data) {
                 cats = data;
             })
-            .then(() => (
-                this.setState({ name:cats.Name, email:cats.Email, bio:cats.Bio, website:cats.Website , password:cats.Password, avatarUrl:cats.AvatarUrl, base:cats.base, normal:cats.normal, premium:cats.premium}),
-                console.log(this.state)
-            ))
+            .then(() => 
+            {
+                if(localStorage.getItem('Updated') === 'false')
+                    {
+                        this.setState({ name:cats.Name, email:cats.Email, bio:cats.Bio, website:cats.Website , password:cats.Password, avatarUrl:cats.AvatarUrl, base:cats.base, normal:cats.normal, premium:cats.premium}),
+                        localStorage.setItem("Updated", 'true')
+                    }})
             .catch(function (error) {
                 console.log('request failedddd', error)
             })
@@ -72,20 +76,20 @@ export class UserPrivateProfileAdviserPage extends React.Component <{id:number},
     handleChangeBio(event : React.FormEvent<HTMLInputElement>){
             this.setState({bio:event.currentTarget.value});
     }
-    handleChangeWebsite(event : React.FormEvent<HTMLInputElement>){
+    handleChangeWebsite(event : React.FormEvent<HTMLInputElement>){     
             this.setState({website:event.currentTarget.value});
     }
     handleChangeAvatar(event : React.FormEvent<HTMLInputElement>){
             this.setState({avatarUrl:event.currentTarget.value})
     }
     handleChangeBase(event : React.FormEvent<HTMLInputElement>){
-            this.setState({website:event.currentTarget.value});
+            this.setState({base:event.currentTarget.value});
     }
     handleChangeNormal(event : React.FormEvent<HTMLInputElement>){
-            this.setState({website:event.currentTarget.value});
+            this.setState({normal:event.currentTarget.value});
     }
      handleChangePremium(event : React.FormEvent<HTMLInputElement>){
-            this.setState({website:event.currentTarget.value});
+            this.setState({premium:event.currentTarget.value});
     }
 
     handleSubmit(event : any){
@@ -182,7 +186,7 @@ export class UserPrivateProfileAdviserPage extends React.Component <{id:number},
                             </span>
                         </div>
                         <div>
-                            <button className="btn btn-primary" onClick={this.handleSubmit}>Update Information</button>
+                            <button className="btn blue-button" onClick={this.handleSubmit}>Update Information</button>
                         </div>
                     </form>
                 </div>

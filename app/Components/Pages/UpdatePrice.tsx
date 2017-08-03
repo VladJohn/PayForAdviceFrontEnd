@@ -79,7 +79,7 @@ export class UpdatePrice extends React.Component<{ userId: number, priceId: numb
                             </span>
                         </div>
                         <div className="spacing">
-                            <button className="btn btn-primary" onClick={this.handleSubmit}>Change the price!</button>
+                            <button className="btn blue-button" onClick={this.handleSubmit}>Change the price!</button>
                         </div>
                     </form>
                 </div>

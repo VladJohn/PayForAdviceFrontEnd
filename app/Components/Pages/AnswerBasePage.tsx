@@ -76,6 +76,7 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
             .then(function (data) {
                 cats = data;
                 console.log(cats);
+                alert("Message shared");
             })
             .catch(function (error) {
                 console.log('request failed! Try again', error)
@@ -120,17 +121,19 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
 
     render(){
         return (
-            <div className="row">
+            <div>
                     <span>
-                        <h3>{this.state.q.QuestionText}</h3>
+                        
+                        <h3>{this.state.q.QuestionText}<img className="small-icon" onClick={this.shareOnFb} src="/pictures/fb.png"></img></h3>
                         <p>{this.state.ans.AnswerText}</p>
                     </span>
                     <div>
                         <label>
-                            Rate Now:
+                            Rate:
                         </label>
                         <br/>
-                        <div className="col col-md-4 panel panel-default spacing-right">
+                        
+                        <div className="panel panel-default">
                             <div className="panel-body">
                                 <div className="spacing-right">
                                     <input type="radio" value="1" name="rating" onChange={this.handleRating}/>1
@@ -149,11 +152,13 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
                                 </div>
                             </div>
                         </div>
-                        <div className="col col-md-12"></div>
-                        <button onClick={this.shareOnFb} className="btn btn-primary spacing ">Share on Facebook</button>
+                        
+                        <div className="col col-md-14">
                         <form>
-                            <button className="btn btn-primary" onClick={this.handleSubmitRating}>Send Rating</button>
+                            <button className="btn blue-button" onClick={this.handleSubmitRating}>send rating now</button>
                         </form>
+                        </div>
+
                         <br/>
                         <br/>
                         <br/>
@@ -169,12 +174,11 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
                     <br/>
                     <br/>
                     <br/>
-                    <br/>
-                    <br/>
-                    <br/>
+
                     <form>
+                        Was the answer you received unhelpful, offensive or spam? Report it:
                         <textarea className="form-control spacing" name="report" rows={3} placeholder='Type your report message here.' onChange={this.handleReport}/>
-                        <button className="btn btn-primary spacing" onClick={this.handleSubmit}>Send Report</button>
+                        <button className="btn blue-button spacing" onClick={this.handleSubmit}>send report</button>
                     </form>
             </div>
         );
