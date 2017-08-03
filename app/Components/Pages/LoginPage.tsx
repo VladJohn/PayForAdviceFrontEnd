@@ -13,6 +13,7 @@ export class LoginPage extends React.Component <{},{username:string, password:st
         this.handleLogInUsername = this.handleLogInUsername.bind(this);
         this.handleLogInPassword = this.handleLogInPassword.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.FBLogin = this.FBLogin.bind(this);
         this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
         localStorage.setItem("token", '');
     }
@@ -48,9 +49,24 @@ export class LoginPage extends React.Component <{},{username:string, password:st
             })
     }
 
+    FBLogin(e :any)
+    {
+        e.preventDefault();
+        return fetch(this.baseUrl + "?returnUrl=/main", {method : "POST", headers:this.headers})
+            .then((response) => response.json())
+            .then(function (data) {
+                console.log(data);
+                window.location.replace(data.Url)
+            })
+            .catch(function (error) {
+                console.log('request failedddd', error)
+            })
+    }
+
     handleSubmit(event:any){
         event.preventDefault();
         console.log("inainte de url change");
+        this.baseUrl = 'http://localhost:52619/api/user/';
         this.baseUrl = this.baseUrl + '?username=' + this.state.username + '&password=' + this.state.password;
         console.log(this.baseUrl);
         var req = this.getData();
@@ -89,7 +105,7 @@ export class LoginPage extends React.Component <{},{username:string, password:st
                     </div>
                     <div>
                         <span>
-                            <button className="btn blue-button">Login With FaceBook</button>
+                            <button className="btn blue-button" onClick={this.FBLogin}>Login With FaceBook</button>
                         </span>
                     </div>
                     <div className="spacing">
