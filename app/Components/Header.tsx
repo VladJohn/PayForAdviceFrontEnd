@@ -36,7 +36,18 @@ export class Header extends React.Component <{},{}>
                 })
     }
 
+    
     render(){
+        let buttonProfile = null;
+        let buttonLog = null;
+        let userName = null;
+        if (localStorage.getItem("token") != '') {
+            buttonProfile = <Link to='/myProfile' className="glyphicon glyphicon-user" aria-hidden="true" onClick={this.refresh2}></Link>
+            buttonLog = <Link to="/" className="glyphicon glyphicon-log-out" aria-hidden="true" onClick={this.LogOut}></Link>
+            userName = <div className="navbar-text">John Snow</div>
+        }
+        else
+            buttonLog = <Link to="/" className="glyphicon glyphicon-log-in" aria-hidden="true" onClick={this.LogOut}></Link>
         return (
             <div>
             <nav className="navbar navbar-default"> 
@@ -46,13 +57,13 @@ export class Header extends React.Component <{},{}>
                     <Router>
                     <ul className="nav navbar-nav navbar-right">
                         <li>
-                            <div className="navbar-text">John Snow</div>
+                            {userName}
                         </li>
                         <li>
-                           <Link to='/myProfile' className="glyphicon glyphicon-user" aria-hidden="true" onClick={this.refresh2}></Link>
+                           {buttonProfile}
                         </li>
                         <li> 
-                             <Link to="/" className="glyphicon glyphicon-log-out" aria-hidden="true" onClick={this.LogOut}></Link>
+                            {buttonLog}
                         </li>
                     </ul>
                     </Router>

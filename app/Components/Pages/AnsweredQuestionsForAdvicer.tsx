@@ -75,7 +75,7 @@ export class AnsweredQuestionsForAdvicer extends React.Component<{ id: number },
                 <div className="col-md-4">
                     <br />
                     <h4>Your rating was: {this.state.answer.Rating}</h4>
-                    <button onClick={this.shareRatingOnFb} type="button" className="btn btn-primary">
+                    <button onClick={this.shareRatingOnFb} type="button" className="btn blue-button">
                         Share on facebook!
                 </button>
                 </div>

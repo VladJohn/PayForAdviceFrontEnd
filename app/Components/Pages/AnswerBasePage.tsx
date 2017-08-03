@@ -132,8 +132,8 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
                             Rate:
                         </label>
                         <br/>
-                        <div className="row">
-                        <div className="col col-md-3 panel panel-default">
+                        
+                        <div className="panel panel-default">
                             <div className="panel-body">
                                 <div className="spacing-right">
                                     <input type="radio" value="1" name="rating" onChange={this.handleRating}/>1
@@ -152,13 +152,13 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
                                 </div>
                             </div>
                         </div>
-                        <div className="col col-md-9"></div>
-                        </div>
-                        <div className="col col-md-1">
+                        
+                        <div className="col col-md-14">
                         <form>
-                            <button className="btn btn-primary" onClick={this.handleSubmitRating}>Send Rating</button>
+                            <button className="btn blue-button" onClick={this.handleSubmitRating}>send rating now</button>
                         </form>
                         </div>
+
                         <br/>
                         <br/>
                         <br/>
@@ -174,12 +174,11 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
                     <br/>
                     <br/>
                     <br/>
-                    <br/>
-                    <br/>
-                    <br/>
+
                     <form>
+                        Was the answer you received unhelpful, offensive or spam? Report it:
                         <textarea className="form-control spacing" name="report" rows={3} placeholder='Type your report message here.' onChange={this.handleReport}/>
-                        <button className="btn btn-primary spacing" onClick={this.handleSubmit}>Send Report</button>
+                        <button className="btn blue-button spacing" onClick={this.handleSubmit}>send report</button>
                     </form>
             </div>
         );

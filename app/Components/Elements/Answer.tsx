@@ -21,7 +21,7 @@ export class Answer extends React.Component<{ question: string }, {}>
                             <span className="glyphicon glyphicon-download-alt" aria-hidden="true">
                             </span>
                         </button>
-                        <button className="btn btn-primary"> Answer</button>
+                        <button className="btn blue-button"> Answer</button>
                     </div>
                 </div>
             </div>
