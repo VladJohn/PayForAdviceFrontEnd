@@ -15,7 +15,7 @@ export class UserPrivateProfileBasePage extends React.Component <{id:number},{na
     this.handleChangeWebsite = this.handleChangeWebsite.bind(this);
     this.handleChangeAvatar = this.handleChangeAvatar.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
+    this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9', 'TokenText': localStorage.getItem('token')});
     localStorage.setItem("Updated",'false');
     }
 
@@ -84,6 +84,7 @@ export class UserPrivateProfileBasePage extends React.Component <{id:number},{na
     handleSubmit(event : any){
         event.preventDefault();
         this.putData();
+        window.location.reload();
     }
     
     render(){
@@ -152,7 +153,7 @@ export class UserPrivateProfileBasePage extends React.Component <{id:number},{na
                             </span>
                         </div>
                         <div>
-                            <button  className="btn btn-primary" onClick={this.handleSubmit}>Update Information</button>
+                            <button  className="btn blue-button" onClick={this.handleSubmit}>Update Information</button>
                         </div>
                     </form>
                 </div>

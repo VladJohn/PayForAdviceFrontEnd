@@ -24,6 +24,13 @@ export class Menu extends React.Component <{},{isHome:boolean}>
 
     render()
     {
+        let buttonQuestions = null;
+        let buttonAnsweredQuestions = null;
+        let buttonAbout = null;
+        if (localStorage.getItem("token") != '') {
+            buttonQuestions = <Link to='/myQuestions' className="nav-link blue" onClick={this.refresh}>My Questions</Link>;
+            buttonAnsweredQuestions = <Link to='/myAnsweredQuestions' className="nav-link blue" onClick={this.refresh}>My Answered Questions</Link>
+        }
         return(
             <div className='menu'>
                 <div className="col col-lg-3"></div>
@@ -33,10 +40,13 @@ export class Menu extends React.Component <{},{isHome:boolean}>
                             <Link to='/' className="nav-link blue" onClick={this.refresh} >Home</Link>
                         </li>
                         <li className="nav-item">
-                        <Link to='/myQuestions' className="nav-link blue" onClick={this.refresh}>My Questions</Link>
+                            {buttonQuestions}
                         </li>
                         <li className="nav-item">
-                        <Link to='/myAnsweredQuestions' className="nav-link blue" onClick={this.refresh}>My Answered Questions</Link>
+                            {buttonAnsweredQuestions}
+                        </li>
+                        <li className="nav-item">
+                            <Link to='/about' className="nav-link blue" onClick={this.refresh}>About Advicy</Link>
                         </li>
                         </ul>
                     </Router>

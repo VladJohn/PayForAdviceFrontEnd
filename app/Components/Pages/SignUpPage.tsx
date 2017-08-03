@@ -110,7 +110,7 @@ export class SignUpPage extends React.Component <{},{name : string, username:str
                             </span>
                         </div>
                         <div className="spacing">
-                            <Link to='/' className="btn btn-primary" onClick={this.handleSubmit}>Sign Up</Link>
+                            <Link to='/' className="btn blue-button" onClick={this.handleSubmit}>Sign Up</Link>
                         </div>
                     </form>
                 </div>

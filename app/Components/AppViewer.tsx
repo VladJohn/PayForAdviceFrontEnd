@@ -1,7 +1,9 @@
 import * as React from "react"
 import { MainPage } from "Components/Pages/MainPage"
+import { About } from "Components/Pages/About"
 import { LoginPage } from "Components/Pages/LoginPage"
 import { SignUpPage } from "Components/Pages/SignUpPage"
+import { UserPrivateProfileAdviserPage } from "Components/Pages/UserPrivateProfileAdviserPage"
 import { UserPrivateProfileBasePage } from "Components/Pages/UserPrivateProfileBasePage"
 import { BaseUserQuestions } from "Components/Pages/BaseUserQuestions"
 import { CategoryPage } from "Components/Pages/CategoryPage"
@@ -59,9 +61,14 @@ export class AppViewer extends React.Component<{}, { tokenData: any }>
                             )} />
                             <Route path='/main' component={MainPage} />
                             <Route path='/register' component={SignUpPage} />
-                            {console.log("render "+this.state.tokenData.Id)}
+                            <Route path='/about' component={About} />
+                            {console.log("render "+this.state.tokenData.Role)}
                             <Route path='/myQuestions' render={(props) => <BaseUserQuestions idUser={this.state.tokenData.Id} />} />
-                            <Route path='/myProfile' render={(props) => <UserPrivateProfileBasePage id={this.state.tokenData.Id} />} />
+                            <Route path='/myProfile' render={(props) => 
+                                    (this.state.tokenData.Role === 2) ? 
+                                    (<UserPrivateProfileAdviserPage id={this.state.tokenData.Id} />)
+                                      : ( <UserPrivateProfileBasePage id={this.state.tokenData.Id} /> )
+                                    } />
                             <Route path='/category/:id' render={(props) => <CategoryPage id={props.match.params.id} />} />
                             <Route path='/user/:id' render={(props) => <UserProfilePublicPage id={props.match.params.id} />} />
                             <Route path='/question/:id' render={(props) => <AnswerBasePage idUser={props.match.params.id} />} />

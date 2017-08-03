@@ -73,7 +73,7 @@ export class AskAdvice extends React.Component<{idResponder : number, idAsker : 
                             <Price price={2.4} details="Get basic advice in 7 days" order="basic"></Price>
                         </div>
                     </div>
-                    <button type="submit" onClick={this.handleSubmit} className="btn btn-primary" >Submit</button>
+                    <button type="submit" onClick={this.handleSubmit} className="btn blue-button" >Submit</button>
                 </form>
             </div>
         );
