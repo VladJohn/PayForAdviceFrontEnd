@@ -9,8 +9,10 @@ import { BaseUserQuestions } from "Components/Pages/BaseUserQuestions"
 import { CategoryPage } from "Components/Pages/CategoryPage"
 import { UserProfilePublicPage } from "Components/Pages/UserProfilePublicPage"
 import { AnswerBasePage } from "Components/Pages/AnswerBasePage"
+import { AdviceQuestionsPending } from "Components/Pages/AdviceQuestionsPending"
 import { AdviceQuestions } from "Components/Pages/AdviceQuestions"
 import { AnsweredQuestionsForAdvicer } from "Components/Pages/AnsweredQuestionsForAdvicer"
+import { PendingQuestionsForAdvicer } from "Components/Pages/PendingQuestionsForAdvicer"
 
 import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom';
 
@@ -70,10 +72,12 @@ export class AppViewer extends React.Component<{}, { tokenData: any }>
                                       : ( <UserPrivateProfileBasePage id={this.state.tokenData.Id} /> )
                                     } />
                             <Route path='/category/:id' render={(props) => <CategoryPage id={props.match.params.id} />} />
-                            <Route path='/user/:id' render={(props) => <UserProfilePublicPage id={props.match.params.id} />} />
+                            <Route path='/user/:id' render={(props) => <UserProfilePublicPage id={props.match.params.id} idLoggedUser={this.state.tokenData.Id} />} />
                             <Route path='/question/:id' render={(props) => <AnswerBasePage idUser={props.match.params.id} />} />
                             <Route path='/myAnsweredQuestions' render={(props) => <AdviceQuestions idUser={this.state.tokenData.Id} />} />
+                            <Route path='/myPendingQuestions' render={(props) => <AdviceQuestionsPending idUser={this.state.tokenData.Id} />} />
                             <Route path='/questionsAnswered/:id' render={(props) => <AnsweredQuestionsForAdvicer id={props.match.params.id} />} />
+                            <Route path='/questionsPending/:id' render={(props) => <PendingQuestionsForAdvicer id={props.match.params.id} />} />
                         </div>
                     </Router>
                 </main>

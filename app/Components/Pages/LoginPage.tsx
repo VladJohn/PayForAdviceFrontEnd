@@ -97,7 +97,7 @@ export class LoginPage extends React.Component <{},{username:string, password:st
                                 <input type="password" name="password" className="form-control" placeholder='Type Your Password' onChange={this.handleLogInPassword}/>
                             </span>
                         </div>
-                    <div><Link to="/" className="btn blue-button spacing" onClick={this.handleSubmit}>Log in</Link></div>
+                    <div><Link to="/" className="btn blue-button spacing" onClick={this.handleSubmit}>Login</Link></div>
                     <div>
                         <span className="spacing">
                                 OR
