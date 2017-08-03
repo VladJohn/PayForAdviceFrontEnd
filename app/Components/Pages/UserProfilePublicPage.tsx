@@ -1,7 +1,7 @@
 import * as React from 'react'
 import {AskAdvice} from "Components/Elements/AskAdvice"
 
-export class UserProfilePublicPage extends React.Component <{id : number},{user : any}>{
+export class UserProfilePublicPage extends React.Component <{id : number,idLoggedUser : number},{user : any}>{
     
     baseUrl: string = 'http://localhost:52619/api/user/';
     headers: Headers;
@@ -47,7 +47,7 @@ export class UserProfilePublicPage extends React.Component <{id : number},{user 
                                 {this.state.user.Bio}
                             </div>
                 </div>
-                <AskAdvice idResponder={12} idAsker={13}/>
+                <AskAdvice idResponder={this.props.id} idAsker={this.props.idLoggedUser}/>
             </div>
 
         );

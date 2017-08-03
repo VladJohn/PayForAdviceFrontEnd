@@ -2,19 +2,32 @@ import * as React from 'react'
 import {Nav, NavItem} from 'react-bootstrap'
 import {BrowserRouter as Router, Link, Route, Redirect} from 'react-router-dom';
 
-export class Menu extends React.Component <{},{isHome:boolean}>
+export class Menu extends React.Component <{},{tokenData : any}>
 {
-    constructor()
-    {
+
+    baseUrl: string = 'http://localhost:52619/api/user/';
+    headers: Headers;
+
+    constructor() {
         super();
-        this.state = {isHome : true};
+        this.state = { tokenData: "" };
+        this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9', 'TokenText': localStorage.getItem('token') });
     }
 
-    handleSelect()
-    {
-        ///dunno how to do this bs
-        //this.state.isHome==false ? show me MyQuestion : show me Home
-        //this.state.isHome==false ? show me MyQuestion : show me Home  
+    componentDidMount() {
+        if (localStorage.getItem("token") != '') {
+            var cats = '';
+            return fetch(this.baseUrl + "?something=a", { method: "GET", headers: this.headers })
+                .then((response) => response.json())
+                .then(function (data) {
+                    cats = data;
+                    console.log(cats);
+                })
+                .then(() => {this.setState({ tokenData: cats });})
+                .catch(function (error) {
+                    console.log('request failedddd', error)
+                })
+        }
     }
 
     refresh()
@@ -25,11 +38,17 @@ export class Menu extends React.Component <{},{isHome:boolean}>
     render()
     {
         let buttonQuestions = null;
+        let buttonPendingQuestions = null;
         let buttonAnsweredQuestions = null;
         let buttonAbout = null;
         if (localStorage.getItem("token") != '') {
             buttonQuestions = <Link to='/myQuestions' className="nav-link blue" onClick={this.refresh}>My Questions</Link>;
-            buttonAnsweredQuestions = <Link to='/myAnsweredQuestions' className="nav-link blue" onClick={this.refresh}>My Answered Questions</Link>
+            if (this.state.tokenData.Role == 2)
+                {
+                      buttonAnsweredQuestions = <Link to='/myAnsweredQuestions' className="nav-link blue" onClick={this.refresh}>My Answered Questions</Link>  
+                      buttonPendingQuestions = <Link to='/myPendingQuestions' className="nav-link blue" onClick={this.refresh}>My Pending Questions</Link>  
+                }
+            
         }
         return(
             <div className='menu'>
@@ -44,6 +63,9 @@ export class Menu extends React.Component <{},{isHome:boolean}>
                         </li>
                         <li className="nav-item">
                             {buttonAnsweredQuestions}
+                        </li>
+                        <li className="nav-item">
+                            {buttonPendingQuestions}
                         </li>
                         <li className="nav-item">
                             <Link to='/about' className="nav-link blue" onClick={this.refresh}>About Advicy</Link>

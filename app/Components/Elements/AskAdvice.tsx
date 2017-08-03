@@ -1,19 +1,41 @@
 import * as React from "react"
 import { Price } from "Components/Elements/Price"
 
-export class AskAdvice extends React.Component<{idResponder : number, idAsker : number}, { question: string, price: string }>
+export class AskAdvice extends React.Component<{idResponder : number, idAsker : number}, { question: string, base:number, normal:number, premium:number,success:boolean,baseDetail:string, normalDetail:string, premiumDetail:string}>
 {
 
     baseUrl: string = 'http://localhost:52619/api/question/?idResponder=';
+    baseUrl2: string = 'http://localhost:52619/api/price/?idUser=';
     headers: Headers;
     ///NEED TO ADD EVENT FOR FILE UPLOAD and prices
     constructor() {
         super();
-        this.state = { question: '', price: '' };
+        this.state = { question: '', base:0, normal:0, premium:0, success:false, baseDetail:'', normalDetail:'', premiumDetail:''};
         this.handleQuestion = this.handleQuestion.bind(this);
-        this.handlePrice = this.handlePrice.bind(this);
+        this.handlePricePremium = this.handlePricePremium.bind(this);
+        this.handlePriceNormal = this.handlePriceNormal.bind(this);
+        this.handlePriceBase = this.handlePriceBase.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
+    }
+
+    componentDidMount()
+    {
+        var cats: any;
+        cats = '';
+        console.log(this.props.idResponder);
+        return fetch(this.baseUrl2 + this.props.idResponder)
+            .then((response) => response.json())
+            .then(function (data) {
+                cats = data;
+                console.log(data);
+            })
+            .then(() => (
+                this.setState({ base: cats.Base, normal:cats.Normal, premium:cats.Premium, baseDetail:cats.DetailBase, normalDetail:cats.DetailNormal, premiumDetail:cats.DetailPremium })
+            ))
+            .catch(function (error) {
+                console.log('request failedddd', error)
+            })
     }
 
     postData(){
@@ -28,6 +50,7 @@ export class AskAdvice extends React.Component<{idResponder : number, idAsker : 
                 cats = data;
                 console.log(cats);
             })
+            .then(() => this.setState({success: true}))
             .catch(function (error) {
                 console.log('request failedddd', error)
             })
@@ -36,8 +59,14 @@ export class AskAdvice extends React.Component<{idResponder : number, idAsker : 
     handleQuestion(event: React.FormEvent<HTMLTextAreaElement>) {
         this.setState({ question: event.currentTarget.value });
     }
-    handlePrice(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({ price: event.currentTarget.value });
+    handlePricePremium(event: React.FormEvent<HTMLInputElement>) {
+        this.setState({ premium: parseFloat( event.currentTarget.value) });
+    }
+    handlePriceNormal(event: React.FormEvent<HTMLInputElement>) {
+        this.setState({ normal: parseFloat( event.currentTarget.value) });
+    }
+    handlePriceBase(event: React.FormEvent<HTMLInputElement>) {
+        this.setState({ base: parseFloat( event.currentTarget.value) });
     }
     handleSubmit(e :any){
         e.preventDefault();
@@ -45,6 +74,11 @@ export class AskAdvice extends React.Component<{idResponder : number, idAsker : 
     }
 
     render() {
+         let message = null;
+        if (this.state.success==true)
+            {
+                message = <div className="spacing alert alert-success"> <strong>Success!</strong> Your question has been asked.</div>
+            }
         return (
             <div className="row">
                 <h3>Ask for advice:</h3>
@@ -54,27 +88,28 @@ export class AskAdvice extends React.Component<{idResponder : number, idAsker : 
                     <input className="spacing" type="file" />
                     <div className="col col-md-4 panel panel-default">
                         <div className="panel-body">
-                            <input type="radio" value="premium" name="price" onChange={this.handlePrice} />
-                            <Price price={15.4} details="Get premium advice in 24h" order="premium"></Price>
+                            <input type="radio" value={this.state.premium} name="price" onChange={this.handlePricePremium} />
+                            <Price price={this.state.premium} details={this.state.premiumDetail} order="premium price"></Price>
                         </div>
                     </div>
 
 
                     <div className="col col-md-4 panel panel-default">
                         <div className="panel-body">
-                            <input type="radio" value="extra" name="price" onChange={this.handlePrice} />
-                            <Price price={8.4} details="Get extra advice in 4 days" order="extra"></Price>
+                            <input type="radio" value={this.state.normal} name="price" onChange={this.handlePriceNormal} />
+                            <Price price={this.state.normal} details={this.state.normalDetail} order="normal price"></Price>
                         </div>
                     </div>
 
                     <div className="col col-md-4 panel panel-default">
                         <div className="panel-body">
-                            <input type="radio" value="basic" name="price" onChange={this.handlePrice} />
-                            <Price price={2.4} details="Get basic advice in 7 days" order="basic"></Price>
+                            <input type="radio" value={this.state.base} name="price" onChange={this.handlePriceBase} />
+                            <Price price={this.state.base} details={this.state.baseDetail} order="basic price"></Price>
                         </div>
                     </div>
                     <button type="submit" onClick={this.handleSubmit} className="btn blue-button" >Submit</button>
                 </form>
+                {message}
             </div>
         );
     }
