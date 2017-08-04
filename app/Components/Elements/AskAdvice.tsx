@@ -71,6 +71,7 @@ export class AskAdvice extends React.Component<{idResponder : number, idAsker : 
     handleSubmit(e :any){
         e.preventDefault();
         this.postData();
+        window.location.replace("/success");
     }
 
     render() {
