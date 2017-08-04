@@ -13,6 +13,7 @@ export class Answer extends React.Component<{ idQuestion : number }, { idAnswer 
         this.state = { idAnswer : 0, answer: ''};
         this.handleAnswer = this.handleAnswer.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmitRefusal = this.handleSubmitRefusal.bind(this);
         this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
     }
 
@@ -28,7 +29,6 @@ export class Answer extends React.Component<{ idQuestion : number }, { idAnswer 
             .then(() => 
                     {
                         this.setState({ idAnswer:cats.Id});
-
             })
             .catch(function (error) {
                 console.log('request failedddd', error)
@@ -53,6 +53,24 @@ export class Answer extends React.Component<{ idQuestion : number }, { idAnswer 
             })
     }
 
+    putRefundedStatus()
+    {
+        var cats: any;
+        var ceva = {idQuestion : this.props.idQuestion}
+        var form2 = JSON.stringify(ceva);
+        console.log(form2);
+        cats = '';
+        return fetch(this.baseUrl+"?idQuestion="+this.props.idQuestion, {method : "PUT", body: form2, headers:this.headers})
+            .then((response) => response.json())
+            .then(function (data) {
+                cats = data;
+                console.log(cats);
+            })
+            .catch(function (error) {
+                console.log('request failedddd', error)
+            })
+    }
+
     handleAnswer(event: React.FormEvent<HTMLTextAreaElement>) {
         this.setState({ answer: event.currentTarget.value });
     }
@@ -60,6 +78,12 @@ export class Answer extends React.Component<{ idQuestion : number }, { idAnswer 
     handleSubmit(e :any){
         e.preventDefault();
         this.putData();
+        window.location.replace("/success");
+    }
+
+    handleSubmitRefusal(e :any){
+        e.preventDefault();
+        this.putRefundedStatus();
     }
 
     
@@ -68,8 +92,6 @@ export class Answer extends React.Component<{ idQuestion : number }, { idAnswer 
             <div className="spacing">
                     <h4><i>Add your response:</i></h4>
                     <textarea className="form-control " rows={9} onChange={this.handleAnswer}></textarea>
-                
-        
                     <div className="spacing col-md-10 text-left">  
                         <input type="file" />
                     </div>
@@ -84,7 +106,7 @@ export class Answer extends React.Component<{ idQuestion : number }, { idAnswer 
                     </div>
                
                 <button className="spacing btn spacing-right blue-button"  onClick={this.handleSubmit}> Answer</button>
-                <button className="spacing btn grey-button" > Refuse to answer</button>
+                <button className="spacing btn grey-button" onClick={this.handleSubmitRefusal} > Refuse to answer</button>
             </div>
         );
     }

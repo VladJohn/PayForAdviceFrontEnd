@@ -120,12 +120,18 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
         }
 
     render(){
+       let answer = null;
+      if (this.state.q.Status =="refunded"){
+            answer = <div>The adviser refused to answer this question or the time limit expired. Your money have been refunded.</div>}
+        else {
+            answer = <p>{this.state.ans.AnswerText}</p>
+        }
         return (
             <div>
                     <span>
                         
-                        <h3>{this.state.q.QuestionText}<img className="small-icon" onClick={this.shareOnFb} src="/pictures/fb.png"></img></h3>
-                        <p>{this.state.ans.AnswerText}</p>
+                        <h3>{this.state.q.QuestionText}<img className="small-icon" onClick={this.shareOnFb} src="/pictures/fb.png"></img></h3> 
+                        
                     </span>
                     <div>
                         <label>
