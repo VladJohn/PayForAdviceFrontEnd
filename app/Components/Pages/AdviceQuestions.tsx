@@ -46,7 +46,7 @@ export class AdviceQuestions extends React.Component<{ idUser: number }, { advis
                 </div>
                 <ListView elements={
                     this.state.adviserQuestions.map(function (object, i) {
-                        return <Question type={"questionsAnswered"}id={object.Id} question={object.QuestionText} status={object.Status} date={object.Date.substring(0,10)}/>;
+                        return <Question type={"questionsAnswered"}id={object.Id} question={object.QuestionText} status={object.Status} date={object.Date.substring(0,10)} ordine={object.Order}/>;
                     }
                     )
                 } />

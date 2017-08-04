@@ -1,13 +1,13 @@
 import * as React from 'react'
 import {BrowserRouter as Router, Link, Route, Redirect} from 'react-router-dom';
 
-export class UserPrivateProfileAdviserPage extends React.Component <{id:number},{name: string, email: string, bio: string, website: string, base:string, normal:string, premium:string, password:string, avatarUrl :string}>{
+export class UserPrivateProfileAdviserPage extends React.Component <{id:number},{name: string, email: string, bio: string, website: string, base:string, normal:string, premium:string, password:string, avatarUrl :string, rating:number}>{
     
     baseUrl: string = 'http://localhost:52619/api/user/';
     headers: Headers;
     constructor() {
     super();
-    this.state = {name:'', email:'', bio:'', website:'', base:'', normal:'', premium:'', password:'', avatarUrl:''};
+    this.state = {name:'', email:'', bio:'', website:'', base:'', normal:'', premium:'', password:'', avatarUrl:'', rating:0};
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
     this.handleChangeConfirmPassword = this.handleChangeConfirmPassword.bind(this);
@@ -32,7 +32,7 @@ export class UserPrivateProfileAdviserPage extends React.Component <{id:number},
             {
                 if(localStorage.getItem('Updated') === 'false')
                     {
-                        this.setState({ name:cats.Name, email:cats.Email, bio:cats.Bio, website:cats.Website , password:cats.Password, avatarUrl:cats.AvatarUrl, base:cats.base, normal:cats.normal, premium:cats.premium}),
+                        this.setState({ name:cats.Name, email:cats.Email, bio:cats.Bio, website:cats.Website , password:cats.Password, avatarUrl:cats.AvatarUrl, base:cats.base, normal:cats.normal, premium:cats.premium, rating:cats.Rating}),
                         localStorage.setItem("Updated", 'true')
                     }})
             .catch(function (error) {
@@ -93,6 +93,9 @@ export class UserPrivateProfileAdviserPage extends React.Component <{id:number},
                     </h1>
                     <form>
                         <div>
+                            <div>
+                                <label>My rating: {this.state.rating}</label>
+                            </div>
                             <span>
                                     Name:      
                             </span>
