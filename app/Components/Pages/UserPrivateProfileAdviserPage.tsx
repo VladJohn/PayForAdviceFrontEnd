@@ -1,4 +1,5 @@
 import * as React from 'react'
+import {BrowserRouter as Router, Link, Route, Redirect} from 'react-router-dom';
 
 export class UserPrivateProfileAdviserPage extends React.Component <{id:number},{name: string, email: string, bio: string, website: string, base:string, normal:string, premium:string, password:string, avatarUrl :string}>{
     
@@ -14,12 +15,8 @@ export class UserPrivateProfileAdviserPage extends React.Component <{id:number},
     this.handleChangeBio = this.handleChangeBio.bind(this);
     this.handleChangeWebsite = this.handleChangeWebsite.bind(this);
     this.handleChangeAvatar = this.handleChangeAvatar.bind(this);
-    this.handleChangeBase = this.handleChangeBase.bind(this);
-    this.handleChangeNormal = this.handleChangeNormal.bind(this);
-    this.handleChangePremium = this.handleChangePremium.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9', 'TokenText': localStorage.getItem('token') });
-    localStorage.setItem("Updated",'false');
+    localStorage.getItem('Updated') === 'false'
     }
 
     componentDidMount()
@@ -39,7 +36,7 @@ export class UserPrivateProfileAdviserPage extends React.Component <{id:number},
                         localStorage.setItem("Updated", 'true')
                     }})
             .catch(function (error) {
-                console.log('request failedddd', error)
+                console.log('request failed! Try again', error)
             })
     }
 
@@ -82,16 +79,6 @@ export class UserPrivateProfileAdviserPage extends React.Component <{id:number},
     handleChangeAvatar(event : React.FormEvent<HTMLInputElement>){
             this.setState({avatarUrl:event.currentTarget.value})
     }
-    handleChangeBase(event : React.FormEvent<HTMLInputElement>){
-            this.setState({base:event.currentTarget.value});
-    }
-    handleChangeNormal(event : React.FormEvent<HTMLInputElement>){
-            this.setState({normal:event.currentTarget.value});
-    }
-     handleChangePremium(event : React.FormEvent<HTMLInputElement>){
-            this.setState({premium:event.currentTarget.value});
-    }
-
     handleSubmit(event : any){
         event.preventDefault();
         this.putData();
@@ -155,30 +142,6 @@ export class UserPrivateProfileAdviserPage extends React.Component <{id:number},
                         </div>
                         <div>
                             <span>
-                                    Base Price:
-                            </span>
-                            <span>
-                                <input type="text" name="ChangeBasePrice"className="form-control" placeholder={this.state.base} onChange={this.handleChangeBase}/>
-                            </span>
-                        </div>
-                        <div>
-                            <span>
-                                    Normal Price:
-                            </span>
-                            <span>
-                                <input type="text" name="ChangeNormalPrice"className="form-control" placeholder={this.state.normal}  onChange={this.handleChangeNormal}/>
-                            </span>
-                        </div>
-                        <div>
-                            <span>
-                                    Premium Price:
-                            </span>
-                            <span>
-                                <input type="text" name="ChangePremiumPrice"className="form-control" placeholder={this.state.premium}  onChange={this.handleChangePremium}/>
-                            </span>
-                        </div>
-                        <div>
-                            <span>
                                     New Avatar Url:
                             </span>
                             <span>
@@ -186,7 +149,8 @@ export class UserPrivateProfileAdviserPage extends React.Component <{id:number},
                             </span>
                         </div>
                         <div>
-                            <button className="btn blue-button" onClick={this.handleSubmit}>Update Information</button>
+                            <Link key={this.props.id} to={"/addPrice/" + this.props.id} className="btn  blue-button spacing" >Add or update your prices</Link>   
+                            <button className="btn  blue-button" onClick={this.handleSubmit}>Update Information</button>
                         </div>
                     </form>
                 </div>

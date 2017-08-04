@@ -14,6 +14,7 @@ import { AdviceQuestions } from "Components/Pages/AdviceQuestions"
 import { AnsweredQuestionsForAdvicer } from "Components/Pages/AnsweredQuestionsForAdvicer"
 import { PendingQuestionsForAdvicer } from "Components/Pages/PendingQuestionsForAdvicer"
 
+import { AddPrice } from "Components/Pages/AddPrice"
 import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom';
 
 
@@ -37,7 +38,7 @@ export class AppViewer extends React.Component<{}, { tokenData: any }>
                     cats = data;
                     console.log(cats);
                 })
-                .then(() => {this.setState({ tokenData: cats });})
+                .then(() => { this.setState({ tokenData: cats }); })
                 .catch(function (error) {
                     console.log('request failedddd', error)
                 })
@@ -78,6 +79,7 @@ export class AppViewer extends React.Component<{}, { tokenData: any }>
                             <Route path='/myPendingQuestions' render={(props) => <AdviceQuestionsPending idUser={this.state.tokenData.Id} />} />
                             <Route path='/questionsAnswered/:id' render={(props) => <AnsweredQuestionsForAdvicer id={props.match.params.id} />} />
                             <Route path='/questionsPending/:id' render={(props) => <PendingQuestionsForAdvicer id={props.match.params.id} />} />
+                            <Route path='/addPrice/:id' render={(props) => <AddPrice userId={props.match.params.id} />} />
                         </div>
                     </Router>
                 </main>
