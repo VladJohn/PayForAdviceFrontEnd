@@ -3,11 +3,11 @@ import { Question } from "Components/Elements/Question"
 
 export class Answer extends React.Component<{ idQuestion : number }, { idAnswer : number, answer : string, success : boolean}>
 {
-
-    baseUrl: string = 'http://localhost:52619/api/question/';
-    baseUrl2: string = 'http://localhost:52619/api/answer/';
+    refundedQuestionUrl: string = 'http://localhost:52619/api/question/?idQuestion='
+    putAnswerUrl: string = 'http://localhost:52619/api/answer/';
+    pendingQuestionsUrl: string = 'http://localhost:52619/api/answer/?idQuestionPending=';
     headers: Headers;
-    ///NEED TO ADD EVENT FOR FILE UPLOAD and prices
+
     constructor() {
         super();
         this.state = { idAnswer : 0, answer: '', success: false};
@@ -19,16 +19,17 @@ export class Answer extends React.Component<{ idQuestion : number }, { idAnswer 
 
     componentDidMount()
     {
-        var cats: any;
-        cats = '';
-        return fetch(this.baseUrl2+"?idQuestionPending="+this.props.idQuestion)
+        var pendingQuestion: any;
+        pendingQuestion = '';
+        return fetch(this.pendingQuestionsUrl+this.props.idQuestion)
             .then((response) => response.json())
             .then(function (data) {
-                cats = data;
+                pendingQuestion = data;
+                console.log(pendingQuestion);
             })
             .then(() => 
-                    {
-                        this.setState({ idAnswer:cats.Id});
+            {
+                this.setState({ idAnswer:pendingQuestion.Id});
             })
             .catch(function (error) {
                 console.log('request failedddd', error)
@@ -37,18 +38,20 @@ export class Answer extends React.Component<{ idQuestion : number }, { idAnswer 
     
     putData()
     {
-        var cats: any;
-        var ceva = {id : this.state.idAnswer, AnswerText:this.state.answer}
-        var form2 = JSON.stringify(ceva);
-        console.log(form2);
-        cats = '';
-        return fetch(this.baseUrl2, {method : "PUT", body: form2, headers:this.headers})
+        var answer: any;
+        answer = '';
+        var bodyInformation = {id : this.state.idAnswer, AnswerText:this.state.answer}
+        var bodyJSON = JSON.stringify(bodyInformation);
+        console.log(bodyJSON);
+        return fetch(this.putAnswerUrl, {method : "PUT", body: bodyJSON, headers:this.headers})
             .then((response) => response.json())
             .then(function (data) {
-                cats = data;
-                console.log(cats);
+                answer = data;
+                console.log(answer);
             })
-            .then(()=> this.setState({success:true}))
+            .then(()=> 
+                this.setState({success:true})
+            )
             .catch(function (error) {
                 console.log('request failedddd', error)
             })
@@ -56,16 +59,16 @@ export class Answer extends React.Component<{ idQuestion : number }, { idAnswer 
 
     putRefundedStatus()
     {
-        var cats: any;
-        var ceva = {idQuestion : this.props.idQuestion}
-        var form2 = JSON.stringify(ceva);
-        console.log(form2);
-        cats = '';
-        return fetch(this.baseUrl+"?idQuestion="+this.props.idQuestion, {method : "PUT", body: form2, headers:this.headers})
+        var refundedQuestion: any;
+        refundedQuestion = '';
+        var bodyInformation = {idQuestion : this.props.idQuestion}
+        var bodyJSON = JSON.stringify(bodyInformation);
+        console.log(bodyJSON);
+        return fetch(this.refundedQuestionUrl+this.props.idQuestion, {method : "PUT", body: bodyJSON, headers:this.headers})
             .then((response) => response.json())
             .then(function (data) {
-                cats = data;
-                console.log(cats);
+                refundedQuestion = data;
+                console.log(refundedQuestion);
             })
             .catch(function (error) {
                 console.log('request failedddd', error)
@@ -76,13 +79,13 @@ export class Answer extends React.Component<{ idQuestion : number }, { idAnswer 
         this.setState({ answer: event.currentTarget.value });
     }
 
-    handleSubmit(e :any){
-        e.preventDefault();
+    handleSubmit(event :any){
+        event.preventDefault();
         this.putData();
     }
 
-    handleSubmitRefusal(e :any){
-        e.preventDefault();
+    handleSubmitRefusal(event :any){
+        event.preventDefault();
         this.putRefundedStatus();
     }
 
@@ -105,11 +108,9 @@ export class Answer extends React.Component<{ idQuestion : number }, { idAnswer 
                             
                             <span className="glyphicon glyphicon-download-alt" aria-hidden="true">
                             </span>
-                            <span> download files </span>
+                            <span> Download Files </span>
                         </button>
-                        
                     </div>
-               
                 <button className="spacing btn spacing-right blue-button"  onClick={this.handleSubmit}> Answer</button>
                 <button className="spacing btn grey-button" onClick={this.handleSubmitRefusal} > Refuse to answer</button>
                 {message}

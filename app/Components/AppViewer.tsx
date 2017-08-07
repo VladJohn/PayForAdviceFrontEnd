@@ -31,7 +31,7 @@ export class AppViewer extends React.Component<{}, { tokenData: any }>
     componentDidMount() {
         if (localStorage.getItem("token") != '') {
             var cats = '';
-            return fetch(this.baseUrl + "?something=a", { method: "GET", headers: this.headers })
+            return fetch(this.baseUrl + "?userData=get", { method: "GET", headers: this.headers })
                 .then((response) => response.json())
                 .then(function (data) {
                     cats = data;

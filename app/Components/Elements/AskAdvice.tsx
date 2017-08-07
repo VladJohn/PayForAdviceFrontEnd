@@ -3,11 +3,10 @@ import { Price } from "Components/Elements/Price"
 
 export class AskAdvice extends React.Component<{idResponder : number, idAsker : number}, { question: string, base:number, normal:number, premium:number,success:boolean,baseDetail:string, normalDetail:string, premiumDetail:string, order:string}>
 {
-
-    baseUrl: string = 'http://localhost:52619/api/question/?idResponder=';
-    baseUrl2: string = 'http://localhost:52619/api/price/?idUser=';
+    postQuestionUrl: string = 'http://localhost:52619/api/question/?idResponder=';
+    publicProfileUrl: string = 'http://localhost:52619/api/price/?idUser=';
     headers: Headers;
-    ///NEED TO ADD EVENT FOR FILE UPLOAD and prices
+
     constructor() {
         super();
         this.state = { question: '', base:0, normal:0, premium:0, success:false, baseDetail:'', normalDetail:'', premiumDetail:'', order:''};
@@ -21,17 +20,17 @@ export class AskAdvice extends React.Component<{idResponder : number, idAsker : 
 
     componentDidMount()
     {
-        var cats: any;
-        cats = '';
+        var profile: any;
+        profile = '';
         console.log(this.props.idResponder);
-        return fetch(this.baseUrl2 + this.props.idResponder)
+        return fetch(this.publicProfileUrl + this.props.idResponder)
             .then((response) => response.json())
             .then(function (data) {
-                cats = data;
+                profile = data;
                 console.log(data);
             })
             .then(() => (
-                this.setState({ base: cats.Base, normal:cats.Normal, premium:cats.Premium, baseDetail:cats.DetailBase, normalDetail:cats.DetailNormal, premiumDetail:cats.DetailPremium })
+                this.setState({ base: profile.Base, normal:profile.Normal, premium:profile.Premium, baseDetail:profile.DetailBase, normalDetail:profile.DetailNormal, premiumDetail:profile.DetailPremium })
             ))
             .catch(function (error) {
                 console.log('request failedddd', error)
@@ -39,16 +38,16 @@ export class AskAdvice extends React.Component<{idResponder : number, idAsker : 
     }
 
     postData(){
-        var cats: any;
-        var ceva = {QuestionText: this.state.question, UserId: this.props.idAsker, Order: this.state.order}
-        var form2 = JSON.stringify(ceva);
-        console.log(form2);
-        cats = '';
-        return fetch(this.baseUrl+this.props.idResponder, {method : "POST", body: form2, headers:this.headers})
+        var postedQuestion: any;
+        var bodyInformation = {QuestionText: this.state.question, UserId: this.props.idAsker, Order: this.state.order}
+        var bodyJSON = JSON.stringify(bodyInformation);
+        console.log(bodyJSON);
+        postedQuestion = '';
+        return fetch(this.postQuestionUrl+this.props.idResponder, {method : "POST", body: bodyJSON, headers:this.headers})
             .then((response) => response.json())
             .then(function (data) {
-                cats = data;
-                console.log(cats);
+                postedQuestion = data;
+                console.log(postedQuestion);
             })
             .then(() => this.setState({success: true}))
             .catch(function (error) {
@@ -59,17 +58,21 @@ export class AskAdvice extends React.Component<{idResponder : number, idAsker : 
     handleQuestion(event: React.FormEvent<HTMLTextAreaElement>) {
         this.setState({ question: event.currentTarget.value });
     }
+
     handlePricePremium(event: React.FormEvent<HTMLInputElement>) {
         this.setState({ premium: parseFloat( event.currentTarget.value) , order:'premium'});
     }
+
     handlePriceNormal(event: React.FormEvent<HTMLInputElement>) {
         this.setState({ normal: parseFloat( event.currentTarget.value) , order:'standard'});
     }
+
     handlePriceBase(event: React.FormEvent<HTMLInputElement>) {
         this.setState({ base: parseFloat( event.currentTarget.value) , order:'basic'});
     }
-    handleSubmit(e :any){
-        e.preventDefault();
+    
+    handleSubmit(event :any){
+        event.preventDefault();
         this.postData();
     }
 
@@ -92,15 +95,12 @@ export class AskAdvice extends React.Component<{idResponder : number, idAsker : 
                             <Price price={this.state.premium} details={this.state.premiumDetail} order="premium price"></Price>
                         </div>
                     </div>
-
-
                     <div className="col col-md-4 panel panel-default">
                         <div className="panel-body">
                             <input type="radio" value={this.state.normal} name="price" onChange={this.handlePriceNormal} />
                             <Price price={this.state.normal} details={this.state.normalDetail} order="standard price"></Price>
                         </div>
                     </div>
-
                     <div className="col col-md-4 panel panel-default">
                         <div className="panel-body">
                             <input type="radio" value={this.state.base} name="price" onChange={this.handlePriceBase} />

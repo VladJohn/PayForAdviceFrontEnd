@@ -24,7 +24,7 @@ export class UserPrivateProfileAdviserPage extends React.Component <{id:number},
     {
         var cats: any;
         cats = '';
-        return fetch(this.baseUrl+"?id="+this.props.id)
+        return fetch(this.baseUrl+"?userId="+this.props.id, {method : "GET", headers:this.headers})
             .then((response) => response.json())
             .then(function (data) {
                 cats = data;
