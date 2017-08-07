@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export class AnswerBasePage extends React.Component <{idUser:number},{ rating: string, report:string, ans:any, q:any, success:boolean,}>{
+export class AnswerBasePage extends React.Component <{idUser:number},{ rating: string, report:string, ans:any, q:any, success:boolean, rated : boolean, successReport : boolean}>{
     baseUrl: string = 'http://localhost:52619/api/answer/?idQuestion=';
     baseUrl2: string = 'http://localhost:52619/api/question/?idQuestion=';
     baseUrl3: string = 'http://localhost:52619/api/answer/';
@@ -8,7 +8,7 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
     
     constructor() {
     super();
-    this.state = {rating:'', report:'', ans: "", q:'', success : false };
+    this.state = {rating:'', report:'', ans: "", q:'', success : false, rated : false, successReport: false };
     this.handleReport = this.handleReport.bind(this);
     this.handleRating = this.handleRating.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,6 +28,9 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
                 cats = data;
                 console.log(cats);
             })
+           .then(() => (
+                    this.setState({ successReport : true })
+                ))
             .catch(function (error) {
                 console.log('request failed! Try again', error)
             })
@@ -44,6 +47,9 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
                 cats = data;
                 console.log(cats);
             })
+            .then(() => (
+                    this.setState({ success : true })
+                ))
             .catch(function (error) {
                 console.log('request failed! Try again', error)
             })
@@ -93,9 +99,12 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
                     res = data;
                     console.log(data, res);
                 })
-                .then(() => (
-                    this.setState({ ans: res, success : true })
-                ))
+                .then(() => {
+                    this.setState({ ans: res });
+                    if (res.Rating!=0){
+                        this.setState({rated: true});
+                    }
+                })
                 .then(()=>{this.getQText()})
                 .catch(function (error) {
                     console.log('request failed', error)
@@ -125,6 +134,22 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
         {
             message = <div className="spacing alert alert-success"> <strong>Success!</strong> Your rating has been sent.</div>
         }
+        if (this.state.successReport==true)
+        {
+            message = <div className="spacing alert alert-success"> <strong>Success!</strong> Your report has been sent.</div>
+        }
+
+        let ratingButton = null;
+        if (this.state.rated==true)
+        {
+            ratingButton = <div><button className="btn blue-button spacing-right" onClick={this.handleSubmitRating} disabled={true}>send rating now</button>
+            You already rated this question {this.state.ans.Rating} stars.</div>
+        }
+        else{
+            ratingButton = <button className="btn blue-button" onClick={this.handleSubmitRating}>send rating now</button>
+        }
+
+
        let answer = null;
        let fb = null;
       if (this.state.q.Status =="refunded"){
@@ -135,6 +160,14 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
                 <div>    
                     {this.state.ans.AnswerText}                
                     <div>
+                    <div>
+                        <div className="spacing">
+                            <label>Copy this into your browser's URL to download files sent by advisor: link</label>
+                        </div>
+                        <div>
+                            <label>{this.state.ans.url}</label>
+                        </div>
+                    </div>
                         <label>
                             Rate:
                         </label>
@@ -162,22 +195,12 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
                         
                         <div className="col col-md-14">
                         <form>
-                            <button className="btn blue-button" onClick={this.handleSubmitRating}>send rating now</button>
+                            {ratingButton}
                         </form>
-                        {message}
+                        
                         </div>
 
                         <br/>
-                        <br/>
-                        <br/>
-                    </div>
-                    <div>
-                        <div>
-                            <label>Copy this into your browser's URL to download files sent by advisor:</label>
-                        </div>
-                        <div>
-                            <label>{this.state.ans.url}</label>
-                        </div>
                     </div>
                     <br/>
                     <br/>
@@ -186,8 +209,9 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
                     <form>
                         Was the answer you received unhelpful, offensive or spam? Report it:
                         <textarea className="form-control spacing" name="report" rows={3} placeholder='Type your report message here.' onChange={this.handleReport}/>
-                        <button className="btn blue-button spacing" onClick={this.handleSubmit}>send report</button>
+                        <button  className="btn blue-button spacing" onClick={this.handleSubmit}>send report</button>
                     </form>
+                    {message}
                     </div>
         }
 else {

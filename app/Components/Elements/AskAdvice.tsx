@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Price } from "Components/Elements/Price"
 
-export class AskAdvice extends React.Component<{idResponder : number, idAsker : number}, { question: string, base:number, normal:number, premium:number,success:boolean,baseDetail:string, normalDetail:string, premiumDetail:string}>
+export class AskAdvice extends React.Component<{idResponder : number, idAsker : number}, { question: string, base:number, normal:number, premium:number,success:boolean,baseDetail:string, normalDetail:string, premiumDetail:string, order:string}>
 {
 
     baseUrl: string = 'http://localhost:52619/api/question/?idResponder=';
@@ -10,7 +10,7 @@ export class AskAdvice extends React.Component<{idResponder : number, idAsker : 
     ///NEED TO ADD EVENT FOR FILE UPLOAD and prices
     constructor() {
         super();
-        this.state = { question: '', base:0, normal:0, premium:0, success:false, baseDetail:'', normalDetail:'', premiumDetail:''};
+        this.state = { question: '', base:0, normal:0, premium:0, success:false, baseDetail:'', normalDetail:'', premiumDetail:'', order:''};
         this.handleQuestion = this.handleQuestion.bind(this);
         this.handlePricePremium = this.handlePricePremium.bind(this);
         this.handlePriceNormal = this.handlePriceNormal.bind(this);
@@ -40,7 +40,7 @@ export class AskAdvice extends React.Component<{idResponder : number, idAsker : 
 
     postData(){
         var cats: any;
-        var ceva = {QuestionText: this.state.question, UserId: this.props.idAsker}
+        var ceva = {QuestionText: this.state.question, UserId: this.props.idAsker, Order: this.state.order}
         var form2 = JSON.stringify(ceva);
         console.log(form2);
         cats = '';
@@ -60,13 +60,13 @@ export class AskAdvice extends React.Component<{idResponder : number, idAsker : 
         this.setState({ question: event.currentTarget.value });
     }
     handlePricePremium(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({ premium: parseFloat( event.currentTarget.value) });
+        this.setState({ premium: parseFloat( event.currentTarget.value) , order:'premium'});
     }
     handlePriceNormal(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({ normal: parseFloat( event.currentTarget.value) });
+        this.setState({ normal: parseFloat( event.currentTarget.value) , order:'standard'});
     }
     handlePriceBase(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({ base: parseFloat( event.currentTarget.value) });
+        this.setState({ base: parseFloat( event.currentTarget.value) , order:'basic'});
     }
     handleSubmit(e :any){
         e.preventDefault();

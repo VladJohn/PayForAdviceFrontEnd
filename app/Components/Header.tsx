@@ -44,7 +44,7 @@ export class Header extends React.Component <{},{}>
         if (localStorage.getItem("token") != '') {
             buttonProfile = <Link to='/myProfile' className="glyphicon glyphicon-user" aria-hidden="true" onClick={this.refresh2}></Link>
             buttonLog = <Link to="/" className="glyphicon glyphicon-log-out" aria-hidden="true" onClick={this.LogOut}></Link>
-            userName = <div className="navbar-text">John Snow</div>
+            userName = <div className="navbar-text"></div>
         }
         else
             buttonLog = <Link to="/" className="glyphicon glyphicon-log-in" aria-hidden="true" onClick={this.LogOut}></Link>
