@@ -3,8 +3,6 @@ import {AnswerBasePage} from 'Components/Pages/AnswerBasePage'
 
 export class Question extends React.Component<{type : string,id:number, question: string, status: string, date: string, ordine:string}, {}>
 {
-
-
   render() {
     return (
       <div className="row">
