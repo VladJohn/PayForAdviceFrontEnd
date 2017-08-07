@@ -71,7 +71,6 @@ export class AskAdvice extends React.Component<{idResponder : number, idAsker : 
     handleSubmit(e :any){
         e.preventDefault();
         this.postData();
-        window.location.replace("/success");
     }
 
     render() {
@@ -98,14 +97,14 @@ export class AskAdvice extends React.Component<{idResponder : number, idAsker : 
                     <div className="col col-md-4 panel panel-default">
                         <div className="panel-body">
                             <input type="radio" value={this.state.normal} name="price" onChange={this.handlePriceNormal} />
-                            <Price price={this.state.normal} details={this.state.normalDetail} order="normal price"></Price>
+                            <Price price={this.state.normal} details={this.state.normalDetail} order="standard price"></Price>
                         </div>
                     </div>
 
                     <div className="col col-md-4 panel panel-default">
                         <div className="panel-body">
                             <input type="radio" value={this.state.base} name="price" onChange={this.handlePriceBase} />
-                            <Price price={this.state.base} details={this.state.baseDetail} order="basic price"></Price>
+                            <Price price={this.state.base} details={this.state.baseDetail} order="base price"></Price>
                         </div>
                     </div>
                     <button type="submit" onClick={this.handleSubmit} className="btn blue-button" >Submit</button>

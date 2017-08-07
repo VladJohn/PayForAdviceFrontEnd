@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export class AnswerBasePage extends React.Component <{idUser:number},{ rating: string, report:string, ans:any, q:any}>{
+export class AnswerBasePage extends React.Component <{idUser:number},{ rating: string, report:string, ans:any, q:any, success:boolean,}>{
     baseUrl: string = 'http://localhost:52619/api/answer/?idQuestion=';
     baseUrl2: string = 'http://localhost:52619/api/question/?idQuestion=';
     baseUrl3: string = 'http://localhost:52619/api/answer/';
@@ -8,7 +8,7 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
     
     constructor() {
     super();
-    this.state = {rating:'', report:'', ans: "", q:'' };
+    this.state = {rating:'', report:'', ans: "", q:'', success : false };
     this.handleReport = this.handleReport.bind(this);
     this.handleRating = this.handleRating.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -94,7 +94,7 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
                     console.log(data, res);
                 })
                 .then(() => (
-                    this.setState({ ans: res })
+                    this.setState({ ans: res, success : true })
                 ))
                 .then(()=>{this.getQText()})
                 .catch(function (error) {
@@ -120,19 +120,20 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
         }
 
     render(){
-       let answer = null;
-      if (this.state.q.Status =="refunded"){
-            answer = <div>The adviser refused to answer this question or the time limit expired. Your money have been refunded.</div>}
-        else {
-            answer = <p>{this.state.ans.AnswerText}</p>
+        let message = null;
+        if (this.state.success==true)
+        {
+            message = <div className="spacing alert alert-success"> <strong>Success!</strong> Your rating has been sent.</div>
         }
-        return (
-            <div>
-                    <span>
-                        
-                        <h3>{this.state.q.QuestionText}<img className="small-icon" onClick={this.shareOnFb} src="/pictures/fb.png"></img></h3> 
-                        
-                    </span>
+       let answer = null;
+       let fb = null;
+      if (this.state.q.Status =="refunded"){
+            answer = <div>The adviser refused to answer this question or the time limit expired. Your money has been refunded.</div>}
+        else if (this.state.q.Status =="solved"){
+            fb = <img className="small-icon" onClick={this.shareOnFb} src="/pictures/fb.png"></img>
+            answer =
+                <div>    
+                    {this.state.ans.AnswerText}                
                     <div>
                         <label>
                             Rate:
@@ -163,6 +164,7 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
                         <form>
                             <button className="btn blue-button" onClick={this.handleSubmitRating}>send rating now</button>
                         </form>
+                        {message}
                         </div>
 
                         <br/>
@@ -186,6 +188,19 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
                         <textarea className="form-control spacing" name="report" rows={3} placeholder='Type your report message here.' onChange={this.handleReport}/>
                         <button className="btn blue-button spacing" onClick={this.handleSubmit}>send report</button>
                     </form>
+                    </div>
+        }
+else {
+    answer = <div>Your question hasn't been answered yet. Come back later.</div>
+}
+        return (
+            <div>
+                    <span>
+                        
+                        <h3>{this.state.q.QuestionText}{fb}</h3> 
+                        {answer}
+                    </span>
+
             </div>
         );
     }

@@ -13,7 +13,6 @@ import { AdviceQuestionsPending } from "Components/Pages/AdviceQuestionsPending"
 import { AdviceQuestions } from "Components/Pages/AdviceQuestions"
 import { AnsweredQuestionsForAdvicer } from "Components/Pages/AnsweredQuestionsForAdvicer"
 import { PendingQuestionsForAdvicer } from "Components/Pages/PendingQuestionsForAdvicer"
-import { Success } from "Components/Pages/Success"
 import { AddPrice } from "Components/Pages/AddPrice"
 import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom';
 
@@ -80,7 +79,6 @@ export class AppViewer extends React.Component<{}, { tokenData: any }>
                             <Route path='/questionsAnswered/:id' render={(props) => <AnsweredQuestionsForAdvicer id={props.match.params.id} />} />
                             <Route path='/questionsPending/:id' render={(props) => <PendingQuestionsForAdvicer id={props.match.params.id} />} />
                             <Route path='/addPrice/:id' render={(props) => <AddPrice userId={props.match.params.id} />} />
-                            <Route path='/success' render={(props) => <Success/>} />
                         </div>
                     </Router>
                 </main>

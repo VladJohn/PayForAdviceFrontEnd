@@ -1,13 +1,13 @@
 import * as React from 'react'
 import {BrowserRouter as Router, Link, Route, Redirect} from 'react-router-dom';
 
-export class UserPrivateProfileAdviserPage extends React.Component <{id:number},{name: string, email: string, bio: string, website: string, base:string, normal:string, premium:string, password:string, avatarUrl :string, rating:number}>{
+export class UserPrivateProfileAdviserPage extends React.Component <{id:number},{success : boolean, name: string, email: string, bio: string, website: string, base:string, normal:string, premium:string, password:string, avatarUrl :string, rating:number}>{
     
     baseUrl: string = 'http://localhost:52619/api/user/';
     headers: Headers;
     constructor() {
     super();
-    this.state = {name:'', email:'', bio:'', website:'', base:'', normal:'', premium:'', password:'', avatarUrl:'', rating:0};
+    this.state = {name:'', email:'', bio:'', website:'', base:'', normal:'', premium:'', password:'', avatarUrl:'', rating:0, success:false};
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
     this.handleChangeConfirmPassword = this.handleChangeConfirmPassword.bind(this);
@@ -16,6 +16,7 @@ export class UserPrivateProfileAdviserPage extends React.Component <{id:number},
     this.handleChangeWebsite = this.handleChangeWebsite.bind(this);
     this.handleChangeAvatar = this.handleChangeAvatar.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9', 'TokenText': localStorage.getItem('token') });
     localStorage.getItem('Updated') === 'false'
     }
 
@@ -53,6 +54,7 @@ export class UserPrivateProfileAdviserPage extends React.Component <{id:number},
                 cats = data;
                 console.log(cats);
             })
+            .then(()=> this.setState({success: true}))
             .catch(function (error) {
                 console.log('request failedddd', error)
             })
@@ -85,6 +87,11 @@ export class UserPrivateProfileAdviserPage extends React.Component <{id:number},
     }
 
     render(){
+        let message = null;
+        if (this.state.success==true)
+        {
+            message = <div className="spacing alert alert-success"> <strong>Success!</strong> Your profile information has been updated</div>
+        }
         return (
             <div className = "UserPrivateProfileAdviserPage">
                 <div className="col col-lg-6">
@@ -152,11 +159,15 @@ export class UserPrivateProfileAdviserPage extends React.Component <{id:number},
                             </span>
                         </div>
                         <div>
-                            <Link key={this.props.id} to={"/addPrice/" + this.props.id} className="btn  blue-button spacing" >Add or update your prices</Link>   
+                            <Link key={this.props.id} to={"/addPrice/" + this.props.id} className="btn  blue-button spacing" >Add or update your prices</Link>  
+                            <br/> 
                             <button className="btn  blue-button" onClick={this.handleSubmit}>Update Information</button>
+                            
                         </div>
                     </form>
+                     {message}
                 </div>
+               
             </div>
         );
     }

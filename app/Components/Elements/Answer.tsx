@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Question } from "Components/Elements/Question"
 
-export class Answer extends React.Component<{ idQuestion : number }, { idAnswer : number, answer : string}>
+export class Answer extends React.Component<{ idQuestion : number }, { idAnswer : number, answer : string, success : boolean}>
 {
 
     baseUrl: string = 'http://localhost:52619/api/question/';
@@ -10,7 +10,7 @@ export class Answer extends React.Component<{ idQuestion : number }, { idAnswer 
     ///NEED TO ADD EVENT FOR FILE UPLOAD and prices
     constructor() {
         super();
-        this.state = { idAnswer : 0, answer: ''};
+        this.state = { idAnswer : 0, answer: '', success: false};
         this.handleAnswer = this.handleAnswer.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSubmitRefusal = this.handleSubmitRefusal.bind(this);
@@ -48,6 +48,7 @@ export class Answer extends React.Component<{ idQuestion : number }, { idAnswer 
                 cats = data;
                 console.log(cats);
             })
+            .then(()=> this.setState({success:true}))
             .catch(function (error) {
                 console.log('request failedddd', error)
             })
@@ -78,7 +79,6 @@ export class Answer extends React.Component<{ idQuestion : number }, { idAnswer 
     handleSubmit(e :any){
         e.preventDefault();
         this.putData();
-        window.location.replace("/success");
     }
 
     handleSubmitRefusal(e :any){
@@ -88,6 +88,11 @@ export class Answer extends React.Component<{ idQuestion : number }, { idAnswer 
 
     
     render() {
+        let message = null;
+        if (this.state.success == true)
+            {
+                message = <div className="spacing alert alert-success"> <strong>Success!</strong> Your answer has been sent.</div>
+            }
         return (
             <div className="spacing">
                     <h4><i>Add your response:</i></h4>
@@ -107,6 +112,7 @@ export class Answer extends React.Component<{ idQuestion : number }, { idAnswer 
                
                 <button className="spacing btn spacing-right blue-button"  onClick={this.handleSubmit}> Answer</button>
                 <button className="spacing btn grey-button" onClick={this.handleSubmitRefusal} > Refuse to answer</button>
+                {message}
             </div>
         );
     }
