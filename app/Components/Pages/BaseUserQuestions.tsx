@@ -47,6 +47,7 @@ export class BaseUserQuestions extends React.Component<{idUser: number}, {advise
                     {
                         this.setState({ adviserQuestions: user })
                         localStorage.setItem("Updated", 'true')
+                        console.log(user)
                     }
             })
             .catch(function (error) {
