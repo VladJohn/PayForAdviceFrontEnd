@@ -88,7 +88,7 @@ export class AskAdvice extends React.Component<{ idResponder: number, idAsker: n
             message = <div className="spacing alert alert-success"> <strong>Success!</strong> Your question has been asked.</div>
         }
         else if (this.state.errorPost != '') {
-            message = <div className="spacing alert alert-danger"> {this.state.errorPost}</div>
+            message = <div className="spacing alert alert-danger alert-container"> {this.state.errorPost}</div>
         }
         return (
             <div className="row">
