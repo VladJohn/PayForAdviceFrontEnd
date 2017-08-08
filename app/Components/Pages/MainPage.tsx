@@ -35,7 +35,6 @@ export class MainPage extends React.Component<{}, { categories: Array<any>, load
         if (this.state.loaded == false){
             loaderImg = <img className="loader spacing" src="loader.gif"/>
         }
-            
         return (
             <div className="MainPage">
                 <div className="panel-body">
@@ -45,7 +44,6 @@ export class MainPage extends React.Component<{}, { categories: Array<any>, load
                 </div>
                 <div className="col col-md-6"></div>
                     {loaderImg}
-                
                 <ListView elements={
                     this.state.categories.map(function (object, i) {
                     return <Category type="category" imgurl={object.ImageUrl} name={object.Name} description={object.Description} id={object.Id} iconurl={object.IconUrl} />;

@@ -59,7 +59,6 @@ export class AskAdvice extends React.Component<{ idResponder: number, idAsker: n
                 console.log(postedQuestion);
             })
 
-
     }
 
     handleQuestion(event: React.FormEvent<HTMLTextAreaElement>) {

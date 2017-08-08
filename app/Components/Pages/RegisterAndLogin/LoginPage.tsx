@@ -52,12 +52,18 @@ export class LoginPage extends React.Component <{},{username:string, password:st
     FBLogin(e :any)
     {
         e.preventDefault();
+        var cats: any;
+        cats = '';
         return fetch(this.baseUrl + "?returnUrl=/main", {method : "POST", headers:this.headers})
             .then((response) => response.json())
             .then(function (data) {
                 console.log(data);
+                cats = data;
                 window.location.replace(data.Url)
             })
+            .then(() => (
+                this.getData()
+            ))
             .catch(function (error) {
                 console.log('request failedddd', error)
             })
@@ -105,7 +111,7 @@ export class LoginPage extends React.Component <{},{username:string, password:st
                     </div>
                     <div>
                         <span>
-                            <button className="btn blue-button" onClick={this.FBLogin}>Login With Facebook</button>
+                            <button className="btn blue-button" onClick={this.FBLogin}>Login With FaceBook</button>
                         </span>
                     </div>
                     <div className="spacing">
