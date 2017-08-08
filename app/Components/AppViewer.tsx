@@ -66,6 +66,8 @@ export class AppViewer extends React.Component<{}, { tokenData: any }>
                             )} />
                             <Route path='/main' component={MainPage} />
                             <Route path='/register' component={SignUpPage} />
+                            <Route path='/registerPreference' component={SignUpPreferencePage} />
+                            <Route path='/registerAdviser' component={SignUpAdviserPage} />
                             <Route path='/about' component={About} />
                             <Route path='/success' component={SuccessPage} />
                             {console.log("render "+this.state.tokenData.Role)}
