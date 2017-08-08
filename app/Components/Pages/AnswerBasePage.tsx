@@ -152,9 +152,9 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
 
        let answer = null;
        let fb = null;
-      if (this.state.q.Status =="refunded"){
+      if (this.state.q.Status ==2){
             answer = <div>The adviser refused to answer this question or the time limit expired. Your money has been refunded.</div>}
-        else if (this.state.q.Status =="solved"){
+        else if (this.state.q.Status ==1){
             fb = <img className="small-icon" onClick={this.shareOnFb} src="/pictures/fb.png"></img>
             answer =
                 <div>    
