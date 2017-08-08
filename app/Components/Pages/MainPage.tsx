@@ -3,15 +3,39 @@ import { Category } from "Components/Elements/Category"
 import { ListView } from "Components/Elements/ListView"
 import 'whatwg-fetch'
 
-export class MainPage extends React.Component<{}, { categories: Array<any>, loaded :boolean }>{
+export class MainPage extends React.Component<{}, { categories: Array<any>, loaded :boolean, token:string }>{
 
     baseUrl: string = 'http://localhost:52619/api/category/';
+    baseUrl2: string = 'http://localhost:52619/api/user/?facebook="true';
     headers: Headers;
 
     constructor() {
         super();
         this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
-        this.state = { categories: [], loaded : false };
+        this.state = { categories: [], loaded : false, token:'' };
+    }
+
+    refresh()
+    {
+            window.location.reload();
+    }
+
+    getData(){
+        var cats: any;
+        cats = '';
+        return fetch(this.baseUrl2)
+            .then((response) => response.json())
+            .then(function (data) {
+                cats = data;
+            })
+            .then(() => (
+                this.setState({ token: cats.TokenText }),
+                console.log(this.state.token),
+                localStorage.setItem("token", this.state.token)
+            ))
+            .catch(function (error) {
+                console.log('request failedddd', error)
+            })
     }
 
     componentDidMount() {
@@ -23,7 +47,8 @@ export class MainPage extends React.Component<{}, { categories: Array<any>, load
                 cats = data;
             })
             .then(() => (
-                this.setState({ categories: cats, loaded : true })
+                this.setState({ categories: cats, loaded : true }),
+                this.getData()
             ))
             .catch(function (error) {
                 console.log('request failedddd', error)

@@ -20,7 +20,7 @@ export class SignUpAdviserPage extends React.Component <{},{name : string, usern
 
     postData(){
         var cats: any;
-        var ceva = {id:0, username: this.state.username, password: this.state.password, name: this.state.name, email: this.state.email, roleId: 4}
+        var ceva = {id:0, username: this.state.username, password: this.state.password, name: this.state.name, email: this.state.email, roleId: 2}
         var form2 = JSON.stringify(ceva);
         console.log(form2);
         cats = '';
