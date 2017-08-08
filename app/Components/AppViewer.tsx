@@ -1,6 +1,7 @@
 import * as React from "react"
 import { MainPage } from "Components/Pages/MainPage"
 import { About } from "Components/Pages/About"
+import { SuccessPage } from "Components/Pages/SuccessPage"
 import { LoginPage } from "Components/Pages/RegisterAndLogin/LoginPage"
 import { SignUpPage } from "Components/Pages/RegisterAndLogin/SignUpPage"
 import { SignUpAdviserPage } from "Components/Pages/RegisterAndLogin/SignUpAdviserPage"
@@ -69,6 +70,7 @@ export class AppViewer extends React.Component<{}, { tokenData: any }>
                             <Route path='/register' component={SignUpPage} />
                             <Route path='/registerAdviser' component={SignUpAdviserPage} />
                             <Route path='/about' component={About} />
+                            <Route path='/success' component={SuccessPage} />
                             {console.log("render "+this.state.tokenData.Role)}
                             <Route path='/myQuestions' render={(props) => <BaseUserQuestions idUser={this.state.tokenData.Id} />} />
                             <Route path='/myProfile' render={(props) => 
