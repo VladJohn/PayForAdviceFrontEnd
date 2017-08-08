@@ -24,6 +24,7 @@ export class CategoryPage extends React.Component<{ id: number }, { usersByCateg
     componentDidMount() {
         var user: any[];
         user = [];
+        console.log(this.headers)
         return fetch(this.baseUrl +this.props.id )
             .then((response) => response.json())
             .then(function (data) {
