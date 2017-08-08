@@ -19,6 +19,7 @@ import { AddPrice } from "Components/Pages/AddPrice"
 import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom';
 
 
+
 export class AppViewer extends React.Component<{}, { tokenData: any }>
 {
     baseUrl: string = 'http://localhost:52619/api/user/';
@@ -64,7 +65,9 @@ export class AppViewer extends React.Component<{}, { tokenData: any }>
                                     )
                             )} />
                             <Route path='/main' component={MainPage} />
+                            <Route path='/registerPreference' component={SignUpPreferencePage} />
                             <Route path='/register' component={SignUpPage} />
+                            <Route path='/registerAdviser' component={SignUpAdviserPage} />
                             <Route path='/about' component={About} />
                             {console.log("render "+this.state.tokenData.Role)}
                             <Route path='/myQuestions' render={(props) => <BaseUserQuestions idUser={this.state.tokenData.Id} />} />

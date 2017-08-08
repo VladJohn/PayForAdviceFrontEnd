@@ -18,8 +18,7 @@ export class AskAdvice extends React.Component<{ idResponder: number, idAsker: n
         this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
     }
 
-    componentDidMount()
-    {
+    componentDidMount() {
         var profile: any;
         profile = '';
         console.log(this.props.idResponder);
@@ -36,7 +35,7 @@ export class AskAdvice extends React.Component<{ idResponder: number, idAsker: n
             })
     }
 
-    postData(){
+    postData() {
         var postedQuestion: any;
         var bodyInformation = { QuestionText: this.state.question, UserId: this.props.idAsker, Order: this.state.order }
         var bodyJSON = JSON.stringify(bodyInformation);
@@ -54,11 +53,12 @@ export class AskAdvice extends React.Component<{ idResponder: number, idAsker: n
                             that.setState({errorPost: error.Message})
                         });
                 }})
-             .then(function (data) {
+            .then(function (data) {
 
-                 postedQuestion = data;
-                 console.log(postedQuestion);
-             })
+                postedQuestion = data;
+                console.log(postedQuestion);
+            })
+
     }
 
     handleQuestion(event: React.FormEvent<HTMLTextAreaElement>) {
@@ -66,18 +66,18 @@ export class AskAdvice extends React.Component<{ idResponder: number, idAsker: n
     }
 
     handlePricePremium(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({ premium: parseFloat(event.currentTarget.value) , order:'premium'});
+        this.setState({ premium: parseFloat(event.currentTarget.value), order: 'premium' });
     }
 
     handlePriceNormal(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({ normal: parseFloat(event.currentTarget.value) , order:'standard'});
+        this.setState({ normal: parseFloat(event.currentTarget.value), order: 'standard' });
     }
 
     handlePriceBase(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({ base: parseFloat(event.currentTarget.value) , order:'basic'});
+        this.setState({ base: parseFloat(event.currentTarget.value), order: 'basic' });
     }
-    
-    handleSubmit(event: any){
+
+    handleSubmit(event: any) {
         event.preventDefault();
         this.postData();
     }
