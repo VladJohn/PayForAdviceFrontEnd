@@ -1,8 +1,11 @@
 import * as React from "react"
 import { MainPage } from "Components/Pages/MainPage"
 import { About } from "Components/Pages/About"
-import { LoginPage } from "Components/Pages/LoginPage"
-import { SignUpPage } from "Components/Pages/SignUpPage"
+import { SuccessPage } from "Components/Pages/SuccessPage"
+import { LoginPage } from "Components/Pages/RegisterAndLogin/LoginPage"
+import { SignUpPage } from "Components/Pages/RegisterAndLogin/SignUpPage"
+import { SignUpAdviserPage } from "Components/Pages/RegisterAndLogin/SignUpAdviserPage"
+import { SignUpPreferencePage } from "Components/Pages/RegisterAndLogin/SignUpPreferencePage"
 import { UserPrivateProfileAdviserPage } from "Components/Pages/UserPrivateProfileAdviserPage"
 import { UserPrivateProfileBasePage } from "Components/Pages/UserPrivateProfileBasePage"
 import { BaseUserQuestions } from "Components/Pages/BaseUserQuestions"
@@ -13,7 +16,7 @@ import { AdviceQuestionsPending } from "Components/Pages/AdviceQuestionsPending"
 import { AdviceQuestions } from "Components/Pages/AdviceQuestions"
 import { AnsweredQuestionsForAdvicer } from "Components/Pages/AnsweredQuestionsForAdvicer"
 import { PendingQuestionsForAdvicer } from "Components/Pages/PendingQuestionsForAdvicer"
-
+import { AddPrice } from "Components/Pages/AddPrice"
 import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom';
 
 
@@ -31,13 +34,13 @@ export class AppViewer extends React.Component<{}, { tokenData: any }>
     componentDidMount() {
         if (localStorage.getItem("token") != '') {
             var cats = '';
-            return fetch(this.baseUrl + "?something=a", { method: "GET", headers: this.headers })
+            return fetch(this.baseUrl + "?userData=get", { method: "GET", headers: this.headers })
                 .then((response) => response.json())
                 .then(function (data) {
                     cats = data;
                     console.log(cats);
                 })
-                .then(() => {this.setState({ tokenData: cats });})
+                .then(() => { this.setState({ tokenData: cats }); })
                 .catch(function (error) {
                     console.log('request failedddd', error)
                 })
@@ -63,7 +66,10 @@ export class AppViewer extends React.Component<{}, { tokenData: any }>
                             )} />
                             <Route path='/main' component={MainPage} />
                             <Route path='/register' component={SignUpPage} />
+                            <Route path='/registerPreference' component={SignUpPreferencePage} />
+                            <Route path='/registerAdviser' component={SignUpAdviserPage} />
                             <Route path='/about' component={About} />
+                            <Route path='/success' component={SuccessPage} />
                             {console.log("render "+this.state.tokenData.Role)}
                             <Route path='/myQuestions' render={(props) => <BaseUserQuestions idUser={this.state.tokenData.Id} />} />
                             <Route path='/myProfile' render={(props) => 
@@ -78,6 +84,7 @@ export class AppViewer extends React.Component<{}, { tokenData: any }>
                             <Route path='/myPendingQuestions' render={(props) => <AdviceQuestionsPending idUser={this.state.tokenData.Id} />} />
                             <Route path='/questionsAnswered/:id' render={(props) => <AnsweredQuestionsForAdvicer id={props.match.params.id} />} />
                             <Route path='/questionsPending/:id' render={(props) => <PendingQuestionsForAdvicer id={props.match.params.id} />} />
+                            <Route path='/addPrice/:id' render={(props) => <AddPrice userId={props.match.params.id} />} />
                         </div>
                     </Router>
                 </main>

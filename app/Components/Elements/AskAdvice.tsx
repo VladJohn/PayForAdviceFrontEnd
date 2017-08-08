@@ -1,16 +1,15 @@
 import * as React from "react"
 import { Price } from "Components/Elements/Price"
 
-export class AskAdvice extends React.Component<{idResponder : number, idAsker : number}, { question: string, base:number, normal:number, premium:number,success:boolean,baseDetail:string, normalDetail:string, premiumDetail:string}>
+export class AskAdvice extends React.Component<{ idResponder: number, idAsker: number }, { errorPost: string, question: string, base: number, normal: number, premium: number, success: boolean, baseDetail: string, normalDetail: string, premiumDetail: string, order: string }>
 {
-
-    baseUrl: string = 'http://localhost:52619/api/question/?idResponder=';
-    baseUrl2: string = 'http://localhost:52619/api/price/?idUser=';
+    postQuestionUrl: string = 'http://localhost:52619/api/question/?idResponder=';
+    publicProfileUrl: string = 'http://localhost:52619/api/price/?userId=';
     headers: Headers;
-    ///NEED TO ADD EVENT FOR FILE UPLOAD and prices
+
     constructor() {
         super();
-        this.state = { question: '', base:0, normal:0, premium:0, success:false, baseDetail:'', normalDetail:'', premiumDetail:''};
+        this.state = { question: '', base: 0, normal: 0, premium: 0, success: false, baseDetail: '', normalDetail: '', premiumDetail: '', order: '', errorPost: "" };
         this.handleQuestion = this.handleQuestion.bind(this);
         this.handlePricePremium = this.handlePricePremium.bind(this);
         this.handlePriceNormal = this.handlePriceNormal.bind(this);
@@ -19,66 +18,78 @@ export class AskAdvice extends React.Component<{idResponder : number, idAsker : 
         this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
     }
 
-    componentDidMount()
-    {
-        var cats: any;
-        cats = '';
+    componentDidMount() {
+        var profile: any;
+        profile = '';
         console.log(this.props.idResponder);
-        return fetch(this.baseUrl2 + this.props.idResponder)
+        return fetch(this.publicProfileUrl + this.props.idResponder)
             .then((response) => response.json())
             .then(function (data) {
-                cats = data;
-                console.log(data);
+                profile = data;
             })
             .then(() => (
-                this.setState({ base: cats.Base, normal:cats.Normal, premium:cats.Premium, baseDetail:cats.DetailBase, normalDetail:cats.DetailNormal, premiumDetail:cats.DetailPremium })
+                this.setState({ base: profile.Base, normal: profile.Normal, premium: profile.Premium, baseDetail: profile.DetailBase, normalDetail: profile.DetailNormal, premiumDetail: profile.DetailPremium })
             ))
             .catch(function (error) {
                 console.log('request failedddd', error)
             })
     }
 
-    postData(){
-        var cats: any;
-        var ceva = {QuestionText: this.state.question, UserId: this.props.idAsker}
-        var form2 = JSON.stringify(ceva);
-        console.log(form2);
-        cats = '';
-        return fetch(this.baseUrl+this.props.idResponder, {method : "POST", body: form2, headers:this.headers})
-            .then((response) => response.json())
+    postData() {
+        var postedQuestion: any;
+        var bodyInformation = { QuestionText: this.state.question, UserId: this.props.idAsker, Order: this.state.order }
+        var bodyJSON = JSON.stringify(bodyInformation);
+        console.log(bodyJSON);
+        postedQuestion = '';
+        let that = this;
+        return fetch(this.postQuestionUrl + this.props.idResponder, { method: "POST", body: bodyJSON, headers: this.headers })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json()
+                        .then(() => this.setState({success:true}))
+                } else {
+                    return response.json()
+                        .then(function (error) {
+                            that.setState({errorPost: error.Message})
+                        });
+                }})
             .then(function (data) {
-                cats = data;
-                console.log(cats);
+
+                postedQuestion = data;
+                console.log(postedQuestion);
             })
-            .then(() => this.setState({success: true}))
-            .catch(function (error) {
-                console.log('request failedddd', error)
-            })
+
     }
 
     handleQuestion(event: React.FormEvent<HTMLTextAreaElement>) {
         this.setState({ question: event.currentTarget.value });
     }
+
     handlePricePremium(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({ premium: parseFloat( event.currentTarget.value) });
+        this.setState({ premium: parseFloat(event.currentTarget.value), order: 'premium' });
     }
+
     handlePriceNormal(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({ normal: parseFloat( event.currentTarget.value) });
+        this.setState({ normal: parseFloat(event.currentTarget.value), order: 'standard' });
     }
+
     handlePriceBase(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({ base: parseFloat( event.currentTarget.value) });
+        this.setState({ base: parseFloat(event.currentTarget.value), order: 'basic' });
     }
-    handleSubmit(e :any){
-        e.preventDefault();
+
+    handleSubmit(event: any) {
+        event.preventDefault();
         this.postData();
     }
 
     render() {
-         let message = null;
-        if (this.state.success==true)
-            {
-                message = <div className="spacing alert alert-success"> <strong>Success!</strong> Your question has been asked.</div>
-            }
+        let message = null;
+        if (this.state.success == true) {
+            message = <div className="spacing alert alert-success"> <strong>Success!</strong> Your question has been asked.</div>
+        }
+        else if (this.state.errorPost != '') {
+            message = <div className="spacing alert alert-danger alert-container"> {this.state.errorPost}</div>
+        }
         return (
             <div className="row">
                 <h3>Ask for advice:</h3>
@@ -92,19 +103,16 @@ export class AskAdvice extends React.Component<{idResponder : number, idAsker : 
                             <Price price={this.state.premium} details={this.state.premiumDetail} order="premium price"></Price>
                         </div>
                     </div>
-
-
                     <div className="col col-md-4 panel panel-default">
                         <div className="panel-body">
                             <input type="radio" value={this.state.normal} name="price" onChange={this.handlePriceNormal} />
-                            <Price price={this.state.normal} details={this.state.normalDetail} order="normal price"></Price>
+                            <Price price={this.state.normal} details={this.state.normalDetail} order="standard price"></Price>
                         </div>
                     </div>
-
                     <div className="col col-md-4 panel panel-default">
                         <div className="panel-body">
                             <input type="radio" value={this.state.base} name="price" onChange={this.handlePriceBase} />
-                            <Price price={this.state.base} details={this.state.baseDetail} order="basic price"></Price>
+                            <Price price={this.state.base} details={this.state.baseDetail} order="base price"></Price>
                         </div>
                     </div>
                     <button type="submit" onClick={this.handleSubmit} className="btn blue-button" >Submit</button>

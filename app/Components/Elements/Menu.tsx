@@ -4,8 +4,7 @@ import {BrowserRouter as Router, Link, Route, Redirect} from 'react-router-dom';
 
 export class Menu extends React.Component <{},{tokenData : any}>
 {
-
-    baseUrl: string = 'http://localhost:52619/api/user/';
+    userDataUrl: string = 'http://localhost:52619/api/user/?userData=get';
     headers: Headers;
 
     constructor() {
@@ -16,14 +15,14 @@ export class Menu extends React.Component <{},{tokenData : any}>
 
     componentDidMount() {
         if (localStorage.getItem("token") != '') {
-            var cats = '';
-            return fetch(this.baseUrl + "?something=a", { method: "GET", headers: this.headers })
+            var userData = '';
+            return fetch(this.userDataUrl, { method: "GET", headers: this.headers })
                 .then((response) => response.json())
                 .then(function (data) {
-                    cats = data;
-                    console.log(cats);
+                    userData = data;
+                    console.log(userData);
                 })
-                .then(() => {this.setState({ tokenData: cats });})
+                .then(() => {this.setState({ tokenData: userData });})
                 .catch(function (error) {
                     console.log('request failedddd', error)
                 })
@@ -32,7 +31,7 @@ export class Menu extends React.Component <{},{tokenData : any}>
 
     refresh()
     {
-            window.location.reload();
+        window.location.reload();
     }
 
     render()
@@ -48,7 +47,6 @@ export class Menu extends React.Component <{},{tokenData : any}>
                       buttonAnsweredQuestions = <Link to='/myAnsweredQuestions' className="nav-link blue" onClick={this.refresh}>My Answered Questions</Link>  
                       buttonPendingQuestions = <Link to='/myPendingQuestions' className="nav-link blue" onClick={this.refresh}>My Pending Questions</Link>  
                 }
-            
         }
         return(
             <div className='menu'>
@@ -72,7 +70,6 @@ export class Menu extends React.Component <{},{tokenData : any}>
                         </li>
                         </ul>
                     </Router>
-
                 <div className="col col-lg-3"></div>
             </div>
         );

@@ -8,13 +8,13 @@ export class UserProfilePublicPage extends React.Component <{id : number,idLogge
 
     constructor() {
         super();
-        this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
+        this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' , 'TokenText': localStorage.getItem('token')});
         this.state = { user: "" };
     }
     
     componentDidMount() {
         var userData: any;
-        return fetch(this.baseUrl+this.props.id)
+        return fetch(this.baseUrl+"?userId="+this.props.id, {method : "GET", headers:this.headers})
             .then((response) => response.json())
             .then(function (data) {
                 userData = data;

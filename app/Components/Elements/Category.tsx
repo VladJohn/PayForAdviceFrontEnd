@@ -2,7 +2,6 @@ import * as React from "react"
 
 export class Category extends React.Component<{type : string, imgurl: string, name: string, description : string, id : number, iconurl: string},{}>
 {
-
   render(){
     return (
         <div className="row">
