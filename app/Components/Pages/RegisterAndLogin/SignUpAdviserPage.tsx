@@ -1,7 +1,7 @@
 import * as React from "react"
 import {BrowserRouter as Router, Link, Route, Redirect} from 'react-router-dom';
 
-export class SignUpPage extends React.Component <{},{name : string, username:string, password:string, cfpassword:string, email:string}>
+export class SignUpAdviserPage extends React.Component <{},{name : string, username:string, password:string, cfpassword:string, email:string}>
 {
     baseUrl: string = 'http://localhost:52619/api/user/';
     headers: Headers;
@@ -20,7 +20,7 @@ export class SignUpPage extends React.Component <{},{name : string, username:str
 
     postData(){
         var cats: any;
-        var ceva = {id:0, username: this.state.username, password: this.state.password, name: this.state.name, email: this.state.email}
+        var ceva = {id:0, username: this.state.username, password: this.state.password, name: this.state.name, email: this.state.email, roleId: 4}
         var form2 = JSON.stringify(ceva);
         console.log(form2);
         cats = '';

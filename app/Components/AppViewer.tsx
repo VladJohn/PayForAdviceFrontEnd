@@ -1,8 +1,10 @@
 import * as React from "react"
 import { MainPage } from "Components/Pages/MainPage"
 import { About } from "Components/Pages/About"
-import { LoginPage } from "Components/Pages/LoginPage"
-import { SignUpPage } from "Components/Pages/SignUpPage"
+import { LoginPage } from "Components/Pages/RegisterAndLogin/LoginPage"
+import { SignUpPage } from "Components/Pages/RegisterAndLogin/SignUpPage"
+import { SignUpAdviserPage } from "Components/Pages/RegisterAndLogin/SignUpAdviserPage"
+import { SignUpPreferencePage } from "Components/Pages/RegisterAndLogin/SignUpPreferencePage"
 import { UserPrivateProfileAdviserPage } from "Components/Pages/UserPrivateProfileAdviserPage"
 import { UserPrivateProfileBasePage } from "Components/Pages/UserPrivateProfileBasePage"
 import { BaseUserQuestions } from "Components/Pages/BaseUserQuestions"
@@ -15,6 +17,7 @@ import { AnsweredQuestionsForAdvicer } from "Components/Pages/AnsweredQuestionsF
 import { PendingQuestionsForAdvicer } from "Components/Pages/PendingQuestionsForAdvicer"
 import { AddPrice } from "Components/Pages/AddPrice"
 import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom';
+
 
 
 export class AppViewer extends React.Component<{}, { tokenData: any }>
@@ -62,7 +65,9 @@ export class AppViewer extends React.Component<{}, { tokenData: any }>
                                     )
                             )} />
                             <Route path='/main' component={MainPage} />
+                            <Route path='/registerPreference' component={SignUpPreferencePage} />
                             <Route path='/register' component={SignUpPage} />
+                            <Route path='/registerAdviser' component={SignUpAdviserPage} />
                             <Route path='/about' component={About} />
                             {console.log("render "+this.state.tokenData.Role)}
                             <Route path='/myQuestions' render={(props) => <BaseUserQuestions idUser={this.state.tokenData.Id} />} />

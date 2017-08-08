@@ -105,13 +105,13 @@ export class LoginPage extends React.Component <{},{username:string, password:st
                     </div>
                     <div>
                         <span>
-                            <button className="btn blue-button" onClick={this.FBLogin}>Login With FaceBook</button>
+                            <button className="btn blue-button" onClick={this.FBLogin}>Login With Facebook</button>
                         </span>
                     </div>
                     <div className="spacing">
                     Don't have an account?
                     </div>
-                    <div><Link to='/register'className="btn grey-button">Register</Link></div>
+                    <div><Link to='/registerPreference'className="btn grey-button">Register</Link></div>
                     </form>
                     
                 </div>

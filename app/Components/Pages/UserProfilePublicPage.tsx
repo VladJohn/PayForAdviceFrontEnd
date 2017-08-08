@@ -14,7 +14,7 @@ export class UserProfilePublicPage extends React.Component <{id : number,idLogge
     
     componentDidMount() {
         var userData: any;
-        return fetch(this.baseUrl+this.props.id, {method : "GET", headers:this.headers})
+        return fetch(this.baseUrl+"?userId="+this.props.id, {method : "GET", headers:this.headers})
             .then((response) => response.json())
             .then(function (data) {
                 userData = data;

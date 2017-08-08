@@ -1,15 +1,15 @@
 import * as React from "react"
 import { Price } from "Components/Elements/Price"
 
-export class AskAdvice extends React.Component<{idResponder : number, idAsker : number}, { question: string, base:number, normal:number, premium:number,success:boolean,baseDetail:string, normalDetail:string, premiumDetail:string, order:string}>
+export class AskAdvice extends React.Component<{ idResponder: number, idAsker: number }, { errorPost: string, question: string, base: number, normal: number, premium: number, success: boolean, baseDetail: string, normalDetail: string, premiumDetail: string, order: string }>
 {
     postQuestionUrl: string = 'http://localhost:52619/api/question/?idResponder=';
-    publicProfileUrl: string = 'http://localhost:52619/api/price/?idUser=';
+    publicProfileUrl: string = 'http://localhost:52619/api/price/?userId=';
     headers: Headers;
 
     constructor() {
         super();
-        this.state = { question: '', base:0, normal:0, premium:0, success:false, baseDetail:'', normalDetail:'', premiumDetail:'', order:''};
+        this.state = { question: '', base: 0, normal: 0, premium: 0, success: false, baseDetail: '', normalDetail: '', premiumDetail: '', order: '', errorPost: "" };
         this.handleQuestion = this.handleQuestion.bind(this);
         this.handlePricePremium = this.handlePricePremium.bind(this);
         this.handlePriceNormal = this.handlePriceNormal.bind(this);
@@ -18,8 +18,7 @@ export class AskAdvice extends React.Component<{idResponder : number, idAsker : 
         this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
     }
 
-    componentDidMount()
-    {
+    componentDidMount() {
         var profile: any;
         profile = '';
         console.log(this.props.idResponder);
@@ -27,32 +26,40 @@ export class AskAdvice extends React.Component<{idResponder : number, idAsker : 
             .then((response) => response.json())
             .then(function (data) {
                 profile = data;
-                console.log(data);
             })
             .then(() => (
-                this.setState({ base: profile.Base, normal:profile.Normal, premium:profile.Premium, baseDetail:profile.DetailBase, normalDetail:profile.DetailNormal, premiumDetail:profile.DetailPremium })
+                this.setState({ base: profile.Base, normal: profile.Normal, premium: profile.Premium, baseDetail: profile.DetailBase, normalDetail: profile.DetailNormal, premiumDetail: profile.DetailPremium })
             ))
             .catch(function (error) {
                 console.log('request failedddd', error)
             })
     }
 
-    postData(){
+    postData() {
         var postedQuestion: any;
-        var bodyInformation = {QuestionText: this.state.question, UserId: this.props.idAsker, Order: this.state.order}
+        var bodyInformation = { QuestionText: this.state.question, UserId: this.props.idAsker, Order: this.state.order }
         var bodyJSON = JSON.stringify(bodyInformation);
         console.log(bodyJSON);
         postedQuestion = '';
-        return fetch(this.postQuestionUrl+this.props.idResponder, {method : "POST", body: bodyJSON, headers:this.headers})
-            .then((response) => response.json())
+        let that = this;
+        return fetch(this.postQuestionUrl + this.props.idResponder, { method: "POST", body: bodyJSON, headers: this.headers })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json()
+                        .then(() => this.setState({success:true}))
+                } else {
+                    return response.json()
+                        .then(function (error) {
+                            that.setState({errorPost: error.Message})
+                        });
+                }})
             .then(function (data) {
+
                 postedQuestion = data;
                 console.log(postedQuestion);
             })
-            .then(() => this.setState({success: true}))
-            .catch(function (error) {
-                console.log('request failedddd', error)
-            })
+
+
     }
 
     handleQuestion(event: React.FormEvent<HTMLTextAreaElement>) {
@@ -60,28 +67,30 @@ export class AskAdvice extends React.Component<{idResponder : number, idAsker : 
     }
 
     handlePricePremium(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({ premium: parseFloat( event.currentTarget.value) , order:'premium'});
+        this.setState({ premium: parseFloat(event.currentTarget.value), order: 'premium' });
     }
 
     handlePriceNormal(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({ normal: parseFloat( event.currentTarget.value) , order:'standard'});
+        this.setState({ normal: parseFloat(event.currentTarget.value), order: 'standard' });
     }
 
     handlePriceBase(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({ base: parseFloat( event.currentTarget.value) , order:'basic'});
+        this.setState({ base: parseFloat(event.currentTarget.value), order: 'basic' });
     }
-    
-    handleSubmit(event :any){
+
+    handleSubmit(event: any) {
         event.preventDefault();
         this.postData();
     }
 
     render() {
-         let message = null;
-        if (this.state.success==true)
-            {
-                message = <div className="spacing alert alert-success"> <strong>Success!</strong> Your question has been asked.</div>
-            }
+        let message = null;
+        if (this.state.success == true) {
+            message = <div className="spacing alert alert-success"> <strong>Success!</strong> Your question has been asked.</div>
+        }
+        else if (this.state.errorPost != '') {
+            message = <div className="spacing alert alert-danger"> {this.state.errorPost}</div>
+        }
         return (
             <div className="row">
                 <h3>Ask for advice:</h3>
