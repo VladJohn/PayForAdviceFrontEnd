@@ -46,10 +46,15 @@ export class MainPage extends React.Component<{}, { categories: Array<any>, load
             .then(function (data) {
                 cats = data;
             })
-            .then(() => (
-                this.setState({ categories: cats, loaded : true }),
-                this.getData()
-            ))
+            .then(() => {
+                this.setState({ categories: cats, loaded : true });
+                if(localStorage.getItem('token') === 'undefined')
+                {
+                    this.getData();
+                }
+                else
+                {}
+            })
             .catch(function (error) {
                 console.log('request failedddd', error)
             })

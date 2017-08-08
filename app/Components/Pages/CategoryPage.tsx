@@ -10,7 +10,7 @@ export class CategoryPage extends React.Component<{ id: number }, { usersByCateg
 
     constructor() {
         super();
-        this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9', 'TokenText':localStorage.getItem('token') });
+        this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9', 'TokenText': localStorage.getItem('token') });
         this.state = {
             usersByCategory: []
         };
@@ -25,10 +25,11 @@ export class CategoryPage extends React.Component<{ id: number }, { usersByCateg
         var user: any[];
         user = [];
         console.log(this.headers)
-        return fetch(this.baseUrl +this.props.id )
+        return fetch(this.baseUrl +this.props.id, { method: "GET", headers: this.headers })
             .then((response) => response.json())
             .then(function (data) {
                 user = data;
+                console.log(user)
             })
             .then(() => (
                 this.setState({ usersByCategory: user })
