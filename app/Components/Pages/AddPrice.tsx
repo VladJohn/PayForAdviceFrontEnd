@@ -1,13 +1,13 @@
 import * as React from "react"
 
-export class AddPrice extends React.Component<{ userId: number }, { amount1: string, details1: string, order1: string, amount2: string, details2: string, order2: string, amount3: string, details3: string, order3: string, }>
+export class AddPrice extends React.Component<{ userId: number }, {success : boolean, errorPost1: string, errorPost2: string, errorPost3 : string, amount1: string, details1: string, order1: string, amount2: string, details2: string, order2: string, amount3: string, details3: string, order3: string, }>
 {
     baseUrl: string = 'http://localhost:52619/api/price/';
     headers: Headers;
 
     constructor() {
         super();
-        this.state = { amount1: '', details1: '', order1: 'Basic', amount2: '', details2: '', order2: 'Standard', amount3: '', details3: '', order3: 'Premium' };
+        this.state = { success : false, errorPost1 : '', errorPost2 : '', errorPost3 : '', amount1: '', details1: '', order1: 'Basic', amount2: '', details2: '', order2: 'Standard', amount3: '', details3: '', order3: 'Premium' };
         this.handleNewPrice1 = this.handleNewPrice1.bind(this);
         this.handleNewPrice2 = this.handleNewPrice2.bind(this);
         this.handleNewPrice3 = this.handleNewPrice3.bind(this);
@@ -52,55 +52,101 @@ export class AddPrice extends React.Component<{ userId: number }, { amount1: str
         this.postData3();
     }
     postData1() {
-        var cats: any;
+        var newPrice: any;
         var newPriceInstance = { details: this.state.details1, amount: this.state.amount1, order: this.state.order1, userId: this.props.userId }
         var form2 = JSON.stringify(newPriceInstance);
-        console.log(form2);
-        cats = '';
+        console.log(form2);;
+        newPrice = '';
+        let that = this;
         return fetch(this.baseUrl, { method: "PUT", body: form2, headers: this.headers })
-            .then((response) => response.json())
+            .then((response) => {
+                if (response.ok) {
+                    return response.json()
+                        .then(() => this.setState({success:true}))
+                } else {
+                    return response.json()
+                        .then(function (error) {
+                            that.setState({errorPost1: error.Message})
+                            console.log("give the error!!!!" , error);
+                        });
+                }})
             .then(function (data) {
-                cats = data;
-                console.log(cats);
-            })
-            .catch(function (error) {
-                console.log('request failed! Try again', error)
+
+                newPrice = data;
+                console.log(newPrice);
             })
     }
     postData2() {
-        var cats: any;
+        var newPrice: any;
         var newPriceInstance = { details: this.state.details2, amount: this.state.amount2, order: this.state.order2, userId: this.props.userId }
         var form2 = JSON.stringify(newPriceInstance);
         console.log(form2);
-        cats = '';
+        newPrice = '';
+        let that = this;
         return fetch(this.baseUrl, { method: "PUT", body: form2, headers: this.headers })
-            .then((response) => response.json())
+            .then((response) => {
+                if (response.ok) {
+                    return response.json()
+                        .then(() => this.setState({success:true}))
+                } else {
+                    return response.json()
+                        .then(function (error) {
+                            that.setState({errorPost2: error.Message})
+                        });
+                }})
             .then(function (data) {
-                cats = data;
-                console.log(cats);
-            })
-            .catch(function (error) {
-                console.log('request failed! Try again', error)
+
+                newPrice = data;
+                console.log(newPrice);
             })
     }
     postData3() {
-        var cats: any;
+        var newPrice: any;
         var newPriceInstance = { details: this.state.details3, amount: this.state.amount3, order: this.state.order3, userId: this.props.userId }
         var form2 = JSON.stringify(newPriceInstance);
         console.log(form2);
-        cats = '';
+        newPrice = '';
+        const that = this;
         return fetch(this.baseUrl, { method: "PUT", body: form2, headers: this.headers })
-            .then((response) => response.json())
+            .then((response) => {
+                if (response.ok) {
+                    return response.json()
+                        .then(() => this.setState({success:true}))
+                } else {
+                    return response.json()
+                        .then(function (error) {
+                            that.setState({errorPost3: error.Message})
+                        });
+                }})
             .then(function (data) {
-                cats = data;
-                console.log(cats);
-            })
-            .catch(function (error) {
-                console.log('request failed! Try again', error)
+
+                newPrice = data;
+                console.log(newPrice);
             })
     }
 
     render() {
+        let message1 = null;
+        if (this.state.success == true) {
+            message1 = <div className="spacing alert alert-success"> <strong>Success!</strong> Your price has been added.</div>
+        }
+        else if (this.state.errorPost1 != '') {
+            message1 = <div className="spacing alert alert-danger alert-container"> {this.state.errorPost1}</div>
+        }
+        let message2 = null;
+        if (this.state.success == true) {
+            message2 = <div className="spacing alert alert-success"> <strong>Success!</strong> Your price has been added.</div>
+        }
+        else if (this.state.errorPost2 != '') {
+            message2 = <div className="spacing alert alert-danger alert-container"> {this.state.errorPost2}</div>
+        }
+        let message3 = null;
+        if (this.state.success == true) {
+            message3 = <div className="spacing alert alert-success"> <strong>Success!</strong> Your price has been added.</div>
+        }
+        else if (this.state.errorPost3 != '') {
+            message3 = <div className="spacing alert alert-danger alert-container"> {this.state.errorPost3}</div>
+        }
         return (
             <div className='AddPrice'>
                 <div className="col col-md-8">
@@ -129,6 +175,7 @@ export class AddPrice extends React.Component<{ userId: number }, { amount1: str
                         <div className="spacing">
                             <button className="btn blue-button" onClick={this.handleSubmit1}>Add the price!</button>
                         </div>
+                        <h4>{message1}</h4>
                         <h3><i>Standard</i></h3>
                         <div className="spacing">
 
@@ -150,6 +197,7 @@ export class AddPrice extends React.Component<{ userId: number }, { amount1: str
                         <div className="spacing">
                             <button className="btn blue-button" onClick={this.handleSubmit2}>Add the price!</button>
                         </div>
+                        <h4>{message2}</h4>
                         <h3><i>Premium</i></h3>
                         <div className="spacing">
 
@@ -171,6 +219,7 @@ export class AddPrice extends React.Component<{ userId: number }, { amount1: str
                         <div className="spacing">
                             <button className="btn blue-button" onClick={this.handleSubmit3}>Add the price!</button>
                         </div>
+                        <h4>{message3}</h4>
                     </form>
                 </div>
             </div>
