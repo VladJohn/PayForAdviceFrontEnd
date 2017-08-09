@@ -31,6 +31,7 @@ export class Header extends React.Component <{},{}>
                 .then((response) => response.json())
                 .then(() => {
                    localStorage.setItem("token", '')
+                   localStorage.setItem('fbLogged', '')
                 })
                 .then(()=>{
                     this.refresh()})

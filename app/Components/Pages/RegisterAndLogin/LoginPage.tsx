@@ -48,7 +48,8 @@ export class LoginPage extends React.Component<{}, { username: string, password:
                         .then(() => (
                             this.setState({ token: cats.TokenText }),
                             console.log(this.state.token),
-                            localStorage.setItem("token", this.state.token)
+                            localStorage.setItem("token", this.state.token),
+                            localStorage.setItem("fbLogged", "false")
                         ))
                         .then(() => { this.refresh() })
                 }

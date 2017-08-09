@@ -33,6 +33,7 @@ export class MainPage extends React.Component<{token: string}, { categories: Arr
                 if(localStorage.getItem('token') === '')
                 {
                     localStorage.setItem("token", this.props.token)
+                    localStorage.setItem("fbLogged", "true")
                     this.refresh()
                 }
                 else
