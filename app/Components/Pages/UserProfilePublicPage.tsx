@@ -33,7 +33,7 @@ export class UserProfilePublicPage extends React.Component <{id : number,idLogge
             <div>
                 <div className="row">
                     <div className="col col-md-3">
-                        <img className="img-responsive" src={"/"+this.state.user.AvatarUrl}></img>
+                        <img className="img-responsive" src={""+this.state.user.AvatarUrl}></img>
                     </div> 
                     <div className="col col-md-8">
                         <h3>{this.state.user.Name}</h3>

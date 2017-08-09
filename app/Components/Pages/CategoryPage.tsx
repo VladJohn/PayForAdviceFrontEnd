@@ -47,7 +47,7 @@ export class CategoryPage extends React.Component<{ id: number }, { usersByCateg
                 </div>
                 <ListView elements={
                     this.state.usersByCategory.map(function (object, i) {
-                        return <UserList imgurl={"/"+object.AvatarUrl} id={object.Id} type="user" name={object.Name} bio={object.Bio} rating= {object.Rating} />;
+                        return <UserList imgurl={""+object.AvatarUrl} id={object.Id} type="user" name={object.Name} bio={object.Bio} rating= {object.Rating} />;
                     }
                     )             
                 } />
