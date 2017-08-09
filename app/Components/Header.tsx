@@ -5,11 +5,13 @@ import {BrowserRouter as Router, Link, Route, Redirect} from 'react-router-dom';
 export class Header extends React.Component <{},{}>
 {
     baseUrl: string = 'http://localhost:52619/api/user/?tokenText=';
+    headers: Headers;
 
     constructor()
     {
         super();
         this.LogOut=this.LogOut.bind(this)
+        this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9', 'TokenText': localStorage.getItem('token') });
     }
 
     refresh()
@@ -25,12 +27,13 @@ export class Header extends React.Component <{},{}>
     LogOut(event:any)
     {
         event.preventDefault();
-        return fetch(this.baseUrl + localStorage.getItem("token"))
+        return fetch(this.baseUrl + localStorage.getItem("token"), { method: "GET", headers: this.headers })
                 .then((response) => response.json())
-                .then(function (data) {
+                .then(() => {
                    localStorage.setItem("token", '')
                 })
-                .then(()=>{this.refresh()})
+                .then(()=>{
+                    this.refresh()})
                 .catch(function (error) {
                     console.log('request failed', error)
                 })
