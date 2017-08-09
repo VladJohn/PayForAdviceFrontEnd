@@ -61,10 +61,10 @@ export class AppViewer extends React.Component<{}, { tokenData: any }>
                                 (localStorage.getItem("token") == '') ? (
                                     <LoginPage />
                                 ) : (
-                                        <Redirect to="/main" />
+                                        <Redirect to="/main/:token" />
                                     )
                             )} />
-                            <Route path='/main' component={MainPage} />
+                            <Route path='/main/:token' render={(props) => <MainPage token={props.match.params.token} />} />
                             <Route path='/register' component={SignUpPage} />
                             <Route path='/registerPreference' component={SignUpPreferencePage} />
                             <Route path='/registerAdviser' component={SignUpAdviserPage} />

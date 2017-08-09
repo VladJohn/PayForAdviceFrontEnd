@@ -3,7 +3,7 @@ import { Category } from "Components/Elements/Category"
 import { ListView } from "Components/Elements/ListView"
 import 'whatwg-fetch'
 
-export class MainPage extends React.Component<{}, { categories: Array<any>, loaded :boolean, token:string }>{
+export class MainPage extends React.Component<{token: string}, { categories: Array<any>, loaded :boolean, token:string }>{
 
     baseUrl: string = 'http://localhost:52619/api/category/';
     baseUrl2: string = 'http://localhost:52619/api/user/?facebook="true';
@@ -20,24 +20,6 @@ export class MainPage extends React.Component<{}, { categories: Array<any>, load
             window.location.reload();
     }
 
-    getData(){
-        var cats: any;
-        cats = '';
-        return fetch(this.baseUrl2)
-            .then((response) => response.json())
-            .then(function (data) {
-                cats = data;
-            })
-            .then(() => (
-                this.setState({ token: cats.TokenText }),
-                console.log(this.state.token),
-                localStorage.setItem("token", this.state.token)
-            ))
-            .catch(function (error) {
-                console.log('request failedddd', error)
-            })
-    }
-
     componentDidMount() {
         var cats: any[];
         cats = [];
@@ -48,9 +30,11 @@ export class MainPage extends React.Component<{}, { categories: Array<any>, load
             })
             .then(() => {
                 this.setState({ categories: cats, loaded : true });
-                if(localStorage.getItem('token') === 'undefined')
+                if(localStorage.getItem('token') === '')
                 {
-                    this.getData();
+                    localStorage.setItem("token", this.props.token)
+                    localStorage.setItem("fbLogged", "true")
+                    this.refresh()
                 }
                 else
                 {}

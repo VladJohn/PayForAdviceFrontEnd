@@ -5,7 +5,7 @@ import { Footer } from "Components/Footer"
 import { Question } from "Components/Elements/Question"
 import { ListView } from "Components/Elements/ListView"
 
-export class BaseUserQuestions extends React.Component<{idUser: number}, {adviserQuestions: Array<any>, sorter:string}>
+export class BaseUserQuestions extends React.Component<{idUser: number}, {adviserQuestions: Array<any>, sorter:number}>
 {
     baseUrl: string = 'http://localhost:52619/api/question/?userIdForSorting=';
     headers: Headers;
@@ -14,7 +14,7 @@ export class BaseUserQuestions extends React.Component<{idUser: number}, {advise
         super();
         this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
         this.state = {
-            adviserQuestions: [], sorter:'normal'
+            adviserQuestions: [], sorter:0
         };
         this.changeStatus = this.changeStatus.bind(this);
         this.changeDate = this.changeDate.bind(this);
@@ -23,13 +23,13 @@ export class BaseUserQuestions extends React.Component<{idUser: number}, {advise
 
     changeStatus()
     {
-        this.setState({sorter:'state'})
+        this.setState({sorter:2})
         localStorage.setItem("Updated",'false');
     }
 
     changeDate()
     {
-        this.setState({sorter:'date'})
+        this.setState({sorter:1})
         localStorage.setItem("Updated",'false');
     }
 

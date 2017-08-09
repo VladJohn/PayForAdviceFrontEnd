@@ -66,6 +66,13 @@ export class AnsweredQuestionsForAdvicer extends React.Component<{ id: number },
     }
 
     render() {
+        let fb = null;
+        if(localStorage.getItem('fbLogged')==='true')
+            fb = <button onClick={this.shareRatingOnFb} type="button" className="btn blue-button">
+                        Share on facebook!
+                    </button>
+        else
+            fb = null;
         return (
             <div>
                 <div className="col-md-8">
@@ -75,9 +82,7 @@ export class AnsweredQuestionsForAdvicer extends React.Component<{ id: number },
                 <div className="col-md-4">
                     <br />
                     <h4>Your rating was: {this.state.answer.Rating}</h4>
-                    <button onClick={this.shareRatingOnFb} type="button" className="btn blue-button">
-                        Share on facebook!
-                </button>
+                    {fb}
                 </div>
             </div>
         );
