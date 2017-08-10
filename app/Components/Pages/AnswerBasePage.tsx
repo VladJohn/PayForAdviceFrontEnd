@@ -14,7 +14,7 @@ export class AnswerBasePage extends React.Component <{idUser:number},{ rating: s
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSubmitRating = this.handleSubmitRating.bind(this);
     this.shareOnFb = this.shareOnFb.bind(this);
-    this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
+    this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9', 'TokenText':localStorage.getItem('token') });
     }
 
     putDataReport() {
