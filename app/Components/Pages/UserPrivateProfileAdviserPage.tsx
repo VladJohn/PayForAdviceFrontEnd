@@ -10,7 +10,6 @@ export class UserPrivateProfileAdviserPage extends React.Component<{ id: number 
         this.state = { errorPut: '', name: '', email: '', bio: '', website: '', base: '', normal: '', premium: '', password: '', avatarUrl: '', rating: 0, success: false };
         this.handleChangeName = this.handleChangeName.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
-        this.handleChangeConfirmPassword = this.handleChangeConfirmPassword.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleChangeBio = this.handleChangeBio.bind(this);
         this.handleChangeWebsite = this.handleChangeWebsite.bind(this);
@@ -70,9 +69,6 @@ export class UserPrivateProfileAdviserPage extends React.Component<{ id: number 
     handleChangePassword(event: React.FormEvent<HTMLInputElement>) {
         this.setState({ password: event.currentTarget.value })
     }
-    handleChangeConfirmPassword(event: React.FormEvent<HTMLInputElement>) {
-
-    }
     handleChangeEmail(event: React.FormEvent<HTMLInputElement>) {
         this.setState({ email: event.currentTarget.value });
     }
@@ -93,22 +89,20 @@ export class UserPrivateProfileAdviserPage extends React.Component<{ id: number 
     render() {
         let message = null;
         if (this.state.success == true) {
-            message = <div className="spacing alert alert-success"> <strong>Success!</strong> Your price has been added.</div>
+            message = <div className="spacing alert alert-success"> <strong>Success!</strong> Your information has been updated.</div>
         }
         else if (this.state.errorPut != '') {
             message = <div className="spacing alert alert-danger alert-container"> {this.state.errorPut}</div>
         }
         return (
             <div className="UserPrivateProfileAdviserPage">
+                <h1>
+                    My Profile
+                </h1>
                 <div className="col col-lg-6">
-                    <h1>
-                        Profile
-                    </h1>
                     <form>
                         <div>
-                            <div>
-                                <label>My rating: {this.state.rating}</label>
-                            </div>
+
                             <span>
                                 Name:
                             </span>
@@ -122,14 +116,6 @@ export class UserPrivateProfileAdviserPage extends React.Component<{ id: number 
                             </span>
                             <span>
                                 <input type="password" name="ChangePassword" className="form-control" placeholder='Type new password' onChange={this.handleChangePassword} />
-                            </span>
-                        </div>
-                        <div>
-                            <span>
-                                Confirm Password:
-                            </span>
-                            <span>
-                                <input type="password" name="ChangeConfirmPassword" className="form-control" placeholder='Confirm new password' onChange={this.handleChangeConfirmPassword} />
                             </span>
                         </div>
                         <div>
@@ -172,7 +158,13 @@ export class UserPrivateProfileAdviserPage extends React.Component<{ id: number 
                     </form>
                     {message}
                 </div>
-
+                <div className="col col-lg-2"></div>
+                <div className="col col-lg-3">
+                    <img className="img-responsive" src={this.state.avatarUrl} />
+                    <div className="text-centered">
+                        My rating: {this.state.rating}
+                    </div>
+                </div>
             </div>
         );
     }

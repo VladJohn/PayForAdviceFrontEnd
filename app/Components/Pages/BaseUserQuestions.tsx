@@ -56,12 +56,18 @@ export class BaseUserQuestions extends React.Component<{idUser: number}, {advise
     }
 
     render() {
+        let message = null;
+        if (this.state.adviserQuestions.length == 0){
+            message = <div>You don't have any questions.</div>
+        }
         return (
+            
             <div className="row">
                 <div className = "col-md-8" >
+                    {message}
                     <ListView elements={
                     this.state.adviserQuestions.map(function (object, i) {
-                        return <Question type={"question"}id={object.Id} question={object.QuestionText} status={object.Status} date={object.Date.substring(0,10)} ordine={object.Order}/>;
+                        return <Question type={"question"} id={object.Id} question={object.QuestionText} status={object.Status} date={object.Date.substring(0,10)} ordine={object.Order}/>;
                     }
                     )
                 } />

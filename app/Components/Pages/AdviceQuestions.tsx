@@ -40,7 +40,7 @@ export class AdviceQuestions extends React.Component<{ idUser: number }, { advis
 
     render() {
         return (
-            <div className="MainPage">
+            <div>
                 <div className="panel-body">
                     
                 </div>

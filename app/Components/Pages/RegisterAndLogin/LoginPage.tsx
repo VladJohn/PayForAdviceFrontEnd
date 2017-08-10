@@ -70,9 +70,6 @@ export class LoginPage extends React.Component<{}, { username: string, password:
                 cats = data;
                 window.location.replace(data.Url)
             })
-            .then(() => (
-                this.getData()
-            ))
             .catch(function (error) {
                 console.log('request failedddd', error)
             })
