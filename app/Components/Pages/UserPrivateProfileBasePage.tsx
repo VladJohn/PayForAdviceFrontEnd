@@ -99,62 +99,63 @@ export class UserPrivateProfileBasePage extends React.Component<{ id: number }, 
         else if (this.state.errorPut != '') {
             message = <div className="spacing alert alert-danger alert-container"> {this.state.errorPut}</div>
         }
-        return (
-            <div className="UserPrivateProfileBasePage">
-                <div className="col col-lg-6">
-                    <h1>
-                        Profile
+        if (localStorage.getItem("token")) {
+            return (
+                <div className="UserPrivateProfileBasePage">
+                    <div className="col col-lg-6">
+                        <h1>
+                            Profile
                     </h1>
-                    <form>
-                        <div>
-                            <span>
-                                Name:
+                        <form>
+                            <div>
+                                <span>
+                                    Name:
                             </span>
-                            <span>
-                                <input type="text" name="ChangeName" className="form-control" placeholder={this.state.name} onChange={this.handleChangeName} />
+                                <span>
+                                    <input type="text" name="ChangeName" className="form-control" placeholder={this.state.name} onChange={this.handleChangeName} />
+                                </span>
+                            </div>
+                            <div>
+                                <span>
+                                    Password:
                             </span>
-                        </div>
-                        <div>
-                            <span>
-                                Password:
+                                <span>
+                                    <input type="password" name="ChangePassword" className="form-control" placeholder='Type new password' onChange={this.handleChangePassword} />
+                                </span>
+                            </div>
+                            <div>
+                                <span>
+                                    Confirm Password:
                             </span>
-                            <span>
-                                <input type="password" name="ChangePassword" className="form-control" placeholder='Type new password' onChange={this.handleChangePassword} />
+                                <span>
+                                    <input type="password" name="ChangeConfirmPassword" className="form-control" placeholder='Confirm new password' onChange={this.handleChangeConfirmPassword} />
+                                </span>
+                            </div>
+                            <div>
+                                <span>
+                                    Email:
                             </span>
-                        </div>
-                        <div>
-                            <span>
-                                Confirm Password:
+                                <span>
+                                    <input type="email" name="ChangeEmail" className="form-control" placeholder={this.state.email} onChange={this.handleChangeEmail} />
+                                </span>
+                            </div>
+                            <div>
+                                <span>
+                                    Bio:
                             </span>
-                            <span>
-                                <input type="password" name="ChangeConfirmPassword" className="form-control" placeholder='Confirm new password' onChange={this.handleChangeConfirmPassword} />
-                            </span>
-                        </div>
-                        <div>
-                            <span>
-                                Email:
-                            </span>
-                            <span>
-                                <input type="email" name="ChangeEmail" className="form-control" placeholder={this.state.email} onChange={this.handleChangeEmail} />
-                            </span>
-                        </div>
-                        <div>
-                            <span>
-                                Bio:
-                            </span>
-                            <span>
-                                <input type="text" name="ChangeBio" className="form-control" placeholder={this.state.bio} onChange={this.handleChangeBio} />
-                            </span>
-                        </div>
-                        <div>
-                            <span>
-                                Website:
+                                <span>
+                                    <input type="text" name="ChangeBio" className="form-control" placeholder={this.state.bio} onChange={this.handleChangeBio} />
+                                </span>
+                            </div>
+                            <div>
+                                <span>
+                                    Website:
 
                             </span>
-                            <span>
-                                <input type="text" name="ChangeWebsite" className="form-control" placeholder={this.state.website} onChange={this.handleChangeWebsite} />
-                            </span>
-                        </div>
+                                <span>
+                                    <input type="text" name="ChangeWebsite" className="form-control" placeholder={this.state.website} onChange={this.handleChangeWebsite} />
+                                </span>
+                            </div>
                         <div>
                             <span>
                                 New Avatar Url:
@@ -169,7 +170,12 @@ export class UserPrivateProfileBasePage extends React.Component<{ id: number }, 
                     </form>
                     {message}
                 </div>
-            </div>
-        );
+            );
+        }
+        else {
+            return (
+                <div> You are not logged in!</div>
+            )
+        }
     }
 }

@@ -71,7 +71,7 @@ export class SignUpPage extends React.Component<{}, { name: string, username: st
     render() {
         let message = null;
         if (this.state.errorPost != '') {
-            message = <div className="spacing alert alert-danger alert-container"> {this.state.errorPost}</div>
+            message = <div className="spacing alert alert-danger alert-container"><strong>Error:</strong> {this.state.errorPost}</div>
         }
         return (
             <div className='SignUpPage'>
@@ -82,7 +82,7 @@ export class SignUpPage extends React.Component<{}, { name: string, username: st
                     <form>
                         <div className="spacing">
                             <span className="text-default">
-                                Name:
+                                Name*:
                             </span>
                             <span>
                                 <input type="text" name="SignUpName" className="form-control" placeholder='Type Your Full Name' onChange={this.handleSignUpName} />
@@ -90,7 +90,7 @@ export class SignUpPage extends React.Component<{}, { name: string, username: st
                         </div>
                         <div className="spacing">
                             <span >
-                                Username:
+                                Username*:
                             </span>
                             <span>
                                 <input type="text" name="SignUpUsername" className="form-control" placeholder='Type Your Username' onChange={this.handleSignUpUsername} />
@@ -98,7 +98,7 @@ export class SignUpPage extends React.Component<{}, { name: string, username: st
                         </div>
                         <div className="spacing">
                             <span>
-                                Password:
+                                Password*:
                             </span>
                             <span>
                                 <input type="password" name="SignUpPassword" className="form-control" placeholder='Type Your Password' onChange={this.handleSignUpPassword} />
@@ -106,15 +106,7 @@ export class SignUpPage extends React.Component<{}, { name: string, username: st
                         </div>
                         <div className="spacing">
                             <span>
-                                Confirm Password:
-                            </span>
-                            <span>
-                                <input type="password" name="SignUpConfirmPassword" className="form-control" placeholder='Retype Your Password' onChange={this.handleSignUpConfirmPassword} />
-                            </span>
-                        </div>
-                        <div className="spacing">
-                            <span>
-                                Email:
+                                Email*:
                             </span>
                             <span>
                                 <input type="email" className="form-control" name="SignUpEmail" placeholder='Type Your Email' onChange={this.handleSignUpEmail} />

@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export class AnsweredQuestionsForAdvicer extends React.Component<{ id: number }, { answer : any, question: any }>
+export class AnsweredQuestionsForAdvicer extends React.Component<{ id: number }, { answer: any, question: any }>
 {
     baseUrl: string = 'http://localhost:52619/api/question/?idQuestion=';
     baseUrl2: string = 'http://localhost:52619/api/answer/?idQuestion=';
@@ -22,9 +22,9 @@ export class AnsweredQuestionsForAdvicer extends React.Component<{ id: number },
                 console.log('request ok', data)
             })
             .then(() => (
-                this.setState({ question : userData })
+                this.setState({ question: userData })
             ))
-            .then(() => 
+            .then(() =>
                 this.getAnswerText()
             )
             .catch(function (error) {
@@ -32,24 +32,24 @@ export class AnsweredQuestionsForAdvicer extends React.Component<{ id: number },
             })
     }
 
-    getAnswerText(){
-            var res: any ;
-            res ="";
-            return fetch(this.baseUrl2 + this.state.question.Id)
-                .then((response) => response.json())
-                .then(function (data) {
-                    res = data;
-                    console.log(data, res);
-                })
-                .then(() => (
-                    this.setState({ answer : res })
-                ))
-                .catch(function (error) {
-                    console.log('request failed', error)
-                })
-        }
-    
-    shareRatingOnFb(){
+    getAnswerText() {
+        var res: any;
+        res = "";
+        return fetch(this.baseUrl2 + this.state.question.Id)
+            .then((response) => response.json())
+            .then(function (data) {
+                res = data;
+                console.log(data, res);
+            })
+            .then(() => (
+                this.setState({ answer: res })
+            ))
+            .catch(function (error) {
+                console.log('request failed', error)
+            })
+    }
+
+    shareRatingOnFb() {
         var cats: any;
         cats = '';
         var something = this.baseUrl3 + "rating=" + this.state.answer.Rating;
@@ -66,10 +66,11 @@ export class AnsweredQuestionsForAdvicer extends React.Component<{ id: number },
     }
 
     render() {
+
         let fb = null;
-        if(localStorage.getItem('fbLogged')==='true')
+        if (localStorage.getItem('fbLogged') === 'true')
             fb = <button onClick={this.shareRatingOnFb} type="button" className="btn blue-button">
-                        Share on facebook!
+                Share on facebook!
                     </button>
         else
             fb = null;
@@ -84,7 +85,12 @@ export class AnsweredQuestionsForAdvicer extends React.Component<{ id: number },
                     <h4>Your rating is: {this.state.answer.Rating}</h4>
                     {fb}
                 </div>
-            </div>
-        );
+            );
+        }
+        else {
+            return (
+                <div> You are not logged in!</div>
+            )
+        }
     }
 }

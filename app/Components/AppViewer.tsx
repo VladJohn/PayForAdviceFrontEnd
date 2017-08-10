@@ -2,6 +2,8 @@ import * as React from "react"
 import { MainPage } from "Components/Pages/MainPage"
 import { About } from "Components/Pages/About"
 import { SuccessPage } from "Components/Pages/SuccessPage"
+import { SuccessPageAsk } from "Components/Pages/SuccessPageAsk"
+import { SuccessPageAnswer } from "Components/Pages/SuccessPageAnswer"
 import { LoginPage } from "Components/Pages/RegisterAndLogin/LoginPage"
 import { SignUpPage } from "Components/Pages/RegisterAndLogin/SignUpPage"
 import { SignUpAdviserPage } from "Components/Pages/RegisterAndLogin/SignUpAdviserPage"
@@ -71,6 +73,8 @@ export class AppViewer extends React.Component<{}, { tokenData: any }>
                             <Route path='/registerAdviser' component={SignUpAdviserPage} />
                             <Route path='/about' component={About} />
                             <Route path='/success' component={SuccessPage} />
+                            <Route path='/successAsk' component={SuccessPageAsk} />
+                            <Route path='/successAnswer' component={SuccessPageAnswer} />
                             {console.log("render "+this.state.tokenData.Role)}
                             <Route path='/myQuestions' render={(props) => <BaseUserQuestions idUser={this.state.tokenData.Id} />} />
                             <Route path='/myProfile' render={(props) => 
@@ -85,7 +89,7 @@ export class AppViewer extends React.Component<{}, { tokenData: any }>
                             <Route path='/myPendingQuestions' render={(props) => <AdviceQuestionsPending idUser={this.state.tokenData.Id} />} />
                             <Route path='/questionsAnswered/:id' render={(props) => <AnsweredQuestionsForAdvicer id={props.match.params.id} />} />
                             <Route path='/questionsPending/:id' render={(props) => <PendingQuestionsForAdvicer id={props.match.params.id} />} />
-                            <Route path='/addPrice/:id' render={(props) => <AddPrice userId={props.match.params.id} />} />
+                            <Route path='/addPrice/' render={(props) => <AddPrice userId={this.state.tokenData.Id} />} />
                             <Route path='/oups' component={SomethingWentWrong} />
                         </div>
                     </Router>

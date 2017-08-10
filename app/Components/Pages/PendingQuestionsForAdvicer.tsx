@@ -11,7 +11,7 @@ export class PendingQuestionsForAdvicer extends React.Component<{ id: number }, 
     constructor() {
         super();
         this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
-        this.state = { question : ""};
+        this.state = { question: "" };
     }
     componentWillMount() {
         var userData: any;
@@ -22,7 +22,7 @@ export class PendingQuestionsForAdvicer extends React.Component<{ id: number }, 
                 console.log('request ok', data)
             })
             .then(() => (
-                this.setState({ question : userData })
+                this.setState({ question: userData })
             ))
             .catch(function (error) {
                 console.log('request failedddd', error)
@@ -30,13 +30,21 @@ export class PendingQuestionsForAdvicer extends React.Component<{ id: number }, 
     }
 
     render() {
-        return (
-            <div>
-                <div className="col-md-12">
-                    <h2> {this.state.question.QuestionText}</h2>
-                <Answer idQuestion={this.props.id}/>
+        if (localStorage.getItem("token")) {
+            return (
+                <div>
+                    <div className="col-md-12">
+                        <h2> {this.state.question.QuestionText}</h2>
+                        <Answer idQuestion={this.props.id} />
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }
+        else {
+            return (
+                <div> You are not logged in!</div>
+            )
+        }
     }
+
 }

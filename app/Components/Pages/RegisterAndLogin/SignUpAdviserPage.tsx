@@ -107,7 +107,7 @@ export class SignUpAdviserPage extends React.Component<{}, {
     render() {
         let message = null;
         if (this.state.errorPost != '') {
-            message = <div className="spacing alert alert-danger alert-container"><strong>Error</strong> {this.state.errorPost}</div>
+            message = <div className="spacing alert alert-danger alert-container"><strong>Error:</strong> {this.state.errorPost}</div>
         }
         return (
             <div className='SignUpPage'>
