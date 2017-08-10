@@ -35,11 +35,10 @@ export class UserProfilePublicPage extends React.Component <{id : number,idLogge
                     <div className="col col-md-3">
                         <img className="img-responsive" src={""+this.state.user.AvatarUrl}></img>
                     </div> 
-                    <div className="col col-md-8">
-                        <h3>{this.state.user.Name}</h3>
-                        <p>{this.state.user.Username}</p>
-                        <a href = {this.state.user.Website}>{this.state.user.Website}</a>
-                        <p>Rating: {this.state.user.Rating}/5</p>
+                    <div className="col col-md-8 grey-text">
+                        <p><b>Name: </b>{this.state.user.Name}</p>
+                        <p><b>Site: </b><a href = {this.state.user.Website}>{this.state.user.Website}</a></p>
+                        <p><b>Rating: </b>{this.state.user.Rating}/5</p>
                     </div> 
                 </div>
                 <div className="panel panel-default row spacing">
