@@ -157,12 +157,9 @@ export class AnswerBasePage extends React.Component<{ idUser: number }, { rating
                     fb = null;
                 answer =
                     <div>
-                        {this.state.ans.AnswerText}
+                        <p className="text-formatting">{this.state.ans.AnswerText}</p>
                         <div>
                             <div>
-                                <div className="spacing">
-                                    <label>Copy this into your browser's URL to download files sent by advisor: link</label>
-                                </div>
                                 <div>
                                     <label>{this.state.ans.url}</label>
                                 </div>
