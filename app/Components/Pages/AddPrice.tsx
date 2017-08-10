@@ -1,13 +1,13 @@
 import * as React from "react"
 
-export class AddPrice extends React.Component<{ userId: number }, {success : boolean, errorPost1: string, errorPost2: string, errorPost3 : string, amount1: string, details1: string, order1: string, amount2: string, details2: string, order2: string, amount3: string, details3: string, order3: string, }>
+export class AddPrice extends React.Component<{ userId: number }, {success1 : boolean, success2 : boolean, success3: boolean, errorPost1: string, errorPost2: string, errorPost3 : string, amount1: string, details1: string, order1: string, amount2: string, details2: string, order2: string, amount3: string, details3: string, order3: string, }>
 {
     baseUrl: string = 'http://localhost:52619/api/price/';
     headers: Headers;
 
     constructor() {
         super();
-        this.state = { success : false, errorPost1 : '', errorPost2 : '', errorPost3 : '', amount1: '', details1: '', order1: 'Basic', amount2: '', details2: '', order2: 'Standard', amount3: '', details3: '', order3: 'Premium' };
+        this.state = { success1 : false ,success2 : false,success3 : false, errorPost1 : '', errorPost2 : '', errorPost3 : '', amount1: '', details1: '', order1: 'Basic', amount2: '', details2: '', order2: 'Standard', amount3: '', details3: '', order3: 'Premium' };
         this.handleNewPrice1 = this.handleNewPrice1.bind(this);
         this.handleNewPrice2 = this.handleNewPrice2.bind(this);
         this.handleNewPrice3 = this.handleNewPrice3.bind(this);
@@ -62,7 +62,7 @@ export class AddPrice extends React.Component<{ userId: number }, {success : boo
             .then((response) => {
                 if (response.ok) {
                     return response.json()
-                        .then(() => this.setState({success:true}))
+                        .then(() => this.setState({success1:true}))
                 } else {
                     return response.json()
                         .then(function (error) {
@@ -87,7 +87,7 @@ export class AddPrice extends React.Component<{ userId: number }, {success : boo
             .then((response) => {
                 if (response.ok) {
                     return response.json()
-                        .then(() => this.setState({success:true}))
+                        .then(() => this.setState({success2:true}))
                 } else {
                     return response.json()
                         .then(function (error) {
@@ -111,7 +111,7 @@ export class AddPrice extends React.Component<{ userId: number }, {success : boo
             .then((response) => {
                 if (response.ok) {
                     return response.json()
-                        .then(() => this.setState({success:true}))
+                        .then(() => this.setState({success3:true}))
                 } else {
                     return response.json()
                         .then(function (error) {
@@ -127,21 +127,21 @@ export class AddPrice extends React.Component<{ userId: number }, {success : boo
 
     render() {
         let message1 = null;
-        if (this.state.success == true) {
+        if (this.state.success1 == true) {
             message1 = <div className="spacing alert alert-success"> <strong>Success!</strong> Your price has been added.</div>
         }
         else if (this.state.errorPost1 != '') {
             message1 = <div className="spacing alert alert-danger alert-container"> {this.state.errorPost1}</div>
         }
         let message2 = null;
-        if (this.state.success == true) {
+        if (this.state.success2 == true) {
             message2 = <div className="spacing alert alert-success"> <strong>Success!</strong> Your price has been added.</div>
         }
         else if (this.state.errorPost2 != '') {
             message2 = <div className="spacing alert alert-danger alert-container"> {this.state.errorPost2}</div>
         }
         let message3 = null;
-        if (this.state.success == true) {
+        if (this.state.success3 == true) {
             message3 = <div className="spacing alert alert-success"> <strong>Success!</strong> Your price has been added.</div>
         }
         else if (this.state.errorPost3 != '') {
