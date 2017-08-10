@@ -6,7 +6,7 @@ export class Price extends React.Component<{price : number, details:string, orde
     return (
         <div>
         <h4 className="text-primary">${this.props.price}</h4>
-        <p className="text-bold">{this.props.order}</p>
+        <p className="text-bold blue-text">{this.props.order}</p>
         <p>{this.props.details}</p>
         </div>
     );
