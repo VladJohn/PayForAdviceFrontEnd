@@ -1,13 +1,13 @@
 import * as React from "react"
 
-export class AddPrice extends React.Component<{ userId: number }, {success1 : boolean, success2 : boolean, success3: boolean, errorPost1: string, errorPost2: string, errorPost3 : string, amount1: string, details1: string, order1: string, amount2: string, details2: string, order2: string, amount3: string, details3: string, order3: string, }>
+export class AddPrice extends React.Component<{ userId: number }, { success1: boolean, success2: boolean, success3: boolean, errorPost1: string, errorPost2: string, errorPost3: string, amount1: string, details1: string, order1: string, amount2: string, details2: string, order2: string, amount3: string, details3: string, order3: string, }>
 {
     baseUrl: string = 'http://localhost:52619/api/price/';
     headers: Headers;
 
     constructor() {
         super();
-        this.state = { success1 : false ,success2 : false,success3 : false, errorPost1 : '', errorPost2 : '', errorPost3 : '', amount1: '', details1: '', order1: 'Basic', amount2: '', details2: '', order2: 'Standard', amount3: '', details3: '', order3: 'Premium' };
+        this.state = { success1: false, success2: false, success3: false, errorPost1: '', errorPost2: '', errorPost3: '', amount1: '', details1: '', order1: 'Basic', amount2: '', details2: '', order2: 'Standard', amount3: '', details3: '', order3: 'Premium' };
         this.handleNewPrice1 = this.handleNewPrice1.bind(this);
         this.handleNewPrice2 = this.handleNewPrice2.bind(this);
         this.handleNewPrice3 = this.handleNewPrice3.bind(this);
@@ -62,14 +62,15 @@ export class AddPrice extends React.Component<{ userId: number }, {success1 : bo
             .then((response) => {
                 if (response.ok) {
                     return response.json()
-                        .then(() => this.setState({success1:true}))
+                        .then(() => this.setState({ success1: true }))
                 } else {
                     return response.json()
                         .then(function (error) {
-                            that.setState({errorPost1: error.Message})
-                            console.log("give the error!!!!" , error);
+                            that.setState({ errorPost1: error.Message })
+                            console.log("give the error!!!!", error);
                         });
-                }})
+                }
+            })
             .then(function (data) {
 
                 newPrice = data;
@@ -87,13 +88,14 @@ export class AddPrice extends React.Component<{ userId: number }, {success1 : bo
             .then((response) => {
                 if (response.ok) {
                     return response.json()
-                        .then(() => this.setState({success2:true}))
+                        .then(() => this.setState({ success2: true }))
                 } else {
                     return response.json()
                         .then(function (error) {
-                            that.setState({errorPost2: error.Message})
+                            that.setState({ errorPost2: error.Message })
                         });
-                }})
+                }
+            })
             .then(function (data) {
 
                 newPrice = data;
@@ -111,13 +113,14 @@ export class AddPrice extends React.Component<{ userId: number }, {success1 : bo
             .then((response) => {
                 if (response.ok) {
                     return response.json()
-                        .then(() => this.setState({success3:true}))
+                        .then(() => this.setState({ success3: true }))
                 } else {
                     return response.json()
                         .then(function (error) {
-                            that.setState({errorPost3: error.Message})
+                            that.setState({ errorPost3: error.Message })
                         });
-                }})
+                }
+            })
             .then(function (data) {
 
                 newPrice = data;
@@ -147,82 +150,89 @@ export class AddPrice extends React.Component<{ userId: number }, {success1 : bo
         else if (this.state.errorPost3 != '') {
             message3 = <div className="spacing alert alert-danger alert-container"> {this.state.errorPost3}</div>
         }
-        return (
-            <div className='AddPrice'>
-                <div className="col col-md-8">
-                    <h2><b>
-                        Add your prices
+        if (localStorage.getItem("token")) {
+            return (
+                <div className='AddPrice'>
+                    <div className="col col-md-8">
+                        <h2><b>
+                            Add your prices
                     </b></h2>
-                    <form>
-                        <h3><i>Basic</i></h3>
-                        <div className="spacing">
+                        <form>
+                            <h3><i>Basic</i></h3>
+                            <div className="spacing">
 
-                            <span >
-                                Amount:
+                                <span >
+                                    Amount:
                             </span>
-                            <span>
-                                <input type="number" step="0.01" name="NewPrice" className="form-control" placeholder='Enter the price you want to add' onChange={this.handleNewPrice1} />
+                                <span>
+                                    <input type="number" step="0.01" name="NewPrice" className="form-control" placeholder='Enter the price you want to add' onChange={this.handleNewPrice1} />
+                                </span>
+                            </div>
+                            <div className="spacing">
+                                <span >
+                                    Details:
                             </span>
-                        </div>
-                        <div className="spacing">
-                            <span >
-                                Details:
-                            </span>
-                            <span>
-                                <input type="text" name="Details" className="form-control" placeholder='Enter some details' onChange={this.handleDetails1} />
-                            </span>
-                        </div>
-                        <div className="spacing">
-                            <button className="btn blue-button" onClick={this.handleSubmit1}>Add the price!</button>
-                        </div>
-                        <h4>{message1}</h4>
-                        <h3><i>Standard</i></h3>
-                        <div className="spacing">
+                                <span>
+                                    <input type="text" name="Details" className="form-control" placeholder='Enter some details' onChange={this.handleDetails1} />
+                                </span>
+                            </div>
+                            <div className="spacing">
+                                <button className="btn blue-button" onClick={this.handleSubmit1}>Add the price!</button>
+                            </div>
+                            <h4>{message1}</h4>
+                            <h3><i>Standard</i></h3>
+                            <div className="spacing">
 
-                            <span >
-                                Amount:
+                                <span >
+                                    Amount:
                             </span>
-                            <span>
-                                <input type="number" step="0.01" name="NewPrice" className="form-control" placeholder='Enter the price you want to add' onChange={this.handleNewPrice2} />
+                                <span>
+                                    <input type="number" step="0.01" name="NewPrice" className="form-control" placeholder='Enter the price you want to add' onChange={this.handleNewPrice2} />
+                                </span>
+                            </div>
+                            <div className="spacing">
+                                <span >
+                                    Details:
                             </span>
-                        </div>
-                        <div className="spacing">
-                            <span >
-                                Details:
-                            </span>
-                            <span>
-                                <input type="text" name="Details" className="form-control" placeholder='Enter some details' onChange={this.handleDetails2} />
-                            </span>
-                        </div>
-                        <div className="spacing">
-                            <button className="btn blue-button" onClick={this.handleSubmit2}>Add the price!</button>
-                        </div>
-                        <h4>{message2}</h4>
-                        <h3><i>Premium</i></h3>
-                        <div className="spacing">
+                                <span>
+                                    <input type="text" name="Details" className="form-control" placeholder='Enter some details' onChange={this.handleDetails2} />
+                                </span>
+                            </div>
+                            <div className="spacing">
+                                <button className="btn blue-button" onClick={this.handleSubmit2}>Add the price!</button>
+                            </div>
+                            <h4>{message2}</h4>
+                            <h3><i>Premium</i></h3>
+                            <div className="spacing">
 
-                            <span >
-                                Amount:
+                                <span >
+                                    Amount:
                             </span>
-                            <span>
-                                <input type="number" step="0.01" name="NewPrice" className="form-control" placeholder='Enter the price you want to add' onChange={this.handleNewPrice3} />
+                                <span>
+                                    <input type="number" step="0.01" name="NewPrice" className="form-control" placeholder='Enter the price you want to add' onChange={this.handleNewPrice3} />
+                                </span>
+                            </div>
+                            <div className="spacing">
+                                <span >
+                                    Details:
                             </span>
-                        </div>
-                        <div className="spacing">
-                            <span >
-                                Details:
-                            </span>
-                            <span>
-                                <input type="text" name="Details" className="form-control" placeholder='Enter some details' onChange={this.handleDetails3} />
-                            </span>
-                        </div>
-                        <div className="spacing">
-                            <button className="btn blue-button" onClick={this.handleSubmit3}>Add the price!</button>
-                        </div>
-                        <h4>{message3}</h4>
-                    </form>
+                                <span>
+                                    <input type="text" name="Details" className="form-control" placeholder='Enter some details' onChange={this.handleDetails3} />
+                                </span>
+                            </div>
+                            <div className="spacing">
+                                <button className="btn blue-button" onClick={this.handleSubmit3}>Add the price!</button>
+                            </div>
+                            <h4>{message3}</h4>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }
+        else {
+            return (
+                <div> You are not logged in!</div>
+            )
+        }
     }
 }

@@ -46,13 +46,14 @@ export class AskAdvice extends React.Component<{ idResponder: number, idAsker: n
             .then((response) => {
                 if (response.ok) {
                     return response.json()
-                        .then(() => this.setState({success:true}))
+                        .then(() => this.refresh())
                 } else {
                     return response.json()
                         .then(function (error) {
-                            that.setState({errorPost: error.Message})
+                            that.setState({ errorPost: error.Message })
                         });
-                }})
+                }
+            })
             .then(function (data) {
 
                 postedQuestion = data;
@@ -80,6 +81,10 @@ export class AskAdvice extends React.Component<{ idResponder: number, idAsker: n
     handleSubmit(event: any) {
         event.preventDefault();
         this.postData();
+    }
+
+    refresh() {
+        window.location.replace("/successAsk");
     }
 
     render() {

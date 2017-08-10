@@ -94,78 +94,85 @@ export class UserPrivateProfileAdviserPage extends React.Component<{ id: number 
         else if (this.state.errorPut != '') {
             message = <div className="spacing alert alert-danger alert-container"> {this.state.errorPut}</div>
         }
-        return (
-            <div className="UserPrivateProfileAdviserPage">
-                <h1>
-                    My Profile
+        if (localStorage.getItem("token")) {
+            return (
+                <div className="UserPrivateProfileAdviserPage">
+                    <h1>
+                        My Profile
                 </h1>
-                <div className="col col-lg-6">
-                    <form>
-                        <div>
+                    <div className="col col-lg-6">
+                        <form>
+                            <div>
 
-                            <span>
-                                Name:
+                                <span>
+                                    Name:
                             </span>
-                            <span>
-                                <input type="text" name="ChangeName" className="form-control" placeholder={this.state.name} onChange={this.handleChangeName} />
+                                <span>
+                                    <input type="text" name="ChangeName" className="form-control" placeholder={this.state.name} onChange={this.handleChangeName} />
+                                </span>
+                            </div>
+                            <div>
+                                <span>
+                                    Password:
                             </span>
+                                <span>
+                                    <input type="password" name="ChangePassword" className="form-control" placeholder='Type new password' onChange={this.handleChangePassword} />
+                                </span>
+                            </div>
+                            <div>
+                                <span>
+                                    Email:
+                            </span>
+                                <span>
+                                    <input type="email" name="ChangeEmail" className="form-control" placeholder={this.state.email} onChange={this.handleChangeEmail} />
+                                </span>
+                            </div>
+                            <div>
+                                <span>
+                                    Bio:
+                            </span>
+                                <span>
+                                    <input type="text" name="ChangeBio" className="form-control" placeholder={this.state.bio} onChange={this.handleChangeBio} />
+                                </span>
+                            </div>
+                            <div>
+                                <span>
+                                    Website:
+                            </span>
+                                <span>
+                                    <input type="text" name="ChangeWebsite" className="form-control" placeholder={this.state.website} onChange={this.handleChangeWebsite} />
+                                </span>
+                            </div>
+                            <div>
+                                <span>
+                                    New Avatar Url:
+                            </span>
+                                <span>
+                                    <input type="text" name="ChangeAvatarUrl" className="form-control" placeholder='Paste the url to your avatar picture' onChange={this.handleChangeAvatar} />
+                                </span>
+                            </div>
+                            <div>
+                                <Link key={this.props.id} to={"/addPrice"} className="btn  blue-button spacing" >Add or update your prices</Link>
+                                <br />
+                                <button className="btn  blue-button" onClick={this.handleSubmit}>Update Information</button>
+                            </div>
+                        </form>
+                        {message}
+                    </div>
+                    <div className="col col-lg-2"></div>
+                    <div className="col col-lg-3">
+                        <img className="img-responsive" src={this.state.avatarUrl} />
+                        <div className="text-centered">
+                            My rating: {this.state.rating}
                         </div>
-                        <div>
-                            <span>
-                                Password:
-                            </span>
-                            <span>
-                                <input type="password" name="ChangePassword" className="form-control" placeholder='Type new password' onChange={this.handleChangePassword} />
-                            </span>
-                        </div>
-                        <div>
-                            <span>
-                                Email:
-                            </span>
-                            <span>
-                                <input type="email" name="ChangeEmail" className="form-control" placeholder={this.state.email} onChange={this.handleChangeEmail} />
-                            </span>
-                        </div>
-                        <div>
-                            <span>
-                                Bio:
-                            </span>
-                            <span>
-                                <input type="text" name="ChangeBio" className="form-control" placeholder={this.state.bio} onChange={this.handleChangeBio} />
-                            </span>
-                        </div>
-                        <div>
-                            <span>
-                                Website:
-                            </span>
-                            <span>
-                                <input type="text" name="ChangeWebsite" className="form-control" placeholder={this.state.website} onChange={this.handleChangeWebsite} />
-                            </span>
-                        </div>
-                        <div>
-                            <span>
-                                New Avatar Url:
-                            </span>
-                            <span>
-                                <input type="text" name="ChangeAvatarUrl" className="form-control" placeholder='Paste the url to your avatar picture' onChange={this.handleChangeAvatar} />
-                            </span>
-                        </div>
-                        <div>
-                            <Link key={this.props.id} to={"/addPrice/" + this.props.id} className="btn  blue-button spacing" >Add or update your prices</Link>
-                            <br />
-                            <button className="btn  blue-button" onClick={this.handleSubmit}>Update Information</button>
-                        </div>
-                    </form>
-                    {message}
-                </div>
-                <div className="col col-lg-2"></div>
-                <div className="col col-lg-3">
-                    <img className="img-responsive" src={this.state.avatarUrl} />
-                    <div className="text-centered">
-                        My rating: {this.state.rating}
                     </div>
                 </div>
-            </div>
-        );
+            );
+        }
+        else {
+            return (
+                <div> You are not logged in!</div>
+            )
+        }
     }
 }
