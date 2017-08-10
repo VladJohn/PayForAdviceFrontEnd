@@ -46,13 +46,14 @@ export class AskAdvice extends React.Component<{ idResponder: number, idAsker: n
             .then((response) => {
                 if (response.ok) {
                     return response.json()
-                        .then(() => this.setState({success:true}))
+                        .then(() => this.refresh())
                 } else {
                     return response.json()
                         .then(function (error) {
-                            that.setState({errorPost: error.Message})
+                            that.setState({ errorPost: error.Message })
                         });
-                }})
+                }
+            })
             .then(function (data) {
 
                 postedQuestion = data;
@@ -82,6 +83,10 @@ export class AskAdvice extends React.Component<{ idResponder: number, idAsker: n
         this.postData();
     }
 
+    refresh() {
+        window.location.replace("/successAsk");
+    }
+
     render() {
         let message = null;
         if (this.state.success == true) {
@@ -95,24 +100,22 @@ export class AskAdvice extends React.Component<{ idResponder: number, idAsker: n
                 <h3>Ask for advice:</h3>
                 <form id="ask">
                     <textarea className="form-control spacing" name="question" rows={8} placeholder='Ask your question here.' onChange={this.handleQuestion} />
-                    <p>Upload files that can help with understanding your question better(optional):</p>
-                    <input className="spacing" type="file" />
                     <div className="col col-md-4 panel panel-default">
                         <div className="panel-body">
                             <input type="radio" value={this.state.premium} name="price" onChange={this.handlePricePremium} />
-                            <Price price={this.state.premium} details={this.state.premiumDetail} order="premium price"></Price>
+                            <Price price={this.state.premium} details={this.state.premiumDetail} order="PREMIUM PRICE"></Price>
                         </div>
                     </div>
                     <div className="col col-md-4 panel panel-default">
                         <div className="panel-body">
                             <input type="radio" value={this.state.normal} name="price" onChange={this.handlePriceNormal} />
-                            <Price price={this.state.normal} details={this.state.normalDetail} order="standard price"></Price>
+                            <Price price={this.state.normal} details={this.state.normalDetail} order="STANDARD PRICE"></Price>
                         </div>
                     </div>
                     <div className="col col-md-4 panel panel-default">
                         <div className="panel-body">
                             <input type="radio" value={this.state.base} name="price" onChange={this.handlePriceBase} />
-                            <Price price={this.state.base} details={this.state.baseDetail} order="base price"></Price>
+                            <Price price={this.state.base} details={this.state.baseDetail} order="BASE PRICE"></Price>
                         </div>
                     </div>
                     <button type="submit" onClick={this.handleSubmit} className="btn blue-button" >Submit</button>

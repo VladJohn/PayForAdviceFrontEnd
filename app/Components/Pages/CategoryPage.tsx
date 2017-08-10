@@ -5,8 +5,8 @@ import { Category } from "Components/Elements/Category"
 import 'whatwg-fetch'
 
 export class CategoryPage extends React.Component<{ id: number }, { usersByCategory: Array<any> }>{
-    baseUrl: string = 'http://localhost:52619/api/user/?categoryId=' ;
-    headers: Headers;    
+    baseUrl: string = 'http://localhost:52619/api/user/?categoryId=';
+    headers: Headers;
 
     constructor() {
         super();
@@ -14,18 +14,17 @@ export class CategoryPage extends React.Component<{ id: number }, { usersByCateg
         this.state = {
             usersByCategory: []
         };
-        
+
     }
-    componentWillReceiveProps()
-    {
-            
+    componentWillReceiveProps() {
+
     }
 
     componentDidMount() {
         var user: any[];
         user = [];
         console.log(this.headers)
-        return fetch(this.baseUrl +this.props.id, { method: "GET", headers: this.headers })
+        return fetch(this.baseUrl + this.props.id, { method: "GET", headers: this.headers })
             .then((response) => response.json())
             .then(function (data) {
                 user = data;
@@ -40,18 +39,26 @@ export class CategoryPage extends React.Component<{ id: number }, { usersByCateg
     }
 
     render() {
-        return (
-            <div className="MainPage">
-                <div className="panel-body">
-                    The users in this category are:
+        if (localStorage.getItem("token")) {
+            return (
+                <div className="MainPage">
+                    <div className="panel-body">
+                        The users in this category are:
                 </div>
-                <ListView elements={
-                    this.state.usersByCategory.map(function (object, i) {
-                        return <UserList imgurl={"/"+object.AvatarUrl} id={object.Id} type="user" name={object.Name} bio={object.Bio} rating= {object.Rating} />;
-                    }
-                    )             
-                } />
-            </div>
-        );
+                    <ListView elements={
+                        this.state.usersByCategory.map(function (object, i) {
+                            return <UserList imgurl={"" + object.AvatarUrl} id={object.Id} type="user" name={object.Name} bio={object.Bio} rating={object.Rating} />;
+                        }
+                        )
+                    } />
+                </div>
+            );
+        }
+
+        else {
+            return (
+                <div> You are not logged in!</div>
+            )
+        }
     }
 }

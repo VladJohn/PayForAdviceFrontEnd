@@ -3,7 +3,7 @@ import { Category } from "Components/Elements/Category"
 import { ListView } from "Components/Elements/ListView"
 import 'whatwg-fetch'
 
-export class MainPage extends React.Component<{}, { categories: Array<any>, loaded :boolean, token:string }>{
+export class MainPage extends React.Component<{ token: string }, { categories: Array<any>, loaded: boolean, token: string }>{
 
     baseUrl: string = 'http://localhost:52619/api/category/';
     baseUrl2: string = 'http://localhost:52619/api/user/?facebook="true';
@@ -12,30 +12,11 @@ export class MainPage extends React.Component<{}, { categories: Array<any>, load
     constructor() {
         super();
         this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
-        this.state = { categories: [], loaded : false, token:'' };
+        this.state = { categories: [], loaded: false, token: '' };
     }
 
-    refresh()
-    {
-            window.location.reload();
-    }
-
-    getData(){
-        var cats: any;
-        cats = '';
-        return fetch(this.baseUrl2)
-            .then((response) => response.json())
-            .then(function (data) {
-                cats = data;
-            })
-            .then(() => (
-                this.setState({ token: cats.TokenText }),
-                console.log(this.state.token),
-                localStorage.setItem("token", this.state.token)
-            ))
-            .catch(function (error) {
-                console.log('request failedddd', error)
-            })
+    refresh() {
+        window.location.reload();
     }
 
     componentDidMount() {
@@ -47,39 +28,47 @@ export class MainPage extends React.Component<{}, { categories: Array<any>, load
                 cats = data;
             })
             .then(() => {
-                this.setState({ categories: cats, loaded : true });
-                if(localStorage.getItem('token') === 'undefined')
-                {
-                    this.getData();
+                this.setState({ categories: cats, loaded: true });
+                if (localStorage.getItem('token') === '') {
+                    localStorage.setItem("token", this.props.token)
+                    localStorage.setItem("fbLogged", "true")
+                    this.refresh()
                 }
                 else
-                {}
+                { }
             })
             .catch(function (error) {
-                console.log('request failedddd', error)
+                window.location.replace("/oups")
             })
     }
 
     render() {
         let loaderImg = null;
-        if (this.state.loaded == false){
-            loaderImg = <img className="loader spacing" src="loader.gif"/>
+        if (this.state.loaded == false) {
+            loaderImg = <img className="loader spacing" src="/loader.gif" />
         }
-        return (
-            <div className="MainPage">
-                <div className="panel-body">
+        if (localStorage.getItem("token")) {
+            return (
+                <div className="MainPage">
+                    <div className="panel-body">
 
-                    Browse our categories and find the advice that suits you from verified professionals.
+                        Browse our categories and find the advice that suits you from verified professionals.
 
                 </div>
-                <div className="col col-md-6"></div>
+                    <div className="col col-md-6"></div>
                     {loaderImg}
-                <ListView elements={
-                    this.state.categories.map(function (object, i) {
-                    return <Category type="category" imgurl={object.ImageUrl} name={object.Name} description={object.Description} id={object.Id} iconurl={object.IconUrl} />;
-                })} />
+                    <ListView elements={
+                        this.state.categories.map(function (object, i) {
+                            return <Category type="category" imgurl={object.ImageUrl} name={object.Name} description={object.Description} id={object.Id} iconurl={object.IconUrl} />;
+                        })} />
 
-            </div>
-        );
+                </div>
+            );
+        }
+        else {
+            return (
+                <div> You are not logged in!</div>
+            )
+        }
     }
 }

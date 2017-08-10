@@ -15,7 +15,7 @@ export class AdviceQuestions extends React.Component<{ idUser: number }, { advis
         this.state = {
             adviserQuestions: []
         };
-        localStorage.setItem("Updated",'false');
+        localStorage.setItem("Updated", 'false');
     }
 
     componentDidUpdate() {
@@ -27,11 +27,10 @@ export class AdviceQuestions extends React.Component<{ idUser: number }, { advis
                 user = data;
             })
             .then(() => {
-                if(localStorage.getItem('Updated') === 'false')
-                    {
-                        this.setState({ adviserQuestions: user })
-                        localStorage.setItem("Updated", 'true')
-                    }
+                if (localStorage.getItem('Updated') === 'false') {
+                    this.setState({ adviserQuestions: user })
+                    localStorage.setItem("Updated", 'true')
+                }
             })
             .catch(function (error) {
                 console.log('request failed', error)
@@ -39,18 +38,25 @@ export class AdviceQuestions extends React.Component<{ idUser: number }, { advis
     }
 
     render() {
-        return (
-            <div className="MainPage">
-                <div className="panel-body">
-                    
+        if (localStorage.getItem("token")) {
+            return (
+                <div>
+                    <div className="panel-body">
+
+                    </div>
+                    <ListView elements={
+                        this.state.adviserQuestions.map(function (object, i) {
+                            return <Question type={"questionsAnswered"} id={object.Id} question={object.QuestionText} status={object.Status} date={object.Date.substring(0, 10)} ordine={object.Order} />;
+                        }
+                        )
+                    } />
                 </div>
-                <ListView elements={
-                    this.state.adviserQuestions.map(function (object, i) {
-                        return <Question type={"questionsAnswered"}id={object.Id} question={object.QuestionText} status={object.Status} date={object.Date.substring(0,10)} ordine={object.Order}/>;
-                    }
-                    )
-                } />
-            </div>
-        );
+            );
+        }
+        else {
+            return (
+                <div> You are not logged in!</div>
+            )
+        }
     }
 }
