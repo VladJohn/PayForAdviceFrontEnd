@@ -40,14 +40,14 @@ export class MainPage extends React.Component<{token: string}, { categories: Arr
                 {}
             })
             .catch(function (error) {
-                console.log('request failedddd', error)
+                window.location.replace("/oups")
             })
     }
 
     render() {
         let loaderImg = null;
         if (this.state.loaded == false){
-            loaderImg = <img className="loader spacing" src="loader.gif"/>
+            loaderImg = <img className="loader spacing" src="/loader.gif"/>
         }
         return (
             <div className="MainPage">

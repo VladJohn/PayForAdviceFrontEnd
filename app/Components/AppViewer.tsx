@@ -12,6 +12,7 @@ import { BaseUserQuestions } from "Components/Pages/BaseUserQuestions"
 import { CategoryPage } from "Components/Pages/CategoryPage"
 import { UserProfilePublicPage } from "Components/Pages/UserProfilePublicPage"
 import { AnswerBasePage } from "Components/Pages/AnswerBasePage"
+import { SomethingWentWrong } from "Components/Pages/SomethingWentWrong"
 import { AdviceQuestionsPending } from "Components/Pages/AdviceQuestionsPending"
 import { AdviceQuestions } from "Components/Pages/AdviceQuestions"
 import { AnsweredQuestionsForAdvicer } from "Components/Pages/AnsweredQuestionsForAdvicer"
@@ -85,6 +86,7 @@ export class AppViewer extends React.Component<{}, { tokenData: any }>
                             <Route path='/questionsAnswered/:id' render={(props) => <AnsweredQuestionsForAdvicer id={props.match.params.id} />} />
                             <Route path='/questionsPending/:id' render={(props) => <PendingQuestionsForAdvicer id={props.match.params.id} />} />
                             <Route path='/addPrice/:id' render={(props) => <AddPrice userId={props.match.params.id} />} />
+                            <Route path='/oups' component={SomethingWentWrong} />
                         </div>
                     </Router>
                 </main>
