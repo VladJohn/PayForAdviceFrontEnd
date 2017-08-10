@@ -91,46 +91,48 @@ export class LoginPage extends React.Component<{}, { username: string, password:
             message = <div className="spacing alert alert-danger alert-container"> {this.state.errorMessage}</div>
         }
         return (
-            <div className="LoginPage">
-                <div className="col col-lg-6">
-                    <h1>
-                        Log in
-                    </h1>
-                    <form>
-                        <div>
-                            <span>
-                                Username:
-                            </span>
-                            <span>
-                                <input type="text" name="username" className="form-control" placeholder='Type Your Username' onChange={this.handleLogInUsername} />
-                            </span>
+            <div>
+                <div className="row">
+                    <div className="col col-lg-3"></div>
+                    <div className="col col-lg-6 ">
+                        <div className="bordered">
+                            <h2 className="text-centered blue-text">
+                                Log in
+                            </h2>
+                            <form>
+                                <div>
+                                    <span>
+                                        Username:
+                                    </span>
+                                    <span>
+                                        <input type="text" name="username" className="form-control" placeholder='Type Your Username' onChange={this.handleLogInUsername} />
+                                    </span>
+                                </div>
+                                <div>
+                                    <span className="spacing">
+                                        Password:
+                                    </span>
+                                    <span>
+                                        <input type="password" name="password" className="form-control" placeholder='Type Your Password' onChange={this.handleLogInPassword} />
+                                    </span>
+                                </div>
+                                <div className="col col-md-3"><Link to="/" className="btn blue-button spacing" onClick={this.handleSubmit}>Login</Link></div>
+                                <div className="col col-md-3"></div>
+                                <div className="col col-md-1 spacing">OR</div>
+                                <div className="col col-md-5">
+                                    <button className="spacing btn blue-button " onClick={this.FBLogin}>Login With Facebook</button>
+                                </div>
+
+                            </form>
                         </div>
-                        <div>
-                            <span className="spacing">
-                                Password:
-                            </span>
-                            <span>
-                                <input type="password" name="password" className="form-control" placeholder='Type Your Password' onChange={this.handleLogInPassword} />
-                            </span>
-                        </div>
-                        <div><Link to="/" className="btn blue-button spacing" onClick={this.handleSubmit}>Login</Link></div>
-                        <div>
-                            <span className="spacing">
-                                OR
-                        </span>
-                        </div>
-                        <div>
-                            <span>
-                                <button className="btn blue-button" onClick={this.FBLogin}>Login With Facebook</button>
-                            </span>
-                        </div>
-                        <div className="spacing">
-                            Don't have an account?
+                        {message}
+
+                        <div className="col col-md-5 spacing">Don't have an account?</div>
+                        <div className="col col-md-4 spacing"></div>
+                        <div className="col col-md-3 spacing"><div><Link to='/registerPreference' className="btn grey-button">Register</Link></div></div>
                     </div>
-                        <div><Link to='/registerPreference' className="btn grey-button">Register</Link></div>
-                    </form>
-                    {message}
                 </div>
+
             </div>
         );
     }
