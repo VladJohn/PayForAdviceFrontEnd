@@ -49,7 +49,7 @@ export class UserPrivateProfileAdviserPage extends React.Component<{ id: number 
             .then((response) => {
                 if (response.ok) {
                     return response.json()
-                        .then(() => this.setState({ success: true }))
+                        .then(() => window.location.reload())
                 } else {
                     return response.json()
                         .then(function (error) {
@@ -58,9 +58,9 @@ export class UserPrivateProfileAdviserPage extends React.Component<{ id: number 
                 }
             })
             .then(function (data) {
-
                 newProfile = data;
                 console.log(newProfile);
+
             })
     }
     handleChangeName(event: React.FormEvent<HTMLInputElement>) {
