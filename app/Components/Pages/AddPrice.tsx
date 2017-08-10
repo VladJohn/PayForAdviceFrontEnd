@@ -27,7 +27,7 @@ export class AddPrice extends React.Component<{ userId: number }, { success1: bo
         this.setState({ amount2: event.currentTarget.value });
     }
     handleNewPrice3(event: React.FormEvent<HTMLInputElement>) {
-        this.setState({ amount2: event.currentTarget.value });
+        this.setState({ amount3: event.currentTarget.value });
     }
 
     handleDetails1(event: React.FormEvent<HTMLInputElement>) {

@@ -49,7 +49,7 @@ export class UserPrivateProfileBasePage extends React.Component<{ id: number }, 
             .then((response) => {
                 if (response.ok) {
                     return response.json()
-                        .then(() => this.setState({ success: true }))
+                        .then(() => window.location.reload())
                 } else {
                     return response.json()
                         .then(function (error) {
@@ -58,7 +58,6 @@ export class UserPrivateProfileBasePage extends React.Component<{ id: number }, 
                 }
             })
             .then(function (data) {
-
                 newProfile = data;
                 console.log(newProfile);
             })
@@ -89,7 +88,7 @@ export class UserPrivateProfileBasePage extends React.Component<{ id: number }, 
     handleSubmit(event: any) {
         event.preventDefault();
         this.putData();
-        window.location.reload();
+        
     }
 
     render() {
@@ -157,20 +156,19 @@ export class UserPrivateProfileBasePage extends React.Component<{ id: number }, 
                                     <input type="text" name="ChangeWebsite" className="form-control" placeholder={this.state.website} onChange={this.handleChangeWebsite} />
                                 </span>
                             </div>
-                            <div>
-                                <span>
-                                    New Avatar Url:
+                        <div>
+                            <span>
+                                New Avatar Url:
                             </span>
-                                <span>
-                                    <input type="text" name="ChangeAvatarUrl" className="form-control" placeholder='Paste the url to your avatar picture' onChange={this.handleChangeAvatar} />
-                                </span>
-                            </div>
-                            <div>
-                                <button className="btn blue-button" onClick={this.handleSubmit}>Update Information</button>
-                            </div>
-                        </form>
-                        {message}
-                    </div>
+                            <span>
+                                <input type="text" name="ChangeAvatarUrl" className="form-control" placeholder='Paste the url to your avatar picture' onChange={this.handleChangeAvatar} />
+                            </span>
+                        </div>
+                        <div>
+                            <button className="btn blue-button spacing" onClick={this.handleSubmit}>Update Information</button>
+                        </div>
+                    </form>
+                    {message}
                 </div>
             );
         }

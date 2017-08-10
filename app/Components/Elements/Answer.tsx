@@ -109,20 +109,9 @@ export class Answer extends React.Component<{ idQuestion: number }, { idAnswer: 
         }
         return (
             <div className="spacing">
-                <h4><i>Add your response:</i></h4>
-                <textarea className="form-control " rows={9} onChange={this.handleAnswer}></textarea>
-                <div className="spacing col-md-10 text-left">
-                    <input type="file" />
-                </div>
-                <div className="spacing col-md-2 text-right" >
-                    <button type="button" className="btn grey-button" aria-label="Left Align">
-
-                        <span className="glyphicon glyphicon-download-alt" aria-hidden="true">
-                        </span>
-                        <span> Download Files </span>
-                    </button>
-                </div>
-                <button className="spacing btn spacing-right blue-button" onClick={this.handleSubmit}> Answer</button>
+                    <h4><i>Add your response:</i></h4>
+                    <textarea className="form-control " rows={9} onChange={this.handleAnswer}></textarea>
+                <button className="spacing btn spacing-right blue-button"  onClick={this.handleSubmit}> Answer</button>
                 <button className="spacing btn grey-button" onClick={this.handleSubmitRefusal} > Refuse to answer</button>
                 {message}
             </div>

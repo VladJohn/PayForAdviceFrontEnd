@@ -9,8 +9,8 @@ export class AnsweredQuestionsForAdvicer extends React.Component<{ id: number },
 
     constructor() {
         super();
-        this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
-        this.state = { question: "", answer: "" };
+        this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9', 'TokenText':localStorage.getItem('token') });
+        this.state = { question : "", answer : ""};
         this.shareRatingOnFb = this.shareRatingOnFb.bind(this);
     }
     componentDidMount() {
@@ -73,19 +73,17 @@ export class AnsweredQuestionsForAdvicer extends React.Component<{ id: number },
                 Share on facebook!
                     </button>
         else
-            fb = null
-        if (localStorage.getItem("token")) {
-            return (
-                <div>
-                    <div className="col-md-8">
-                        <h2> {this.state.question.QuestionText}</h2>
-                        <p> {this.state.answer.AnswerText}</p>
-                    </div>
-                    <div className="col-md-4">
-                        <br />
-                        <h4>Your rating was: {this.state.answer.Rating}</h4>
-                        {fb}
-                    </div>
+            fb = null;
+        return (
+            <div>
+                <div className="col-md-8">
+                    <h2> {this.state.question.QuestionText}</h2>
+                    <p> {this.state.answer.AnswerText}</p>
+                </div>
+                <div className="col-md-4">
+                    <br />
+                    <h4>Your rating is: {this.state.answer.Rating}</h4>
+                    {fb}
                 </div>
             );
         }

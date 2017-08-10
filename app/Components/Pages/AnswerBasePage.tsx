@@ -7,14 +7,14 @@ export class AnswerBasePage extends React.Component<{ idUser: number }, { rating
     headers: Headers;
 
     constructor() {
-        super();
-        this.state = { rating: '', report: '', ans: "", q: '', success: false, rated: false, successReport: false };
-        this.handleReport = this.handleReport.bind(this);
-        this.handleRating = this.handleRating.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleSubmitRating = this.handleSubmitRating.bind(this);
-        this.shareOnFb = this.shareOnFb.bind(this);
-        this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9' });
+    super();
+    this.state = {rating:'', report:'', ans: "", q:'', success : false, rated : false, successReport: false };
+    this.handleReport = this.handleReport.bind(this);
+    this.handleRating = this.handleRating.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmitRating = this.handleSubmitRating.bind(this);
+    this.shareOnFb = this.shareOnFb.bind(this);
+    this.headers = new Headers({ 'Content-Type': 'application/json', 'Accept': 'q=0.8;application/json;q=0.9', 'TokenText':localStorage.getItem('token') });
     }
 
     putDataReport() {
